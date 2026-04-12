@@ -1,0 +1,436 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   PATHFUL DESIGN SYSTEM
+   Navy blue primary, warm accent, Maxima-inspired
+   Fonts: ABC Diatype Rounded Plus (body), Robuck Rounded (display)
+   ============================================================ */
+
+/* Font imports — using system-safe alternatives matching Maxima's feel */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Sora:wght@100..800&display=swap');
+
+/* LIGHT MODE */
+:root {
+  --button-outline: rgba(0, 0, 0, 0.1);
+  --badge-outline: rgba(0, 0, 0, 0.05);
+  --opaque-button-border-intensity: -8;
+  --elevate-1: rgba(0, 0, 0, 0.03);
+  --elevate-2: rgba(0, 0, 0, 0.08);
+
+  /* Surfaces — warm cream like Maxima */
+  --background: 40 33% 97%;
+  --foreground: 220 40% 13%;
+
+  /* Borders */
+  --border: 220 15% 88%;
+  
+  /* Cards */
+  --card: 40 25% 98%;
+  --card-foreground: 220 40% 13%;
+  --card-border: 220 12% 92%;
+
+  /* Sidebar — deep navy */
+  --sidebar: 220 45% 12%;
+  --sidebar-foreground: 220 10% 92%;
+  --sidebar-border: 220 40% 18%;
+  --sidebar-primary: 220 80% 55%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 30% 20%;
+  --sidebar-accent-foreground: 220 10% 92%;
+  --sidebar-ring: 220 80% 55%;
+
+  /* Popover */
+  --popover: 40 20% 97%;
+  --popover-foreground: 220 40% 13%;
+  --popover-border: 220 12% 90%;
+
+  /* Primary — deep navy blue */
+  --primary: 220 60% 25%;
+  --primary-foreground: 40 25% 97%;
+
+  /* Secondary — soft gray-blue */
+  --secondary: 220 15% 92%;
+  --secondary-foreground: 220 40% 13%;
+
+  /* Muted */
+  --muted: 220 12% 93%;
+  --muted-foreground: 220 10% 45%;
+
+  /* Accent — navy tint */
+  --accent: 220 20% 93%;
+  --accent-foreground: 220 40% 13%;
+
+  /* Destructive */
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Input */
+  --input: 220 12% 78%;
+
+  /* Ring */
+  --ring: 220 60% 25%;
+
+  /* Feature-specific chart colors (Pathful's 6 features) */
+  --chart-1: 40 85% 52%;    /* Opportunity Universe — gold */
+  --chart-2: 155 60% 40%;   /* Career Roadmap — green */
+  --chart-3: 220 70% 50%;   /* Readiness Score — blue */
+  --chart-4: 340 65% 55%;   /* Community — rose */
+  --chart-5: 24 90% 55%;    /* Daily Feed — orange */
+
+  /* Pathful brand accent colors */
+  --pathful-navy: 220 60% 25%;
+  --pathful-navy-deep: 220 65% 15%;
+  --pathful-accent: 24 90% 55%;
+  --pathful-cream: 40 33% 97%;
+  --pathful-gold: 40 85% 52%;
+  --pathful-green: 155 60% 40%;
+  --pathful-blue: 220 70% 50%;
+  --pathful-rose: 340 65% 55%;
+  --pathful-teal: 175 60% 42%;
+
+  /* Typography */
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Sora', 'DM Sans', system-ui, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+  /* Radius — rounded like Maxima */
+  --radius: 0.75rem;
+
+  /* Shadows — warm-toned */
+  --shadow-2xs: 0px 1px 2px 0px hsl(220 20% 20% / 0.04);
+  --shadow-xs: 0px 1px 3px 0px hsl(220 20% 20% / 0.06);
+  --shadow-sm: 0px 2px 4px -1px hsl(220 20% 20% / 0.06), 0px 1px 2px -1px hsl(220 20% 20% / 0.04);
+  --shadow: 0px 4px 6px -1px hsl(220 20% 20% / 0.08), 0px 2px 4px -2px hsl(220 20% 20% / 0.05);
+  --shadow-md: 0px 6px 10px -1px hsl(220 20% 20% / 0.08), 0px 4px 6px -2px hsl(220 20% 20% / 0.04);
+  --shadow-lg: 0px 10px 20px -3px hsl(220 20% 20% / 0.1), 0px 6px 10px -2px hsl(220 20% 20% / 0.05);
+  --shadow-xl: 0px 20px 40px -5px hsl(220 20% 20% / 0.12), 0px 10px 20px -4px hsl(220 20% 20% / 0.06);
+  --shadow-2xl: 0px 25px 50px -12px hsl(220 20% 20% / 0.2);
+
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  /* Fallback borders */
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(
+    from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(
+    from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(
+    from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(
+    from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(
+    from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(
+    from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(
+    from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+}
+
+/* DARK MODE */
+.dark {
+  --button-outline: rgba(255, 255, 255, 0.1);
+  --badge-outline: rgba(255, 255, 255, 0.05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255, 255, 255, 0.04);
+  --elevate-2: rgba(255, 255, 255, 0.09);
+
+  /* Surfaces — deep navy */
+  --background: 220 45% 7%;
+  --foreground: 220 10% 92%;
+
+  /* Borders */
+  --border: 220 20% 18%;
+
+  /* Cards */
+  --card: 220 40% 10%;
+  --card-foreground: 220 10% 92%;
+  --card-border: 220 25% 15%;
+
+  /* Sidebar — slightly lighter navy */
+  --sidebar: 220 45% 9%;
+  --sidebar-foreground: 220 10% 90%;
+  --sidebar-border: 220 30% 15%;
+  --sidebar-primary: 220 75% 60%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 25% 16%;
+  --sidebar-accent-foreground: 220 10% 90%;
+  --sidebar-ring: 220 75% 60%;
+
+  /* Popover */
+  --popover: 220 35% 12%;
+  --popover-foreground: 220 10% 92%;
+  --popover-border: 220 20% 18%;
+
+  /* Primary — lighter navy for contrast */
+  --primary: 220 70% 60%;
+  --primary-foreground: 220 45% 7%;
+
+  /* Secondary */
+  --secondary: 220 20% 18%;
+  --secondary-foreground: 220 10% 92%;
+
+  /* Muted */
+  --muted: 220 15% 20%;
+  --muted-foreground: 220 10% 60%;
+
+  /* Accent */
+  --accent: 220 18% 17%;
+  --accent-foreground: 220 10% 92%;
+
+  /* Destructive */
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Input */
+  --input: 220 15% 28%;
+
+  /* Ring */
+  --ring: 220 70% 60%;
+
+  /* Chart colors — brighter in dark */
+  --chart-1: 40 85% 62%;
+  --chart-2: 155 55% 52%;
+  --chart-3: 220 70% 65%;
+  --chart-4: 340 60% 65%;
+  --chart-5: 24 85% 62%;
+
+  /* Pathful brand — dark mode */
+  --pathful-navy: 220 70% 60%;
+  --pathful-navy-deep: 220 50% 10%;
+  --pathful-accent: 24 85% 60%;
+  --pathful-cream: 220 45% 7%;
+  --pathful-gold: 40 80% 60%;
+  --pathful-green: 155 50% 50%;
+  --pathful-blue: 220 65% 60%;
+  --pathful-rose: 340 55% 62%;
+  --pathful-teal: 175 55% 50%;
+
+  /* Shadows — darker */
+  --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.1);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.15);
+  --shadow-sm: 0px 2px 4px -1px hsl(0 0% 0% / 0.15), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0px 4px 6px -1px hsl(0 0% 0% / 0.2), 0px 2px 4px -2px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0px 6px 10px -1px hsl(0 0% 0% / 0.25), 0px 4px 6px -2px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0px 10px 20px -3px hsl(0 0% 0% / 0.3), 0px 6px 10px -2px hsl(0 0% 0% / 0.15);
+  --shadow-xl: 0px 20px 40px -5px hsl(0 0% 0% / 0.35), 0px 10px 20px -4px hsl(0 0% 0% / 0.2);
+  --shadow-2xl: 0px 25px 50px -12px hsl(0 0% 0% / 0.5);
+
+  /* Fallback borders */
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(
+    from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(
+    from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(
+    from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(
+    from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(
+    from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(
+    from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(
+    from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Smooth scrolling handled by Lenis */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    line-height: 1.15;
+  }
+
+  p, li, figcaption {
+    text-wrap: pretty;
+  }
+}
+
+/* Pathful custom utilities */
+@layer utilities {
+  /* Hide ugly search cancel button in Chrome */
+  input[type='search']::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+
+  /* Placeholder styling for contentEditable div */
+  [contenteditable][data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+  }
+
+  /* Display font utility */
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Maxima-inspired pill buttons */
+  .btn-pill {
+    @apply rounded-full px-7 py-3 font-semibold tracking-wide transition-all;
+    font-family: var(--font-display);
+  }
+
+  /* Feature color classes */
+  .feature-gold { color: hsl(var(--pathful-gold)); }
+  .feature-green { color: hsl(var(--pathful-green)); }
+  .feature-blue { color: hsl(var(--pathful-blue)); }
+  .feature-rose { color: hsl(var(--pathful-rose)); }
+  .feature-accent { color: hsl(var(--pathful-accent)); }
+  .feature-teal { color: hsl(var(--pathful-teal)); }
+
+  .bg-feature-gold { background-color: hsl(var(--pathful-gold)); }
+  .bg-feature-green { background-color: hsl(var(--pathful-green)); }
+  .bg-feature-blue { background-color: hsl(var(--pathful-blue)); }
+  .bg-feature-rose { background-color: hsl(var(--pathful-rose)); }
+  .bg-feature-accent { background-color: hsl(var(--pathful-accent)); }
+  .bg-feature-teal { background-color: hsl(var(--pathful-teal)); }
+
+  /* Elevation system escape hatches */
+  .no-default-hover-elevate {}
+  .no-default-active-elevate {}
+
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
+
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
+  }
+
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
+
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
+
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate-2:not(.no-active-interaction-elevate)::after {
+    inset: -1px;
+  }
+}
+
+/* Smooth scroll overrides for Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* GSAP animation helpers */
+.gsap-reveal {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gsap-reveal-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .gsap-reveal {
+    opacity: 1;
+    visibility: visible;
+  }
+}
