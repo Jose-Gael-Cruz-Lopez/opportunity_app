@@ -4,12 +4,9 @@
 
 /* ============================================================
    PATHFUL DESIGN SYSTEM
-   Navy blue primary, warm accent, Maxima-inspired
-   Fonts: ABC Diatype Rounded Plus (body), Robuck Rounded (display)
+   Fonts: use <link> in index.html only — never @import Google Fonts in this file
+   (PostCSS + @tailwind cannot be preceded by @import in the same stylesheet).
    ============================================================ */
-
-/* Font imports — using system-safe alternatives matching Maxima's feel */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Sora:wght@100..800&display=swap');
 
 /* LIGHT MODE */
 :root {
