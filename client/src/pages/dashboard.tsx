@@ -88,27 +88,30 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="h-full overflow-auto" data-testid="page-dashboard">
+    <div
+      className="h-full overflow-auto bg-gradient-to-b from-background via-background to-[hsl(var(--pathful-navy-deep)/0.22)]"
+      data-testid="page-dashboard"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         {/* Page Header */}
-        <div className="mb-6">
-          <h1 className="font-display font-bold text-xl mb-1" data-testid="text-page-title">
+        <div className="mb-6 rounded-2xl border border-[hsl(var(--pathful-blue)/0.25)] bg-[hsl(var(--pathful-navy-deep)/0.28)] px-5 py-4 shadow-md">
+          <h1 className="font-display font-bold text-2xl mb-1 tracking-tight" data-testid="text-page-title">
             Opportunities
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground/90">
             Discover curated opportunities matched to your profile
           </p>
         </div>
 
         {/* Tabs — inspired by JobRight */}
-        <div className="flex items-center gap-1 mb-5 border-b border-border/50 overflow-x-auto">
+        <div className="flex items-center gap-1 mb-5 border-b border-[hsl(var(--pathful-blue)/0.2)] overflow-x-auto">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
                 activeTab === tab.key
-                  ? "border-primary text-primary"
+                  ? "border-[hsl(var(--pathful-blue))] text-[hsl(var(--pathful-blue))]"
                   : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
               data-testid={`tab-${tab.key}`}
@@ -118,7 +121,7 @@ export default function DashboardPage() {
               {tab.count !== undefined && (
                 <span className={`ml-1 px-1.5 py-0.5 rounded-full text-xs font-semibold ${
                   activeTab === tab.key
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-[hsl(var(--pathful-blue)/0.2)] text-[hsl(var(--pathful-blue))]"
                     : "bg-muted text-muted-foreground"
                 }`}>
                   {tab.count}
@@ -137,7 +140,7 @@ export default function DashboardPage() {
                 placeholder="Search opportunities, companies..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 h-10 rounded-lg bg-muted/50 border-border/50"
+                className="pl-9 h-10 rounded-lg bg-[hsl(var(--pathful-navy-deep)/0.3)] border-[hsl(var(--pathful-blue)/0.2)]"
                 data-testid="input-search"
               />
               {searchQuery && (
@@ -153,7 +156,7 @@ export default function DashboardPage() {
               variant="outline"
               size="sm"
               onClick={() => setShowFilters(!showFilters)}
-              className="h-10 px-3 rounded-lg gap-1.5"
+              className="h-10 px-3 rounded-lg gap-1.5 border-[hsl(var(--pathful-blue)/0.25)] bg-[hsl(var(--pathful-navy-deep)/0.15)] hover:bg-[hsl(var(--pathful-blue)/0.1)]"
               data-testid="button-filters"
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -168,7 +171,7 @@ export default function DashboardPage() {
 
           {/* Filter dropdowns — collapsible */}
           {showFilters && (
-            <div className="flex flex-wrap items-center gap-2 p-3 rounded-lg bg-muted/30 border border-border/40">
+            <div className="flex flex-wrap items-center gap-2 p-3 rounded-lg bg-[hsl(var(--pathful-navy-deep)/0.22)] border border-[hsl(var(--pathful-blue)/0.2)]">
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger className="w-[160px] h-9 text-xs" data-testid="select-category">
                   <SelectValue placeholder="Category" />
