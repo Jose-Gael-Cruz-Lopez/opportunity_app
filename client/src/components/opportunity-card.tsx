@@ -9,11 +9,11 @@ interface OpportunityCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  internship: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
-  scholarship: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
-  research: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
-  fellowship: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
-  competition: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
+  internship: "bg-[hsl(var(--pathful-accent)/0.18)] text-[hsl(var(--pathful-accent))]",
+  scholarship: "bg-[hsl(var(--pathful-green)/0.18)] text-[hsl(var(--pathful-green))]",
+  research: "bg-[hsl(var(--pathful-blue)/0.2)] text-[hsl(var(--pathful-blue))]",
+  fellowship: "bg-[hsl(var(--pathful-rose)/0.16)] text-[hsl(var(--pathful-rose))]",
+  competition: "bg-[hsl(var(--pathful-gold)/0.22)] text-[hsl(var(--pathful-gold))]",
 };
 
 const orgColors: Record<string, string> = {
@@ -35,25 +35,25 @@ export function OpportunityCard({ opportunity, onView }: OpportunityCardProps) {
 
   return (
     <div
-      className="group relative p-5 bg-card border border-border/60 rounded-xl hover:border-primary/30 hover:shadow-md transition-all"
+      className="group relative p-5 rounded-xl border border-[hsl(var(--pathful-blue)/0.2)] bg-gradient-to-b from-[hsl(var(--pathful-navy-deep)/0.35)] to-card hover:border-[hsl(var(--pathful-blue)/0.4)] hover:shadow-lg transition-all"
       data-testid={`card-opportunity-${opportunity.id}`}
     >
       {/* Top badges row */}
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {daysUntilDeadline !== null && daysUntilDeadline <= 14 && (
-          <Badge variant="outline" className="text-xs border-amber-300 text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30">
+          <Badge variant="outline" className="text-xs border-[hsl(var(--pathful-gold)/0.5)] text-[hsl(var(--pathful-gold))] bg-[hsl(var(--pathful-gold)/0.12)]">
             <Clock className="w-3 h-3 mr-1" />
             {daysUntilDeadline > 0 ? `${daysUntilDeadline}d left` : "Expired"}
           </Badge>
         )}
         {opportunity.matchScore && opportunity.matchScore >= 85 && (
-          <Badge variant="outline" className="text-xs border-emerald-300 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30">
+          <Badge variant="outline" className="text-xs border-[hsl(var(--pathful-green)/0.5)] text-[hsl(var(--pathful-green))] bg-[hsl(var(--pathful-green)/0.12)]">
             <Sparkles className="w-3 h-3 mr-1" />
             {opportunity.matchScore}% Match
           </Badge>
         )}
         {opportunity.isFeatured && (
-          <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
+          <Badge variant="outline" className="text-xs border-[hsl(var(--pathful-blue)/0.35)] text-[hsl(var(--pathful-blue))] bg-[hsl(var(--pathful-blue)/0.12)]">
             Featured
           </Badge>
         )}
@@ -128,7 +128,7 @@ export function OpportunityCard({ opportunity, onView }: OpportunityCardProps) {
           </Button>
           <Button
             size="sm"
-            className="h-8 rounded-full px-4 text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90"
+            className="h-8 rounded-full px-4 text-xs font-semibold bg-[hsl(var(--pathful-blue))] text-white hover:bg-[hsl(var(--pathful-blue)/0.9)]"
             onClick={onView}
             data-testid={`button-apply-${opportunity.id}`}
           >
