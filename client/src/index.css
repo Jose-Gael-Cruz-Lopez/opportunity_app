@@ -31,15 +31,15 @@
   --card-foreground: 220 40% 13%;
   --card-border: 220 12% 92%;
 
-  /* Sidebar — deep navy */
-  --sidebar: 220 45% 12%;
-  --sidebar-foreground: 220 10% 92%;
-  --sidebar-border: 220 40% 18%;
-  --sidebar-primary: 220 80% 55%;
+  /* Sidebar — landing: warm cream panel + navy text (same as marketing site) */
+  --sidebar: 40 33% 97%;
+  --sidebar-foreground: 220 40% 13%;
+  --sidebar-border: 220 12% 90%;
+  --sidebar-primary: 24 90% 55%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 30% 20%;
-  --sidebar-accent-foreground: 220 10% 92%;
-  --sidebar-ring: 220 80% 55%;
+  --sidebar-accent: 24 90% 96%;
+  --sidebar-accent-foreground: 220 40% 13%;
+  --sidebar-ring: 24 90% 55%;
 
   /* Popover */
   --popover: 40 20% 97%;
@@ -75,7 +75,7 @@
   /* Feature-specific chart colors (Pathful's 6 features) */
   --chart-1: 40 85% 52%;    /* Opportunity Universe — gold */
   --chart-2: 155 60% 40%;   /* Career Roadmap — green */
-  --chart-3: 220 70% 50%;   /* Readiness Score — blue */
+  --chart-3: 175 55% 42%;   /* Readiness — teal (landing parity, not blue) */
   --chart-4: 340 65% 55%;   /* Community — rose */
   --chart-5: 24 90% 55%;    /* Daily Feed — orange */
 
@@ -86,7 +86,7 @@
   --pathful-cream: 40 33% 97%;
   --pathful-gold: 40 85% 52%;
   --pathful-green: 155 60% 40%;
-  --pathful-blue: 220 70% 50%;
+  --pathful-blue: 175 55% 42%;
   --pathful-rose: 340 65% 55%;
   --pathful-teal: 175 60% 42%;
 
@@ -143,7 +143,7 @@
   );
 }
 
-/* DARK MODE */
+/* DARK MODE — warm stone surfaces + orange/gold/green (landing), not blue-gray */
 .dark {
   --button-outline: rgba(255, 255, 255, 0.1);
   --badge-outline: rgba(255, 255, 255, 0.05);
@@ -151,75 +151,75 @@
   --elevate-1: rgba(255, 255, 255, 0.04);
   --elevate-2: rgba(255, 255, 255, 0.09);
 
-  /* Surfaces — deep navy */
-  --background: 220 45% 7%;
-  --foreground: 220 10% 92%;
+  /* Surfaces — warm charcoal / stone (hue ~28, not 220 blue) */
+  --background: 28 25% 9%;
+  --foreground: 40 35% 96%;
 
   /* Borders */
-  --border: 220 20% 18%;
+  --border: 28 18% 22%;
 
   /* Cards */
-  --card: 220 40% 10%;
-  --card-foreground: 220 10% 92%;
-  --card-border: 220 25% 15%;
+  --card: 28 22% 12%;
+  --card-foreground: 40 30% 96%;
+  --card-border: 28 20% 18%;
 
-  /* Sidebar — slightly lighter navy */
-  --sidebar: 220 45% 9%;
-  --sidebar-foreground: 220 10% 90%;
-  --sidebar-border: 220 30% 15%;
-  --sidebar-primary: 220 75% 60%;
+  /* Sidebar — same warm family; accent = Pathful orange */
+  --sidebar: 28 28% 8%;
+  --sidebar-foreground: 40 30% 94%;
+  --sidebar-border: 28 22% 16%;
+  --sidebar-primary: 24 90% 58%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 25% 16%;
-  --sidebar-accent-foreground: 220 10% 90%;
-  --sidebar-ring: 220 75% 60%;
+  --sidebar-accent: 28 18% 15%;
+  --sidebar-accent-foreground: 40 30% 94%;
+  --sidebar-ring: 24 90% 58%;
 
   /* Popover */
-  --popover: 220 35% 12%;
-  --popover-foreground: 220 10% 92%;
-  --popover-border: 220 20% 18%;
+  --popover: 28 24% 11%;
+  --popover-foreground: 40 30% 96%;
+  --popover-border: 28 18% 20%;
 
-  /* Primary — lighter navy for contrast */
-  --primary: 220 70% 60%;
-  --primary-foreground: 220 45% 7%;
+  /* Primary — Pathful orange (landing CTAs) */
+  --primary: 24 90% 58%;
+  --primary-foreground: 28 30% 8%;
 
   /* Secondary */
-  --secondary: 220 20% 18%;
-  --secondary-foreground: 220 10% 92%;
+  --secondary: 28 16% 18%;
+  --secondary-foreground: 40 30% 94%;
 
   /* Muted */
-  --muted: 220 15% 20%;
-  --muted-foreground: 220 10% 60%;
+  --muted: 28 14% 18%;
+  --muted-foreground: 35 12% 62%;
 
   /* Accent */
-  --accent: 220 18% 17%;
-  --accent-foreground: 220 10% 92%;
+  --accent: 28 16% 16%;
+  --accent-foreground: 40 30% 94%;
 
   /* Destructive */
   --destructive: 0 72% 50%;
   --destructive-foreground: 0 0% 100%;
 
   /* Input */
-  --input: 220 15% 28%;
+  --input: 28 14% 24%;
 
   /* Ring */
-  --ring: 220 70% 60%;
+  --ring: 24 90% 58%;
 
-  /* Chart colors — brighter in dark */
+  /* Chart colors — landing palette */
   --chart-1: 40 85% 62%;
   --chart-2: 155 55% 52%;
-  --chart-3: 220 70% 65%;
+  --chart-3: 175 50% 52%;
   --chart-4: 340 60% 65%;
   --chart-5: 24 85% 62%;
 
-  /* Pathful brand — dark mode */
-  --pathful-navy: 220 70% 60%;
-  --pathful-navy-deep: 220 50% 10%;
-  --pathful-accent: 24 85% 60%;
-  --pathful-cream: 220 45% 7%;
-  --pathful-gold: 40 80% 60%;
-  --pathful-green: 155 50% 50%;
-  --pathful-blue: 220 65% 60%;
-  --pathful-rose: 340 55% 62%;
+  /* Pathful brand — dark mode (no bright “UI blue”) */
+  --pathful-navy: 40 35% 92%;
+  --pathful-navy-deep: 28 25% 9%;
+  --pathful-accent: 24 90% 58%;
+  --pathful-cream: 28 25% 9%;
+  --pathful-gold: 40 82% 58%;
+  --pathful-green: 155 52% 52%;
+  --pathful-blue: 175 50% 52%;
+  --pathful-rose: 340 58% 65%;
   --pathful-teal: 175 55% 50%;
 
   /* Shadows — darker */

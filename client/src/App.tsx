@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route, Router, useLocation } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import { queryClient } from "./lib/queryClient";
@@ -7,7 +8,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Sun, Moon } from "lucide-react";
 import NotFound from "@/pages/not-found";
 import LandingPage from "@/pages/landing";
 import DashboardPage from "@/pages/dashboard";
@@ -19,21 +19,14 @@ import OpportunityProfilePage from "@/pages/opportunity-profile";
 // Pages that use the dashboard layout (sidebar)
 const DASHBOARD_ROUTES = ["/dashboard", "/roadmap", "/community", "/readiness", "/opportunity"];
 
-function ThemeToggleButton() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 rounded-lg hover:bg-muted transition-colors"
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      data-testid="button-theme-toggle-app"
-    >
-      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-    </button>
-  );
-}
-
 function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const { setTheme } = useTheme();
+
+  /* App shell matches landing: light cream palette (not system dark mode). */
+  useEffect(() => {
+    setTheme("light");
+  }, [setTheme]);
+
   const sidebarStyle = {
     "--sidebar-width": "16rem",
     "--sidebar-width-icon": "3.5rem",
@@ -41,12 +34,14 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider style={sidebarStyle as React.CSSProperties}>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen w-full bg-[#f8f5f0]">
         <AppSidebar />
         <div className="flex flex-col flex-1 min-w-0">
-          <header className="flex items-center justify-between px-4 py-2 border-b border-border/50 bg-background/80 backdrop-blur-sm">
-            <SidebarTrigger data-testid="button-sidebar-toggle" />
-            <ThemeToggleButton />
+          <header className="flex items-center justify-between px-4 py-3 border-b border-[#1a3a5c]/10 bg-[#f8f5f0]/95 backdrop-blur-md">
+            <SidebarTrigger
+              data-testid="button-sidebar-toggle"
+              className="text-[#1a3a5c] hover:bg-[#ff6b35]/10"
+            />
           </header>
           <main className="flex-1 overflow-hidden">
             {children}

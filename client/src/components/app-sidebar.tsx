@@ -67,17 +67,20 @@ export function AppSidebar() {
   const [location] = useLocation();
 
   return (
-    <Sidebar data-testid="sidebar-nav">
+    <Sidebar
+      data-testid="sidebar-nav"
+      className="border-r border-[#1a3a5c]/10"
+    >
       <SidebarHeader className="p-4">
         <Link href="/">
-          <PathfulLogo className="text-sidebar-foreground cursor-pointer" />
+          <PathfulLogo className="text-[#1a3a5c] cursor-pointer" />
         </Link>
       </SidebarHeader>
 
       <SidebarContent>
         {navGroups.map((group) => (
           <SidebarGroup key={group.label}>
-            <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50">
+            <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-[#5a6a7a]">
               {group.label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -108,12 +111,12 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         <SidebarSeparator />
         <div className="flex items-center gap-3 mt-3 px-2">
-          <div className="w-8 h-8 rounded-full bg-sidebar-accent flex items-center justify-center text-sidebar-foreground text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-[#ff6b35]/15 border border-[#ff6b35]/25 flex items-center justify-center text-[#ff6b35] text-xs font-bold">
             JC
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium text-sidebar-foreground truncate">Jose Cruz-Lopez</div>
-            <div className="text-xs text-sidebar-foreground/50 truncate">Computer Science</div>
+            <div className="text-sm font-medium text-[#1a3a5c] truncate font-display">Jose Cruz-Lopez</div>
+            <div className="text-xs text-[#5a6a7a] truncate">Computer Science</div>
           </div>
         </div>
       </SidebarFooter>

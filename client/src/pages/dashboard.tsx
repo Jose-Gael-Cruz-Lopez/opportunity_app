@@ -89,30 +89,36 @@ export default function DashboardPage() {
 
   return (
     <div
-      className="h-full overflow-auto bg-gradient-to-b from-background via-background to-[hsl(var(--pathful-navy-deep)/0.22)]"
+      className="h-full overflow-auto bg-[#f8f5f0] dark:bg-background dark:bg-gradient-to-b dark:from-background dark:to-muted/30"
       data-testid="page-dashboard"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-        {/* Page Header */}
-        <div className="mb-6 rounded-2xl border border-[hsl(var(--pathful-blue)/0.25)] bg-[hsl(var(--pathful-navy-deep)/0.28)] px-5 py-4 shadow-md">
-          <h1 className="font-display font-bold text-2xl mb-1 tracking-tight" data-testid="text-page-title">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 md:py-8">
+        {/* Page Header — landing white floating card */}
+        <div
+          className="mb-6 rounded-[1.5rem] border border-[#1a3a5c]/8 dark:border-border bg-white dark:bg-card px-6 py-5 md:px-8 md:py-6"
+          style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
+        >
+          <h1
+            className="font-display font-bold text-2xl md:text-[1.75rem] mb-2 tracking-tight uppercase text-[#1a3a5c] dark:text-foreground"
+            data-testid="text-page-title"
+          >
             Opportunities
           </h1>
-          <p className="text-sm text-muted-foreground/90">
+          <p className="text-sm md:text-base text-[#5a6a7a] dark:text-muted-foreground leading-relaxed">
             Discover curated opportunities matched to your profile
           </p>
         </div>
 
-        {/* Tabs — inspired by JobRight */}
-        <div className="flex items-center gap-1 mb-5 border-b border-[hsl(var(--pathful-blue)/0.2)] overflow-x-auto">
+        {/* Tabs — Pathful accent (orange) like landing CTAs */}
+        <div className="flex items-center gap-1 mb-5 border-b border-[#1a3a5c]/10 dark:border-border overflow-x-auto pb-px">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors font-display ${
                 activeTab === tab.key
-                  ? "border-[hsl(var(--pathful-blue))] text-[hsl(var(--pathful-blue))]"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  ? "border-[#ff6b35] text-[#1a3a5c] dark:text-foreground dark:border-[#ff6b35]"
+                  : "border-transparent text-[#5a6a7a] hover:text-[#1a3a5c] dark:text-muted-foreground dark:hover:text-foreground"
               }`}
               data-testid={`tab-${tab.key}`}
             >
@@ -121,8 +127,8 @@ export default function DashboardPage() {
               {tab.count !== undefined && (
                 <span className={`ml-1 px-1.5 py-0.5 rounded-full text-xs font-semibold ${
                   activeTab === tab.key
-                    ? "bg-[hsl(var(--pathful-blue)/0.2)] text-[hsl(var(--pathful-blue))]"
-                    : "bg-muted text-muted-foreground"
+                    ? "bg-[#ff6b35]/15 text-[#ff6b35]"
+                    : "bg-[#1a3a5c]/6 dark:bg-muted text-[#5a6a7a] dark:text-muted-foreground"
                 }`}>
                   {tab.count}
                 </span>
@@ -135,18 +141,18 @@ export default function DashboardPage() {
         <div className="flex flex-col gap-3 mb-5">
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5a6a7a] dark:text-muted-foreground" />
               <Input
                 placeholder="Search opportunities, companies..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 h-10 rounded-lg bg-[hsl(var(--pathful-navy-deep)/0.3)] border-[hsl(var(--pathful-blue)/0.2)]"
+                className="pl-9 h-11 rounded-full bg-white dark:bg-card border-[#1a3a5c]/12 dark:border-border text-[#1a3a5c] dark:text-foreground placeholder:text-[#5a6a7a]/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
                 data-testid="input-search"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5a6a7a] hover:text-[#1a3a5c] dark:text-muted-foreground"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -156,13 +162,13 @@ export default function DashboardPage() {
               variant="outline"
               size="sm"
               onClick={() => setShowFilters(!showFilters)}
-              className="h-10 px-3 rounded-lg gap-1.5 border-[hsl(var(--pathful-blue)/0.25)] bg-[hsl(var(--pathful-navy-deep)/0.15)] hover:bg-[hsl(var(--pathful-blue)/0.1)]"
+              className="h-11 px-4 rounded-full gap-1.5 border-[#1a3a5c]/15 bg-white dark:bg-card hover:bg-[#f8f5f0] dark:hover:bg-muted text-[#1a3a5c] dark:text-foreground font-semibold shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
               data-testid="button-filters"
             >
               <SlidersHorizontal className="w-4 h-4" />
               Filters
               {activeFilters.length > 0 && (
-                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
+                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#ff6b35] text-white text-[10px] font-bold">
                   {activeFilters.length}
                 </span>
               )}
@@ -171,7 +177,7 @@ export default function DashboardPage() {
 
           {/* Filter dropdowns — collapsible */}
           {showFilters && (
-            <div className="flex flex-wrap items-center gap-2 p-3 rounded-lg bg-[hsl(var(--pathful-navy-deep)/0.22)] border border-[hsl(var(--pathful-blue)/0.2)]">
+            <div className="flex flex-wrap items-center gap-2 p-4 rounded-[1.25rem] bg-white dark:bg-card border border-[#1a3a5c]/10 dark:border-border shadow-[0_8px_24px_rgba(0,0,0,0.05)]">
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger className="w-[160px] h-9 text-xs" data-testid="select-category">
                   <SelectValue placeholder="Category" />
@@ -210,7 +216,7 @@ export default function DashboardPage() {
                   variant="ghost"
                   size="sm"
                   onClick={clearFilters}
-                  className="h-9 text-xs text-muted-foreground"
+                  className="h-9 text-xs text-[#5a6a7a] dark:text-muted-foreground hover:text-[#1a3a5c]"
                 >
                   Clear all
                 </Button>
@@ -222,17 +228,17 @@ export default function DashboardPage() {
           {activeFilters.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
               {category !== "all" && (
-                <Badge variant="secondary" className="text-xs gap-1 pr-1">
+                <Badge variant="secondary" className="text-xs gap-1 pr-1 bg-white dark:bg-muted border border-[#1a3a5c]/10 text-[#1a3a5c] dark:text-foreground">
                   {OPPORTUNITY_CATEGORIES.find(c => c.value === category)?.label}
-                  <button onClick={() => setCategory("all")} className="ml-0.5 hover:text-foreground">
+                  <button onClick={() => setCategory("all")} className="ml-0.5 hover:text-[#ff6b35]">
                     <X className="w-3 h-3" />
                   </button>
                 </Badge>
               )}
               {locationType !== "all" && (
-                <Badge variant="secondary" className="text-xs gap-1 pr-1">
+                <Badge variant="secondary" className="text-xs gap-1 pr-1 bg-white dark:bg-muted border border-[#1a3a5c]/10 text-[#1a3a5c] dark:text-foreground">
                   {LOCATION_TYPES.find(l => l.value === locationType)?.label}
-                  <button onClick={() => setLocationType("all")} className="ml-0.5 hover:text-foreground">
+                  <button onClick={() => setLocationType("all")} className="ml-0.5 hover:text-[#ff6b35]">
                     <X className="w-3 h-3" />
                   </button>
                 </Badge>
@@ -242,7 +248,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Results count */}
-        <div className="text-xs text-muted-foreground mb-4">
+        <div className="text-xs font-medium text-[#5a6a7a] dark:text-muted-foreground mb-4 font-display">
           {filteredOpportunities.length} {filteredOpportunities.length === 1 ? "opportunity" : "opportunities"} found
         </div>
 
@@ -254,13 +260,22 @@ export default function DashboardPage() {
         </div>
 
         {filteredOpportunities.length === 0 && (
-          <div className="text-center py-16">
-            <Search className="w-10 h-10 text-muted-foreground/40 mx-auto mb-3" />
-            <h3 className="font-display font-semibold mb-1">No opportunities found</h3>
-            <p className="text-sm text-muted-foreground mb-4">
+          <div
+            className="text-center py-16 px-6 rounded-[1.5rem] bg-white dark:bg-card border border-[#1a3a5c]/8 dark:border-border"
+            style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
+          >
+            <Search className="w-10 h-10 text-[#1a3a5c]/25 dark:text-muted-foreground/40 mx-auto mb-3" />
+            <h3 className="font-display font-bold text-lg mb-1 text-[#1a3a5c] dark:text-foreground uppercase tracking-tight">
+              No opportunities found
+            </h3>
+            <p className="text-sm text-[#5a6a7a] dark:text-muted-foreground mb-6 max-w-sm mx-auto">
               Try adjusting your filters or search query.
             </p>
-            <Button variant="outline" size="sm" onClick={clearFilters}>
+            <Button
+              size="sm"
+              onClick={clearFilters}
+              className="rounded-full px-6 font-semibold bg-[#ff6b35] text-white hover:bg-[#ff6b35]/90 shadow-[0_8px_24px_rgba(255,107,53,0.25)]"
+            >
               Clear Filters
             </Button>
           </div>
