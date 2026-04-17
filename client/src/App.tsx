@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Switch, Route, Router, useLocation } from "wouter";
+import { Switch, Route, Router, useLocation, Redirect } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -9,7 +9,6 @@ import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import NotFound from "@/pages/not-found";
-import LandingPage from "@/pages/landing";
 import DashboardPage from "@/pages/dashboard";
 import RoadmapPage from "@/pages/roadmap";
 import CommunityPage from "@/pages/community";
@@ -73,7 +72,7 @@ function AppRouter() {
 
   return (
     <Switch>
-      <Route path="/" component={LandingPage} />
+      <Route path="/"><Redirect to="/dashboard" /></Route>
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/roadmap" component={RoadmapPage} />
       <Route path="/community" component={CommunityPage} />
