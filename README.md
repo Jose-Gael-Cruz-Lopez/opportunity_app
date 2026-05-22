@@ -3,7 +3,7 @@
 Career intelligence platform for college students that aggregates internships, scholarships, and programs into a structured database with community-sourced insights and personalized opportunity roadmaps.
 Most students rely on fragmented sources; Pathful organizes this into a searchable system designed to help students not just find opportunities, but understand and prepare for them.
 
-# What it does
+# What it Does
 Centralized database of internships, scholarships, and programs
 Community-sourced insights on applications (tips, timelines, outcomes)
 Opportunity profiles with detailed breakdowns of requirements and experiences
