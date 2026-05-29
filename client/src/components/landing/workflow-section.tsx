@@ -154,6 +154,15 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
         </div>
       </div>
 
+      {/* Bottom cream area — up-arrow + → Menu Resume bar */}
+      <BottomControls />
+    </div>
+  );
+}
+
+function BottomControls() {
+  return (
+    <>
       {/* Up-arrow square — very bottom-left of viewport */}
       <button
         className="absolute z-30 flex h-8 w-8 items-center justify-center text-white transition-opacity hover:opacity-90"
@@ -182,7 +191,7 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
           Resume
         </button>
       </div>
-    </div>
+    </>
   );
 }
 
