@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { WorkflowSection } from "@/components/landing/workflow-section";
 import { useTheme } from "@/components/theme-provider";
 
 export default function LandingPage() {
@@ -24,6 +25,24 @@ export default function LandingPage() {
           >
             Six surfaces that work together as a single student career OS.
           </h1>
+          <p
+            className="mt-6 max-w-[560px] text-[16px] leading-[1.55] text-neutral-600"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            Scroll to step through each surface. The previous panel pins as a numbered tab
+            in the top right as you go.
+          </p>
+        </div>
+      </section>
+
+      <WorkflowSection />
+
+      <section className="flex h-screen items-center justify-center px-12">
+        <div
+          className="text-[14px] text-neutral-500"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          End of workflow section — landing continues here.
         </div>
       </section>
     </main>
