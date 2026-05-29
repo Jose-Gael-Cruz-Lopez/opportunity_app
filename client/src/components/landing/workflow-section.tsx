@@ -1,3 +1,11 @@
+import { useState } from "react";
+import {
+  ChevronDown,
+  ChevronUp,
+  ArrowUpRight,
+  ArrowRight,
+} from "lucide-react";
+
 type Surface = {
   label: string;
   title: string;
@@ -76,9 +84,6 @@ const SURFACES: Surface[] = [
     Visual: VisualFeed,
   },
 ];
-
-import { useState } from "react";
-import { ChevronDown, ChevronUp, ArrowUpRight, ArrowRight } from "lucide-react";
 
 export function WorkflowSection() {
   return (
