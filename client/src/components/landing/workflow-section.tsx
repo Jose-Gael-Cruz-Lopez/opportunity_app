@@ -121,6 +121,22 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
       >
         <LeftContent surface={surface} />
       </div>
+
+      {/* Dark right visual panel — inset rectangle */}
+      <div
+        className="absolute flex items-center justify-center overflow-hidden"
+        style={{
+          left: "39%",
+          right: "1.5%",
+          top: "5%",
+          bottom: "26%",
+          background: DARK_BG,
+        }}
+      >
+        <div className="w-full max-w-[640px] px-12">
+          <surface.Visual />
+        </div>
+      </div>
     </div>
   );
 }
