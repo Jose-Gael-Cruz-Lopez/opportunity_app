@@ -85,3 +85,22 @@ export function WorkflowSection() {
     />
   );
 }
+
+function NumberTab({ n }: { n: number }) {
+  return (
+    <div
+      className="flex items-center justify-center text-white"
+      style={{
+        width: 64,
+        height: 64,
+        background: COBALT,
+        fontFamily: "'SF Mono', 'JetBrains Mono', monospace",
+        fontSize: 20,
+        letterSpacing: "0.04em",
+        fontWeight: 500,
+      }}
+    >
+      {String(n).padStart(2, "0")}
+    </div>
+  );
+}
