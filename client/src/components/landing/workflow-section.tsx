@@ -195,7 +195,77 @@ function MockupShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function VisualUniverse() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualUniverse() {
+  return (
+    <MockupShell>
+      <div className="flex">
+        <div className="w-[140px] border-r border-neutral-200 bg-[#F2EEE7] p-3">
+          <div className="mb-3 flex items-center gap-2">
+            <div className="h-5 w-5 rounded" style={{ background: COBALT }} />
+            <div className="text-[12px] font-semibold text-neutral-800">
+              Universe
+            </div>
+          </div>
+          {[
+            "Internships",
+            "Fellowships",
+            "Scholarships",
+            "Research",
+            "Leadership",
+            "Government",
+          ].map((s, i) => (
+            <div
+              key={s}
+              className={`mb-1 rounded-md px-2 py-1.5 text-[11px] ${
+                i === 0
+                  ? "bg-white text-neutral-900 shadow-sm"
+                  : "text-neutral-500"
+              }`}
+            >
+              {s}
+            </div>
+          ))}
+        </div>
+        <div className="flex-1 p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="text-[12px] font-semibold text-neutral-800">
+              All internships
+            </div>
+            <div
+              className="rounded-full px-2.5 py-0.5 text-[10px] font-medium text-white"
+              style={{ background: COBALT }}
+            >
+              + Track
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              ["Microsoft Explore", "Apr 30", "~14%"],
+              ["Google STEP", "Mar 12", "~9%"],
+              ["MLT Pathfinder", "May 1", "~6%"],
+              ["Goldman Soph", "Feb 28", "~5%"],
+              ["JPM Force", "Mar 20", "~8%"],
+              ["Citadel TF", "Apr 5", "~3%"],
+            ].map(([name, due, acc]) => (
+              <div
+                key={name}
+                className="rounded-lg border border-neutral-200 bg-white p-2.5"
+              >
+                <div className="mb-2 text-[10px] font-semibold text-neutral-800">
+                  {name}
+                </div>
+                <div className="flex items-center justify-between text-[9px] text-neutral-500">
+                  <span>{due}</span>
+                  <span className="font-medium text-neutral-700">{acc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 function VisualProfile() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualRoadmap() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualReadiness() { return <MockupShell><div className="h-48" /></MockupShell>; }
