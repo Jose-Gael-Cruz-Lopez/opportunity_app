@@ -148,6 +148,14 @@ function LeftContent({ surface }: { surface: Surface }) {
       >
         {surface.description}
       </p>
+
+      <div className="max-w-[440px] border-t border-neutral-300/80">
+        <AccordionRow label="Discipline" defaultOpen>
+          {surface.discipline}
+        </AccordionRow>
+        <AccordionRow label="My Role">{surface.role}</AccordionRow>
+        <AccordionRow label="Timeline">{surface.timeline}</AccordionRow>
+      </div>
     </>
   );
 }
