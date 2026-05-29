@@ -89,6 +89,8 @@ const SURFACES: Surface[] = [
   },
 ];
 
+/* ─────────────────────────────── COMPONENT ───────────────────────────────── */
+
 export function WorkflowSection() {
   return (
     <section
@@ -101,6 +103,16 @@ export function WorkflowSection() {
     </section>
   );
 }
+
+/* ─────────────────────────────────── PANEL ───────────────────────────────────
+   Layout matches reference image: a CONTAINED card with cream whitespace
+   around it. Not full-bleed.
+     - top:    ~5% cream
+     - card:   left content (15%–39% width) + dark visual (39%–98.5% width)
+     - card vertical extent: top 5% to bottom 28%
+     - bottom: ~22% cream, contains up-arrow (left) + → Menu Resume (center)
+     - tabs:   top-right of viewport, cumulative 0N..01
+   ──────────────────────────────────────────────────────────────────────────── */
 
 function Panel({ index, surface }: { index: number; surface: Surface }) {
   const tabs = Array.from({ length: index + 1 }, (_, i) => index + 1 - i);
