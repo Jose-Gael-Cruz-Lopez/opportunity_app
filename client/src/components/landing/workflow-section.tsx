@@ -157,6 +157,26 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
       >
         <ChevronUp className="h-3.5 w-3.5" strokeWidth={2.5} />
       </button>
+
+      {/* Center cluster: → Menu Resume */}
+      <div
+        className="absolute z-30 left-1/2 flex -translate-x-1/2 items-center gap-5"
+        style={{ bottom: "9%" }}
+      >
+        <ArrowRight className="h-5 w-5 text-neutral-700" strokeWidth={1.5} />
+        <button
+          className="rounded-[6px] bg-black px-5 py-2 text-[13px] text-white/90 transition-colors hover:bg-neutral-800"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          Menu
+        </button>
+        <button
+          className="rounded-[6px] bg-black px-5 py-2 text-[13px] text-white/90 transition-colors hover:bg-neutral-800"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          Resume
+        </button>
+      </div>
     </div>
   );
 }
