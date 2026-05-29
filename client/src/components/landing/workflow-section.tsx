@@ -77,6 +77,9 @@ const SURFACES: Surface[] = [
   },
 ];
 
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
 export function WorkflowSection() {
   return (
     <section
@@ -146,6 +149,48 @@ function LeftContent({ surface }: { surface: Surface }) {
         {surface.description}
       </p>
     </>
+  );
+}
+
+function AccordionRow({
+  label,
+  children,
+  defaultOpen = false,
+}: {
+  label: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="border-b border-neutral-300/80">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between py-4 text-left text-[15px] text-neutral-900"
+        style={{ fontFamily: "var(--font-sans)" }}
+      >
+        <span className="font-medium">{label}</span>
+        {open ? (
+          <ChevronUp className="h-4 w-4 text-neutral-500" strokeWidth={2} />
+        ) : (
+          <ChevronDown className="h-4 w-4 text-neutral-500" strokeWidth={2} />
+        )}
+      </button>
+      <div
+        className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div
+            className="pb-4 text-[14px] text-neutral-600"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
