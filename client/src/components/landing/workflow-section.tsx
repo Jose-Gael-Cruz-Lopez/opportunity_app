@@ -375,7 +375,84 @@ function VisualRoadmap() {
     </MockupShell>
   );
 }
-function VisualReadiness() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualReadiness() {
+  return (
+    <MockupShell>
+      <div className="p-6">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <div className="text-[13px] font-semibold text-neutral-900">
+              Microsoft Explore
+            </div>
+            <div className="text-[11px] text-neutral-500">Readiness check</div>
+          </div>
+          <div
+            className="rounded-full px-3 py-1 text-[11px] font-medium text-white"
+            style={{ background: COBALT }}
+          >
+            Track
+          </div>
+        </div>
+        <div className="flex items-center gap-6">
+          <div className="relative h-32 w-32 shrink-0">
+            <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+              <circle
+                cx="50"
+                cy="50"
+                r="44"
+                fill="none"
+                stroke="#E6E2DA"
+                strokeWidth="7"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="44"
+                fill="none"
+                stroke={COBALT}
+                strokeWidth="7"
+                strokeDasharray={`${74 * 2.764} 1000`}
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="text-[28px] font-semibold leading-none text-neutral-900">
+                74%
+              </div>
+              <div className="mt-1 text-[9px] uppercase tracking-wider text-neutral-500">
+                Ready
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 space-y-1.5">
+            {[
+              { ok: true, label: "CS Major" },
+              { ok: true, label: "Sophomore / Freshman" },
+              { ok: true, label: "Python proficiency" },
+              { ok: false, label: "Prior internship or project" },
+            ].map((row) => (
+              <div
+                key={row.label}
+                className="flex items-center gap-2 text-[12px] text-neutral-800"
+              >
+                <span
+                  className="flex h-4 w-4 items-center justify-center rounded-full text-[9px]"
+                  style={{
+                    background: row.ok ? "#DFFBC0" : "#FBE2E2",
+                    color: row.ok ? "#3E7A1B" : "#A52828",
+                  }}
+                >
+                  {row.ok ? "✓" : "✕"}
+                </span>
+                {row.label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 function VisualCommunity() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualFeed() { return <MockupShell><div className="h-48" /></MockupShell>; }
 
