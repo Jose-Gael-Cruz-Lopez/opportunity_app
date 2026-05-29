@@ -65,6 +65,16 @@ const SURFACES: Surface[] = [
     timeline: "Stories live at launch — mentor matching Q4 2026",
     Visual: () => <div />,
   },
+  {
+    label: "Retention",
+    title: "The Daily Personalized Feed",
+    description:
+      "A daily-open surface for year-round retention — deadline alerts on tracked programs, fresh peer wins from the same school, new content drops on saved opportunities, and community questions worth answering. A reason to return outside of recruiting season.",
+    discipline: "Personalized feed, Notification engine, Engagement loops",
+    role: "Feed ranking, notification design, content pipeline",
+    timeline: "v1 — Q4 2026 (post readiness launch)",
+    Visual: () => <div />,
+  },
 ];
 
 export function WorkflowSection() {
