@@ -82,6 +82,19 @@ export function WorkflowSection() {
     <section
       className="relative w-full"
       style={{ height: `${SURFACES.length * 100}vh`, background: PAGE_BG }}
+    >
+      {SURFACES.map((surface, i) => (
+        <Panel key={i} index={i} surface={surface} />
+      ))}
+    </section>
+  );
+}
+
+function Panel({ index, surface }: { index: number; surface: Surface }) {
+  return (
+    <div
+      className="sticky top-0 h-screen w-full overflow-hidden"
+      style={{ zIndex: index + 1, background: PAGE_BG }}
     />
   );
 }
