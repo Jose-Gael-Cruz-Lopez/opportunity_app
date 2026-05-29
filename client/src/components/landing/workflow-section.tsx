@@ -453,7 +453,62 @@ function VisualReadiness() {
     </MockupShell>
   );
 }
-function VisualCommunity() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualCommunity() {
+  return (
+    <MockupShell>
+      <div className="p-5">
+        <div className="mb-4 rounded-xl border border-neutral-200 bg-white p-4">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500" />
+            <div>
+              <div className="text-[12px] font-semibold text-neutral-900">
+                Maya, '26
+              </div>
+              <div className="text-[10px] text-neutral-500">
+                Microsoft Explore · Accepted
+              </div>
+            </div>
+            <div
+              className="ml-auto rounded-full px-2.5 py-1 text-[10px] font-medium text-white"
+              style={{ background: COBALT }}
+            >
+              I got in
+            </div>
+          </div>
+          <div className="text-[12px] leading-relaxed text-neutral-700">
+            "Apply in October, not November. The first round closes faster than they
+            say. Mention the project you built in your essay — that's what got me
+            the call."
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {["Boston CS '27", "First-gen finance", "Pre-law fellowship"].map(
+            (cohort) => (
+              <div
+                key={cohort}
+                className="rounded-lg border border-neutral-200 bg-white p-2.5"
+              >
+                <div className="mb-2 flex -space-x-1">
+                  {[0, 1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="h-4 w-4 rounded-full border-2 border-white"
+                      style={{ background: ["#ffb86b", "#7ce0c0", "#a48bff"][i] }}
+                    />
+                  ))}
+                </div>
+                <div className="text-[11px] font-semibold text-neutral-900">
+                  {cohort}
+                </div>
+                <div className="text-[9px] text-neutral-500">142 members</div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 function VisualFeed() { return <MockupShell><div className="h-48" /></MockupShell>; }
 
 function LeftContent({ surface }: { surface: Surface }) {
