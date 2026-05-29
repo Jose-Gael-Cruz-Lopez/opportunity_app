@@ -55,6 +55,16 @@ const SURFACES: Surface[] = [
     timeline: "Beta — Fall 2026",
     Visual: () => <div />,
   },
+  {
+    label: "Network Effect",
+    title: "Community and Social Proof",
+    description:
+      "Every accepted student becomes a resource for the next applicant. Structured 'I Got In!' stories feed back into profile pages. Cohort groups, mentor matching with in-platform fifteen-minute scheduling, and verified badges turn each acceptance into compounding intel.",
+    discipline: "Social proof, Mentor matching, Cohort moderation",
+    role: "Community design, mentor matching algorithm, story templates",
+    timeline: "Stories live at launch — mentor matching Q4 2026",
+    Visual: () => <div />,
+  },
 ];
 
 export function WorkflowSection() {
