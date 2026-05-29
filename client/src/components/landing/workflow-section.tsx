@@ -35,6 +35,16 @@ const SURFACES: Surface[] = [
     timeline: "First 30 hand-built profiles by July 2026",
     Visual: () => <div />,
   },
+  {
+    label: "Personalization",
+    title: "The Career Roadmap Engine",
+    description:
+      "A three-minute quiz generates a personalized multi-year roadmap from freshman to senior year. Every node links to a real opportunity with a real deadline in the database. The roadmap updates dynamically as users hit milestones or pivot their goals.",
+    discipline: "Personalization engine, Goal modeling, Recommendation",
+    role: "Roadmap logic, quiz design, engineering",
+    timeline: "Engine v1 — Fall 2026 (post-launch)",
+    Visual: () => <div />,
+  },
 ];
 
 export function WorkflowSection() {
