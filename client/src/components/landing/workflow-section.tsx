@@ -23,7 +23,7 @@ const SURFACES: Surface[] = [
     discipline: "Curated database, Search & filter, Taxonomy design",
     role: "Product architecture, sourcing pipeline, community verification",
     timeline: "Sourcing Q2 2026 — soft launch August 2026",
-    Visual: () => <div />,
+    Visual: VisualUniverse,
   },
   {
     label: "Research Hub",
@@ -33,7 +33,7 @@ const SURFACES: Surface[] = [
     discipline: "Content curation, Alumni network, Crowdsourced data",
     role: "Page design system, content sourcing, alumni outreach",
     timeline: "First 30 hand-built profiles by July 2026",
-    Visual: () => <div />,
+    Visual: VisualProfile,
   },
   {
     label: "Personalization",
@@ -43,7 +43,7 @@ const SURFACES: Surface[] = [
     discipline: "Personalization engine, Goal modeling, Recommendation",
     role: "Roadmap logic, quiz design, engineering",
     timeline: "Engine v1 — Fall 2026 (post-launch)",
-    Visual: () => <div />,
+    Visual: VisualRoadmap,
   },
   {
     label: "Preparedness",
@@ -53,7 +53,7 @@ const SURFACES: Surface[] = [
     discipline: "Scoring system, Gap analysis, Recommendation",
     role: "Scoring model, data sourcing, UX flow",
     timeline: "Beta — Fall 2026",
-    Visual: () => <div />,
+    Visual: VisualReadiness,
   },
   {
     label: "Network Effect",
@@ -63,7 +63,7 @@ const SURFACES: Surface[] = [
     discipline: "Social proof, Mentor matching, Cohort moderation",
     role: "Community design, mentor matching algorithm, story templates",
     timeline: "Stories live at launch — mentor matching Q4 2026",
-    Visual: () => <div />,
+    Visual: VisualCommunity,
   },
   {
     label: "Retention",
@@ -73,7 +73,7 @@ const SURFACES: Surface[] = [
     discipline: "Personalized feed, Notification engine, Engagement loops",
     role: "Feed ranking, notification design, content pipeline",
     timeline: "v1 — Q4 2026 (post readiness launch)",
-    Visual: () => <div />,
+    Visual: VisualFeed,
   },
 ];
 
@@ -180,6 +180,27 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
     </div>
   );
 }
+
+function MockupShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="overflow-hidden rounded-2xl shadow-2xl"
+      style={{
+        background: MOCKUP_BG,
+        boxShadow: "0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function VisualUniverse() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualProfile() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualRoadmap() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualReadiness() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualCommunity() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualFeed() { return <MockupShell><div className="h-48" /></MockupShell>; }
 
 function LeftContent({ surface }: { surface: Surface }) {
   return (
