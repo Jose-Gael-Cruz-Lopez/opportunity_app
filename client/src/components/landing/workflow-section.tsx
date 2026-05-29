@@ -131,6 +131,13 @@ function LeftContent({ surface }: { surface: Surface }) {
       >
         {surface.label}
       </div>
+
+      <h2
+        className="mb-7 max-w-[440px] text-[2.4rem] leading-[1.05] text-neutral-900"
+        style={{ fontFamily: "var(--font-display)", fontWeight: 500, letterSpacing: "-0.01em" }}
+      >
+        {surface.title}
+      </h2>
     </>
   );
 }
