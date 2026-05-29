@@ -325,7 +325,56 @@ function VisualProfile() {
     </MockupShell>
   );
 }
-function VisualRoadmap() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualRoadmap() {
+  const years = ["Freshman", "Sophomore", "Junior", "Senior"];
+  return (
+    <MockupShell>
+      <div className="p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="text-[14px] font-semibold text-neutral-900">
+            Your roadmap
+          </div>
+          <div className="text-[11px] text-neutral-500">CS · 2026</div>
+        </div>
+        <div className="space-y-2.5">
+          {years.map((year, i) => (
+            <div key={year} className="flex items-start gap-3">
+              <div className="relative flex flex-col items-center">
+                <div
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white"
+                  style={{ background: i === 1 ? COBALT : "#D5D2CB" }}
+                >
+                  {i + 1}
+                </div>
+                {i < years.length - 1 && (
+                  <div className="mt-1 h-8 w-px bg-neutral-300" />
+                )}
+              </div>
+              <div className="flex-1 rounded-lg border border-neutral-200 bg-white p-3">
+                <div className="mb-1 flex items-center justify-between">
+                  <div className="text-[12px] font-semibold text-neutral-900">
+                    {year} year
+                  </div>
+                  <div className="text-[10px] text-neutral-500">{i + 2} nodes</div>
+                </div>
+                <div className="text-[11px] text-neutral-600">
+                  {
+                    [
+                      "Join one cohort org. Apply to two intro programs.",
+                      "Microsoft Explore, Goldman Soph, MLT Pathfinder.",
+                      "Target eight summer internships. Build a project.",
+                      "Full-time recruiting. Grad-school applications.",
+                    ][i]
+                  }
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 function VisualReadiness() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualCommunity() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualFeed() { return <MockupShell><div className="h-48" /></MockupShell>; }
