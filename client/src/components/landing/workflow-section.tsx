@@ -78,7 +78,7 @@ const SURFACES: Surface[] = [
 ];
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, ArrowUpRight } from "lucide-react";
 
 export function WorkflowSection() {
   return (
@@ -155,6 +155,20 @@ function LeftContent({ surface }: { surface: Surface }) {
         </AccordionRow>
         <AccordionRow label="My Role">{surface.role}</AccordionRow>
         <AccordionRow label="Timeline">{surface.timeline}</AccordionRow>
+      </div>
+
+      <div className="mt-auto pt-10">
+        <button
+          className="inline-flex items-center gap-2 px-5 py-3 text-[13px] font-medium text-white transition-transform hover:-translate-y-0.5"
+          style={{
+            background: COBALT,
+            fontFamily: "var(--font-mono)",
+            letterSpacing: "0.06em",
+          }}
+        >
+          Case study
+          <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
+        </button>
       </div>
     </>
   );
