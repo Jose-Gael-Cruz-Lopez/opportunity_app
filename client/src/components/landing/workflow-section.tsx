@@ -78,7 +78,7 @@ const SURFACES: Surface[] = [
 ];
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, ArrowUpRight } from "lucide-react";
+import { ChevronDown, ChevronUp, ArrowUpRight, ArrowRight } from "lucide-react";
 
 export function WorkflowSection() {
   return (
@@ -148,6 +148,15 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
           <surface.Visual />
         </div>
       </div>
+
+      {/* Up-arrow square — very bottom-left of viewport */}
+      <button
+        className="absolute z-30 flex h-8 w-8 items-center justify-center text-white transition-opacity hover:opacity-90"
+        style={{ background: COBALT, left: 24, bottom: 24 }}
+        aria-label="Back to top"
+      >
+        <ChevronUp className="h-3.5 w-3.5" strokeWidth={2.5} />
+      </button>
     </div>
   );
 }
