@@ -14,11 +14,13 @@ const DARK_BG = "#0B0B0B";
 const OPEN_GREEN = "#B6F25C";
 const MOCKUP_BG = "#FAFAF7";
 
+const SURFACES: Surface[] = [];
+
 export function WorkflowSection() {
   return (
     <section
       className="relative w-full"
-      style={{ background: PAGE_BG }}
+      style={{ height: `${SURFACES.length * 100}vh`, background: PAGE_BG }}
     />
   );
 }
