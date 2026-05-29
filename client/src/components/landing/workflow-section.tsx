@@ -104,7 +104,34 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
           <NumberTab key={n} n={n} />
         ))}
       </div>
+
+      {/* Left text content area */}
+      <div
+        className="absolute flex flex-col"
+        style={{
+          left: "15%",
+          right: "61%",
+          top: "5%",
+          bottom: "26%",
+          paddingRight: "40px",
+        }}
+      >
+        <LeftContent surface={surface} />
+      </div>
     </div>
+  );
+}
+
+function LeftContent({ surface }: { surface: Surface }) {
+  return (
+    <>
+      <div
+        className="mb-9 text-[12px] uppercase tracking-[0.22em] text-neutral-500"
+        style={{ fontFamily: "var(--font-mono)" }}
+      >
+        {surface.label}
+      </div>
+    </>
   );
 }
 
