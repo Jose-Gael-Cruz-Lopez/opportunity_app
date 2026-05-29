@@ -509,7 +509,68 @@ function VisualCommunity() {
     </MockupShell>
   );
 }
-function VisualFeed() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualFeed() {
+  const items = [
+    {
+      tag: "Deadline",
+      color: COBALT,
+      title: "Microsoft Explore just opened",
+      meta: "You're 74% ready",
+    },
+    {
+      tag: "Peer win",
+      color: "#FF7C4D",
+      title: "3 students from your school got into Google STEP",
+      meta: "See how they prepped",
+    },
+    {
+      tag: "New video",
+      color: "#3E7A1B",
+      title: "How I got into MLT Fellows as a sophomore",
+      meta: "8 min · Saved program",
+    },
+    {
+      tag: "Community",
+      color: "#7A4BC9",
+      title: "Does KPMG require a cover letter?",
+      meta: "4 replies in the past hour",
+    },
+  ];
+  return (
+    <MockupShell>
+      <div className="p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="text-[14px] font-semibold text-neutral-900">
+            Today's feed
+          </div>
+          <div className="text-[11px] text-neutral-500">May 28</div>
+        </div>
+        <div className="space-y-2">
+          {items.map((it, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3"
+            >
+              <div
+                className="rounded-md px-2 py-1 text-[9px] font-semibold uppercase tracking-wider"
+                style={{ background: `${it.color}1A`, color: it.color }}
+              >
+                {it.tag}
+              </div>
+              <div className="flex-1">
+                <div className="text-[12px] font-semibold text-neutral-900">
+                  {it.title}
+                </div>
+                <div className="text-[10px] text-neutral-500">{it.meta}</div>
+              </div>
+              <ArrowRight className="h-4 w-4 text-neutral-400" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 
 function LeftContent({ surface }: { surface: Surface }) {
   return (
