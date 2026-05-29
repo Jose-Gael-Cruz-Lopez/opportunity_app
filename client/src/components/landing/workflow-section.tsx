@@ -176,6 +176,8 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
   );
 }
 
+/* ────────────────────────── BOTTOM CONTROLS BAR ──────────────────────────── */
+
 function BottomControls() {
   return (
     <>
@@ -211,6 +213,8 @@ function BottomControls() {
   );
 }
 
+/* ──────────────────────────── APP-MOCKUP SHELL ───────────────────────────── */
+
 function MockupShell({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -224,6 +228,8 @@ function MockupShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
+/* ──────────────────────────────── VISUALS ────────────────────────────────── */
 
 function VisualUniverse() {
   return (
@@ -602,6 +608,8 @@ function VisualFeed() {
   );
 }
 
+/* ───────────────────────────── LEFT CONTENT ──────────────────────────────── */
+
 function LeftContent({ surface }: { surface: Surface }) {
   return (
     <>
@@ -692,6 +700,8 @@ function AccordionRow({
     </div>
   );
 }
+
+/* ────────────────────────────── NUMBER TAB ───────────────────────────────── */
 
 function NumberTab({ n }: { n: number }) {
   return (
