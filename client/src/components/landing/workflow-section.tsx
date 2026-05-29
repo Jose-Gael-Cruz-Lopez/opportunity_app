@@ -91,11 +91,20 @@ export function WorkflowSection() {
 }
 
 function Panel({ index, surface }: { index: number; surface: Surface }) {
+  const tabs = Array.from({ length: index + 1 }, (_, i) => index + 1 - i);
+
   return (
     <div
       className="sticky top-0 h-screen w-full overflow-hidden"
       style={{ zIndex: index + 1, background: PAGE_BG }}
-    />
+    >
+      {/* Cumulative number tabs — top-right of viewport */}
+      <div className="pointer-events-none absolute right-0 top-0 z-40 flex">
+        {tabs.map((n) => (
+          <NumberTab key={n} n={n} />
+        ))}
+      </div>
+    </div>
   );
 }
 
