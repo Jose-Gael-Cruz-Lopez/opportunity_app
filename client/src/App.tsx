@@ -14,6 +14,7 @@ import RoadmapPage from "@/pages/roadmap";
 import CommunityPage from "@/pages/community";
 import ReadinessPage from "@/pages/readiness";
 import OpportunityProfilePage from "@/pages/opportunity-profile";
+import LandingPage from "@/pages/landing";
 
 // Pages that use the dashboard layout (sidebar)
 const DASHBOARD_ROUTES = ["/dashboard", "/roadmap", "/community", "/readiness", "/opportunity"];
