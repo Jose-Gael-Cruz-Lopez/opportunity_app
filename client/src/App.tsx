@@ -74,6 +74,7 @@ function AppRouter() {
   return (
     <Switch>
       <Route path="/"><Redirect to="/dashboard" /></Route>
+      <Route path="/landing" component={LandingPage} />
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/roadmap" component={RoadmapPage} />
       <Route path="/community" component={CommunityPage} />
