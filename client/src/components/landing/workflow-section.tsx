@@ -266,7 +266,65 @@ function VisualUniverse() {
     </MockupShell>
   );
 }
-function VisualProfile() { return <MockupShell><div className="h-48" /></MockupShell>; }
+function VisualProfile() {
+  return (
+    <MockupShell>
+      <div className="p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <div className="text-[14px] font-semibold text-neutral-900">
+              Microsoft Explore
+            </div>
+            <div className="text-[11px] text-neutral-500">
+              Sophomore program · Redmond
+            </div>
+          </div>
+          <div
+            className="rounded-full px-3 py-1 text-[11px] font-medium text-white"
+            style={{ background: COBALT }}
+          >
+            Track
+          </div>
+        </div>
+        <div className="mb-5 grid grid-cols-3 gap-2">
+          {[
+            ["Acceptance", "~14%"],
+            ["Alumni", "412"],
+            ["Deadline", "Mar 5"],
+          ].map(([k, v]) => (
+            <div
+              key={k}
+              className="rounded-lg border border-neutral-200 bg-white p-2.5"
+            >
+              <div className="mb-1 text-[10px] uppercase tracking-wider text-neutral-500">
+                {k}
+              </div>
+              <div className="text-[15px] font-semibold text-neutral-900">{v}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mb-2 text-[11px] uppercase tracking-wider text-neutral-500">
+          Resource bundle
+        </div>
+        <div className="space-y-1.5">
+          {[
+            ["Day-in-the-life", "YouTube"],
+            ["Interview breakdown", "Reddit"],
+            ["How I got in", "Medium"],
+          ].map(([t, src]) => (
+            <div
+              key={t}
+              className="flex items-center justify-between rounded-md border border-neutral-200 bg-white px-3 py-2 text-[12px]"
+            >
+              <span className="text-neutral-800">{t}</span>
+              <span className="text-neutral-400">{src} ›</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </MockupShell>
+  );
+}
 function VisualRoadmap() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualReadiness() { return <MockupShell><div className="h-48" /></MockupShell>; }
 function VisualCommunity() { return <MockupShell><div className="h-48" /></MockupShell>; }
