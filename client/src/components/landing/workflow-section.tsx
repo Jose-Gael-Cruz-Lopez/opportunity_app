@@ -25,6 +25,16 @@ const SURFACES: Surface[] = [
     timeline: "Sourcing Q2 2026 — soft launch August 2026",
     Visual: () => <div />,
   },
+  {
+    label: "Research Hub",
+    title: "Opportunity Profile Pages",
+    description:
+      "Each program gets its own research hub — curated videos, articles, and Reddit threads, an alumni LinkedIn layer with coffee-chat requests, crowdsourced interview breakdowns, and a 'Did you get in?' outcome tracker. Wikipedia, YouTube, and Glassdoor combined for that program.",
+    discipline: "Content curation, Alumni network, Crowdsourced data",
+    role: "Page design system, content sourcing, alumni outreach",
+    timeline: "First 30 hand-built profiles by July 2026",
+    Visual: () => <div />,
+  },
 ];
 
 export function WorkflowSection() {
