@@ -45,6 +45,16 @@ const SURFACES: Surface[] = [
     timeline: "Engine v1 — Fall 2026 (post-launch)",
     Visual: () => <div />,
   },
+  {
+    label: "Preparedness",
+    title: "The Readiness Score",
+    description:
+      "A personalized '% ready' score per opportunity, built from the user's profile, crowdsourced data on who typically gets in, and the program's stated requirements. Gaps are listed explicitly with suggested next steps — turning reactive search into proactive preparation.",
+    discipline: "Scoring system, Gap analysis, Recommendation",
+    role: "Scoring model, data sourcing, UX flow",
+    timeline: "Beta — Fall 2026",
+    Visual: () => <div />,
+  },
 ];
 
 export function WorkflowSection() {
