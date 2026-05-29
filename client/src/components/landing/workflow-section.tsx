@@ -133,6 +133,17 @@ function Panel({ index, surface }: { index: number; surface: Surface }) {
           background: DARK_BG,
         }}
       >
+        {/* Open affordance — left-center of dark panel */}
+        <div className="absolute left-6 top-1/2 z-10 -translate-y-1/2">
+          <div
+            className="inline-flex items-center gap-2 bg-black px-2.5 py-1.5 text-[12px] text-white"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
+            <span style={{ color: OPEN_GREEN }}>›</span>
+            <span>Open</span>
+          </div>
+        </div>
+
         <div className="w-full max-w-[640px] px-12">
           <surface.Visual />
         </div>
