@@ -80,10 +80,10 @@ export default function RoadmapPage() {
 
   return (
     <div className="h-full overflow-auto" data-testid="page-roadmap">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="font-display font-bold text-xl mb-1" data-testid="text-page-title">
+          <h1 className="font-display font-bold text-xl sm:text-2xl mb-1" data-testid="text-page-title">
             Career Roadmap
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -105,7 +105,7 @@ export default function RoadmapPage() {
         </div>
 
         {/* Year tabs */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
           {YEARS.map((year) => {
             const progress = getProgress(year.key);
             const isActive = activeYear === year.key;
@@ -113,7 +113,7 @@ export default function RoadmapPage() {
               <button
                 key={year.key}
                 onClick={() => setActiveYear(year.key)}
-                className={`flex-shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border transition-all ${
+                className={`flex items-center gap-2.5 px-3 sm:px-4 py-3 rounded-xl border transition-all ${
                   isActive
                     ? "border-primary/40 bg-primary/5 shadow-sm"
                     : "border-border/50 bg-card hover:border-border"
@@ -121,13 +121,13 @@ export default function RoadmapPage() {
                 data-testid={`tab-${year.key}`}
               >
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold"
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
                   style={{ background: year.color }}
                 >
                   {year.label.charAt(0)}
                 </div>
-                <div className="text-left">
-                  <div className="text-sm font-semibold">{year.label}</div>
+                <div className="text-left min-w-0">
+                  <div className="text-sm font-semibold truncate">{year.label}</div>
                   <div className="text-[11px] text-muted-foreground">{progress}% complete</div>
                 </div>
               </button>
@@ -144,7 +144,7 @@ export default function RoadmapPage() {
             <GraduationCap className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="font-display font-bold text-lg">{currentYear.label} Year</h2>
+            <h2 className="font-display font-bold text-lg sm:text-xl">{currentYear.label} Year</h2>
             <p className="text-xs text-muted-foreground">
               {getProgress(activeYear)}% completed · {milestones.length} milestones
             </p>
@@ -172,13 +172,22 @@ export default function RoadmapPage() {
                   data-testid={`milestone-${activeYear}-${i}`}
                 >
                   {/* Circle on timeline */}
-                  <div className="absolute left-3 top-5">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleComplete(activeYear, i);
+                    }}
+                    aria-pressed={isCompleted}
+                    aria-label={`Mark "${milestone.title}" as ${isCompleted ? "incomplete" : "complete"}`}
+                    className="absolute left-2 top-4 flex h-6 w-6 items-center justify-center rounded-full bg-card transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                  >
                     {isCompleted ? (
-                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
                     ) : (
-                      <Circle className="w-5 h-5 text-muted-foreground/40 group-hover:text-primary/50 transition-colors" />
+                      <Circle className="h-5 w-5 shrink-0 text-muted-foreground/40 group-hover:text-primary/50 transition-colors" />
                     )}
-                  </div>
+                  </button>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
