@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Source.json",
+  "title": "Source",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "official_page",
+        "official_pdf",
+        "federal_api",
+        "ats_board",
+        "list_row",
+        "campus_page",
+        "hint",
+        "licensed"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "host": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 253
+    },
+    "renderMode": {
+      "type": "string",
+      "enum": [
+        "static",
+        "javascript",
+        "pdf",
+        "api",
+        "manual"
+      ]
+    },
+    "programId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "organizationId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "approval": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "pending_approval",
+        "rejected"
+      ]
+    },
+    "health": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "degraded",
+        "broken",
+        "blocked",
+        "opted_out"
+      ]
+    },
+    "hostPolicy": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "api_only",
+        "manual_only",
+        "link_only",
+        "never"
+      ]
+    },
+    "baselineSnapshotId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nextCheckAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastFetchedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "optedOutOn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "url",
+    "host",
+    "renderMode",
+    "programId",
+    "organizationId",
+    "approval",
+    "health",
+    "hostPolicy",
+    "baselineSnapshotId",
+    "nextCheckAt",
+    "lastFetchedAt",
+    "optedOutOn"
+  ],
+  "additionalProperties": false
+}

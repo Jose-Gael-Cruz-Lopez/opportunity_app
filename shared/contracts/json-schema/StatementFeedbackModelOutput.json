@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/StatementFeedbackModelOutput.json",
+  "title": "StatementFeedbackModelOutput",
+  "type": "object",
+  "properties": {
+    "overall": {
+      "type": "string"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "fit_to_prompt",
+              "specificity",
+              "structure",
+              "clarity",
+              "evidence_of_impact",
+              "voice",
+              "mechanics",
+              "length"
+            ]
+          },
+          "comment": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "aspect",
+          "comment",
+          "excerpt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "improvements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "fit_to_prompt",
+              "specificity",
+              "structure",
+              "clarity",
+              "evidence_of_impact",
+              "voice",
+              "mechanics",
+              "length"
+            ]
+          },
+          "comment": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "suggestion": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "aspect",
+          "comment",
+          "excerpt",
+          "suggestion"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "promptCoverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "promptPart": {
+            "type": "string"
+          },
+          "addressed": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "partly",
+              "no"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "promptPart",
+          "addressed",
+          "note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sourceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "overall",
+    "strengths",
+    "improvements",
+    "promptCoverage",
+    "sourceIds"
+  ],
+  "additionalProperties": false
+}
