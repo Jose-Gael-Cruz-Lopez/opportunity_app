@@ -3,3 +3,16 @@ dist/
 *.db
 .env
 .env.local
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env.*
+!.env.example
+.wrangler/
+coverage/
+pipeline/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+*.egg-info/
