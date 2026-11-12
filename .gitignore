@@ -16,3 +16,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 *.egg-info/
+
+# Internal build reports stay private (kept outside this public repository)
+docs/BUILD_REPORT.md
+docs/build-status*.md
