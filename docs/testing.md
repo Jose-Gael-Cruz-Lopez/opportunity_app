@@ -14,8 +14,7 @@ Gemini key and no network calls to real services. Every program in the local dat
 Types: `npm run typecheck` covers the client, shared and server code. The end-to-end suite has its
 own project: `npx tsc -p e2e/tsconfig.json`.
 
-See [dev-setup.md](dev-setup.md) for installing the tools and [BUILD_REPORT.md](BUILD_REPORT.md)
-for current results.
+See [dev-setup.md](dev-setup.md) for installing the tools.
 
 ## End-to-end tests
 
