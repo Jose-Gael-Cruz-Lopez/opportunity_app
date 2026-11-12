@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/EligibilityCheckRequest.json",
+  "title": "EligibilityCheckRequest",
+  "type": "object",
+  "properties": {
+    "programs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "classYear": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "incoming_first_year",
+                "first_year",
+                "second_year",
+                "third_year",
+                "fourth_year",
+                "fifth_year_plus",
+                "recent_graduate",
+                "graduate"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expectedGraduationTerm": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(winter|spring|summer|fall)-(\\d{4})$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "institutionId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "institutionLevel": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "two_year",
+                "four_year",
+                "other"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enrollmentIntensity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "full_time",
+                "part_time",
+                "not_sure"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transferIntent": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "planning_to_transfer",
+                "transferred_in",
+                "not_planning",
+                "not_sure"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "majorCip": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{2}(\\.\\d{2}(\\d{2})?)?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minorCip": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{2}(\\.\\d{2}(\\d{2})?)?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "majorFamily": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "agriculture_environment",
+                "arts_design",
+                "business",
+                "communication_media",
+                "computing",
+                "education",
+                "engineering_technology",
+                "health",
+                "humanities_languages",
+                "life_sciences",
+                "math_statistics",
+                "physical_sciences",
+                "social_sciences",
+                "law_policy_service",
+                "trades_applied",
+                "undeclared"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gpaBand": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "none_yet",
+                "under_2_0",
+                "2_0_to_2_49",
+                "2_5_to_2_74",
+                "2_75_to_2_99",
+                "3_0_to_3_24",
+                "3_25_to_3_49",
+                "3_5_to_3_74",
+                "3_75_plus",
+                "prefer_not"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "residenceState": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "AL",
+                "AK",
+                "AZ",
+                "AR",
+                "CA",
+                "CO",
+                "CT",
+                "DE",
+                "DC",
+                "FL",
+                "GA",
+                "HI",
+                "ID",
+                "IL",
+                "IN",
+                "IA",
+                "KS",
+                "KY",
+                "LA",
+                "ME",
+                "MD",
+                "MA",
+                "MI",
+                "MN",
+                "MS",
+                "MO",
+                "MT",
+                "NE",
+                "NV",
+                "NH",
+                "NJ",
+                "NM",
+                "NY",
+                "NC",
+                "ND",
+                "OH",
+                "OK",
+                "OR",
+                "PA",
+                "RI",
+                "SC",
+                "SD",
+                "TN",
+                "TX",
+                "UT",
+                "VT",
+                "VA",
+                "WA",
+                "WV",
+                "WI",
+                "WY",
+                "AS",
+                "GU",
+                "MP",
+                "PR",
+                "VI",
+                "UM"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeZone": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "IANA time zone, e.g. America/Chicago"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "birthYearMonth": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "interestTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "maxItems": 30
+        },
+        "preferredOpportunityTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summer_internship",
+              "off_cycle_internship",
+              "new_grad_rotational",
+              "early_career_exposure",
+              "uk_spring_week",
+              "sprinternship",
+              "externship_shadowing",
+              "micro_internship",
+              "virtual_job_simulation",
+              "apprenticeship",
+              "undergraduate_fellowship",
+              "graduate_fellowship",
+              "national_scholarship",
+              "private_scholarship",
+              "institutional_scholarship",
+              "service_scholarship",
+              "grant",
+              "research_program",
+              "pipeline_program",
+              "leadership_cohort",
+              "affinity_community",
+              "conference_travel",
+              "competition",
+              "open_source_mentorship",
+              "study_abroad_language",
+              "government_service",
+              "service_year",
+              "accelerator_founder",
+              "campus_ambassador",
+              "campus_job",
+              "paid_training",
+              "gap_year",
+              "high_school_pathway"
+            ]
+          },
+          "maxItems": 33
+        },
+        "priorExperience": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "research",
+              "internship",
+              "insight_program",
+              "leadership",
+              "community_service",
+              "independent_project",
+              "paid_work",
+              "competition",
+              "teaching_or_tutoring"
+            ]
+          },
+          "maxItems": 9
+        },
+        "weeklyPrepHours": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 60
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "asOf": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "programs",
+    "profile"
+  ],
+  "additionalProperties": false
+}

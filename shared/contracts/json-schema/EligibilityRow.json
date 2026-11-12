@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/EligibilityRow.json",
+  "title": "EligibilityRow",
+  "type": "object",
+  "properties": {
+    "clause_id": {
+      "type": "string"
+    },
+    "row_kind": {
+      "type": "string",
+      "enum": [
+        "clause",
+        "attest"
+      ]
+    },
+    "dimension": {
+      "type": "string",
+      "enum": [
+        "standing",
+        "enrollment",
+        "transfer",
+        "gpa",
+        "citizenship",
+        "pell",
+        "institution",
+        "field",
+        "identity",
+        "age",
+        "residency",
+        "first_gen",
+        "prior_award",
+        "team",
+        "host_enrollment"
+      ]
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "in",
+        "not_in",
+        "gte",
+        "lte",
+        "between",
+        "is_true",
+        "is_false",
+        "no_restriction"
+      ]
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "measure": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "borderline": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "group": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "clause_id",
+    "row_kind",
+    "dimension",
+    "operator",
+    "values",
+    "measure",
+    "as_of",
+    "borderline",
+    "group",
+    "quote"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/EligibilityRule.json",
+  "title": "EligibilityRule",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.:-]{0,79}$"
+    },
+    "dimension": {
+      "type": "string",
+      "enum": [
+        "standing",
+        "enrollment",
+        "transfer",
+        "gpa",
+        "citizenship",
+        "pell",
+        "institution",
+        "field",
+        "identity",
+        "age",
+        "residency",
+        "first_gen",
+        "prior_award",
+        "team",
+        "host_enrollment"
+      ]
+    },
+    "group": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "default": "all"
+    },
+    "logic": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "classYear",
+          "semestersRemaining",
+          "yearsRemaining",
+          "expectedGraduationTerm",
+          "expectedGraduationYear",
+          "enrollmentIntensity",
+          "institutionLevel",
+          "transferIntent",
+          "gpaBand",
+          "gpaMin",
+          "gpaMax",
+          "majorCip",
+          "minorCip",
+          "majorFamily",
+          "residenceState",
+          "ageAtAsOf",
+          "institutionId",
+          "institutionParticipates",
+          "citizenship",
+          "pell",
+          "financialNeed",
+          "firstGeneration",
+          "identity.race_ethnicity",
+          "identity.gender_identity",
+          "identity.sexual_orientation",
+          "identity.health",
+          "identity.religion",
+          "identity.tribal_affiliation",
+          "identity.military_veteran",
+          "identity.foster_care",
+          "identity.crime_victim",
+          "identity.parenting"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 12
+    },
+    "sensitive": {
+      "type": "boolean"
+    },
+    "asOf": {
+      "type": "string",
+      "enum": [
+        "today",
+        "campus_deadline",
+        "national_deadline",
+        "program_start"
+      ],
+      "default": "today"
+    },
+    "borderline": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 7
+      },
+      "maxItems": 50,
+      "default": []
+    },
+    "officialText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400
+    },
+    "evidenceKey": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^e\\d{1,3}$"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "id",
+    "dimension",
+    "logic",
+    "fields",
+    "sensitive",
+    "officialText"
+  ],
+  "additionalProperties": false
+}
