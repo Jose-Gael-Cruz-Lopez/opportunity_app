@@ -1,0 +1,729 @@
+{
+  "$comment": "Generated from shared/ by infra/eligibility/snapshots.ts; do not edit by hand.",
+  "engineVersion": "1.0.0",
+  "dimensions": [
+    "standing",
+    "enrollment",
+    "transfer",
+    "gpa",
+    "citizenship",
+    "pell",
+    "institution",
+    "field",
+    "identity",
+    "age",
+    "residency",
+    "first_gen",
+    "prior_award",
+    "team",
+    "host_enrollment"
+  ],
+  "launchDimensions": [
+    "standing",
+    "enrollment",
+    "transfer",
+    "gpa",
+    "citizenship",
+    "pell"
+  ],
+  "operators": [
+    "var",
+    "missing",
+    "missing_some",
+    "==",
+    "===",
+    "!=",
+    "!==",
+    "<",
+    "<=",
+    ">",
+    ">=",
+    "!",
+    "!!",
+    "and",
+    "or",
+    "if",
+    "?:",
+    "in",
+    "all",
+    "some",
+    "none",
+    "merge",
+    "+",
+    "-",
+    "*",
+    "/",
+    "%",
+    "min",
+    "max",
+    "cat",
+    "substr"
+  ],
+  "fields": {
+    "classYear": {
+      "label": "Class year",
+      "valueType": "enum",
+      "values": [
+        "incoming_first_year",
+        "first_year",
+        "second_year",
+        "third_year",
+        "fourth_year",
+        "fifth_year_plus",
+        "recent_graduate",
+        "graduate"
+      ],
+      "dimension": "standing",
+      "source": "profile",
+      "sensitive": false
+    },
+    "semestersRemaining": {
+      "label": "Full-time semesters remaining at the rule's date",
+      "valueType": "number",
+      "dimension": "standing",
+      "source": "derived",
+      "sensitive": false
+    },
+    "yearsRemaining": {
+      "label": "Years of study remaining at the rule's date",
+      "valueType": "number",
+      "dimension": "standing",
+      "source": "derived",
+      "sensitive": false
+    },
+    "expectedGraduationTerm": {
+      "label": "Expected graduation term",
+      "valueType": "string",
+      "dimension": "standing",
+      "source": "profile",
+      "sensitive": false
+    },
+    "expectedGraduationYear": {
+      "label": "Expected graduation year",
+      "valueType": "number",
+      "dimension": "standing",
+      "source": "derived",
+      "sensitive": false
+    },
+    "enrollmentIntensity": {
+      "label": "Full-time or part-time",
+      "valueType": "enum",
+      "values": [
+        "full_time",
+        "part_time",
+        "not_sure"
+      ],
+      "dimension": "enrollment",
+      "source": "profile",
+      "sensitive": false,
+      "unknownValues": [
+        "not_sure"
+      ]
+    },
+    "institutionLevel": {
+      "label": "Two-year or four-year institution",
+      "valueType": "enum",
+      "values": [
+        "two_year",
+        "four_year",
+        "other"
+      ],
+      "dimension": "enrollment",
+      "source": "profile",
+      "sensitive": false
+    },
+    "transferIntent": {
+      "label": "Transfer plans",
+      "valueType": "enum",
+      "values": [
+        "planning_to_transfer",
+        "transferred_in",
+        "not_planning",
+        "not_sure"
+      ],
+      "dimension": "transfer",
+      "source": "profile",
+      "sensitive": false,
+      "unknownValues": [
+        "not_sure"
+      ]
+    },
+    "gpaBand": {
+      "label": "GPA band",
+      "valueType": "enum",
+      "values": [
+        "none_yet",
+        "under_2_0",
+        "2_0_to_2_49",
+        "2_5_to_2_74",
+        "2_75_to_2_99",
+        "3_0_to_3_24",
+        "3_25_to_3_49",
+        "3_5_to_3_74",
+        "3_75_plus",
+        "prefer_not"
+      ],
+      "dimension": "gpa",
+      "source": "profile",
+      "sensitive": false,
+      "unknownValues": [
+        "prefer_not",
+        "not_sure",
+        "none_yet"
+      ]
+    },
+    "gpaMin": {
+      "label": "Lower edge of the GPA band",
+      "valueType": "number",
+      "dimension": "gpa",
+      "source": "derived",
+      "sensitive": false
+    },
+    "gpaMax": {
+      "label": "Upper edge of the GPA band",
+      "valueType": "number",
+      "dimension": "gpa",
+      "source": "derived",
+      "sensitive": false
+    },
+    "majorCip": {
+      "label": "Major (CIP code)",
+      "valueType": "string",
+      "dimension": "field",
+      "source": "profile",
+      "sensitive": false
+    },
+    "minorCip": {
+      "label": "Minor (CIP code)",
+      "valueType": "string",
+      "dimension": "field",
+      "source": "profile",
+      "sensitive": false
+    },
+    "majorFamily": {
+      "label": "Major family",
+      "valueType": "enum",
+      "values": [
+        "agriculture_environment",
+        "arts_design",
+        "business",
+        "communication_media",
+        "computing",
+        "education",
+        "engineering_technology",
+        "health",
+        "humanities_languages",
+        "life_sciences",
+        "math_statistics",
+        "physical_sciences",
+        "social_sciences",
+        "law_policy_service",
+        "trades_applied",
+        "undeclared"
+      ],
+      "dimension": "field",
+      "source": "profile",
+      "sensitive": false,
+      "unknownValues": [
+        "undeclared"
+      ]
+    },
+    "residenceState": {
+      "label": "State of residence",
+      "valueType": "enum",
+      "values": [
+        "AL",
+        "AK",
+        "AZ",
+        "AR",
+        "CA",
+        "CO",
+        "CT",
+        "DE",
+        "DC",
+        "FL",
+        "GA",
+        "HI",
+        "ID",
+        "IL",
+        "IN",
+        "IA",
+        "KS",
+        "KY",
+        "LA",
+        "ME",
+        "MD",
+        "MA",
+        "MI",
+        "MN",
+        "MS",
+        "MO",
+        "MT",
+        "NE",
+        "NV",
+        "NH",
+        "NJ",
+        "NM",
+        "NY",
+        "NC",
+        "ND",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VT",
+        "VA",
+        "WA",
+        "WV",
+        "WI",
+        "WY",
+        "AS",
+        "GU",
+        "MP",
+        "PR",
+        "VI",
+        "UM"
+      ],
+      "dimension": "residency",
+      "source": "profile",
+      "sensitive": false
+    },
+    "ageAtAsOf": {
+      "label": "Age at the rule's date",
+      "valueType": "number",
+      "dimension": "age",
+      "source": "derived",
+      "sensitive": false
+    },
+    "institutionId": {
+      "label": "Institution",
+      "valueType": "string",
+      "dimension": "institution",
+      "source": "profile",
+      "sensitive": false
+    },
+    "institutionParticipates": {
+      "label": "Your institution can nominate",
+      "valueType": "boolean",
+      "dimension": "institution",
+      "source": "context",
+      "sensitive": false
+    },
+    "citizenship": {
+      "label": "Citizenship or immigration status",
+      "valueType": "enum",
+      "values": [
+        "us_citizen",
+        "us_national",
+        "permanent_resident",
+        "daca",
+        "tps",
+        "refugee_asylee",
+        "f1",
+        "j1",
+        "other_visa",
+        "none_of_these"
+      ],
+      "dimension": "citizenship",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "pell": {
+      "label": "Federal Pell Grant",
+      "valueType": "enum",
+      "values": [
+        "recipient",
+        "eligible_not_receiving",
+        "not_recipient",
+        "prefer_not"
+      ],
+      "dimension": "pell",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "financialNeed": {
+      "label": "Demonstrated financial need",
+      "valueType": "enum",
+      "values": [
+        "yes",
+        "no",
+        "not_sure",
+        "prefer_not"
+      ],
+      "dimension": "pell",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not",
+        "not_sure"
+      ]
+    },
+    "firstGeneration": {
+      "label": "First-generation college student",
+      "valueType": "enum",
+      "values": [
+        "yes",
+        "no",
+        "not_sure",
+        "prefer_not"
+      ],
+      "dimension": "first_gen",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not",
+        "not_sure"
+      ]
+    },
+    "identity.race_ethnicity": {
+      "label": "Identity: race ethnicity",
+      "valueType": "enum_list",
+      "values": [
+        "american_indian_alaska_native",
+        "asian",
+        "black_african_american",
+        "hispanic_latino",
+        "middle_eastern_north_african",
+        "native_hawaiian_pacific_islander",
+        "white"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.gender_identity": {
+      "label": "Identity: gender identity",
+      "valueType": "enum_list",
+      "values": [
+        "woman",
+        "man",
+        "nonbinary",
+        "another_gender"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.sexual_orientation": {
+      "label": "Identity: sexual orientation",
+      "valueType": "enum_list",
+      "values": [
+        "lgbtq"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.health": {
+      "label": "Identity: health",
+      "valueType": "enum_list",
+      "values": [
+        "yes"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.religion": {
+      "label": "Identity: religion",
+      "valueType": "enum_list",
+      "values": [
+        "yes"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.tribal_affiliation": {
+      "label": "Identity: tribal affiliation",
+      "valueType": "enum_list",
+      "values": [
+        "enrolled_member",
+        "descendant"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.military_veteran": {
+      "label": "Identity: military veteran",
+      "valueType": "enum_list",
+      "values": [
+        "veteran",
+        "active_duty",
+        "military_family"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.foster_care": {
+      "label": "Identity: foster care",
+      "valueType": "enum_list",
+      "values": [
+        "yes"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.crime_victim": {
+      "label": "Identity: crime victim",
+      "valueType": "enum_list",
+      "values": [
+        "yes"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    },
+    "identity.parenting": {
+      "label": "Identity: parenting",
+      "valueType": "enum_list",
+      "values": [
+        "yes"
+      ],
+      "dimension": "identity",
+      "source": "sensitive",
+      "sensitive": true,
+      "unknownValues": [
+        "prefer_not"
+      ]
+    }
+  },
+  "classYears": [
+    "incoming_first_year",
+    "first_year",
+    "second_year",
+    "third_year",
+    "fourth_year",
+    "fifth_year_plus",
+    "recent_graduate",
+    "graduate"
+  ],
+  "classYearIndex": {
+    "incoming_first_year": 0,
+    "first_year": 1,
+    "second_year": 2,
+    "third_year": 3,
+    "fourth_year": 4,
+    "fifth_year_plus": 5,
+    "recent_graduate": null,
+    "graduate": null
+  },
+  "gpaBandBounds": {
+    "none_yet": null,
+    "under_2_0": {
+      "min": 0,
+      "max": 2
+    },
+    "2_0_to_2_49": {
+      "min": 2,
+      "max": 2.5
+    },
+    "2_5_to_2_74": {
+      "min": 2.5,
+      "max": 2.75
+    },
+    "2_75_to_2_99": {
+      "min": 2.75,
+      "max": 3
+    },
+    "3_0_to_3_24": {
+      "min": 3,
+      "max": 3.25
+    },
+    "3_25_to_3_49": {
+      "min": 3.25,
+      "max": 3.5
+    },
+    "3_5_to_3_74": {
+      "min": 3.5,
+      "max": 3.75
+    },
+    "3_75_plus": {
+      "min": 3.75,
+      "max": 4.01
+    },
+    "prefer_not": null
+  },
+  "majorFamilies": [
+    "agriculture_environment",
+    "arts_design",
+    "business",
+    "communication_media",
+    "computing",
+    "education",
+    "engineering_technology",
+    "health",
+    "humanities_languages",
+    "life_sciences",
+    "math_statistics",
+    "physical_sciences",
+    "social_sciences",
+    "law_policy_service",
+    "trades_applied",
+    "undeclared"
+  ],
+  "majorFamilyCipSeries": {
+    "agriculture_environment": [
+      "01",
+      "03"
+    ],
+    "arts_design": [
+      "04",
+      "50"
+    ],
+    "business": [
+      "52"
+    ],
+    "communication_media": [
+      "09",
+      "10"
+    ],
+    "computing": [
+      "11"
+    ],
+    "education": [
+      "13"
+    ],
+    "engineering_technology": [
+      "14",
+      "15"
+    ],
+    "health": [
+      "51",
+      "60",
+      "61"
+    ],
+    "humanities_languages": [
+      "05",
+      "16",
+      "23",
+      "24",
+      "25",
+      "38",
+      "39",
+      "54"
+    ],
+    "life_sciences": [
+      "26"
+    ],
+    "math_statistics": [
+      "27"
+    ],
+    "physical_sciences": [
+      "40",
+      "41"
+    ],
+    "social_sciences": [
+      "19",
+      "42",
+      "45"
+    ],
+    "law_policy_service": [
+      "22",
+      "28",
+      "29",
+      "43",
+      "44"
+    ],
+    "trades_applied": [
+      "12",
+      "31",
+      "46",
+      "47",
+      "48",
+      "49"
+    ],
+    "undeclared": []
+  },
+  "reasons": {
+    "MET": "Meets this rule: {officialText}",
+    "NOT_MET": "Does not meet this rule: {officialText}",
+    "MISSING_FIELD": "Eligible if you meet this rule: {officialText} Add {fields} to check it.",
+    "STRADDLES_LIMIT": "Eligible if you meet this rule: {officialText} Your answer is a range that crosses the limit.",
+    "PROFILE_CONFLICT": "Eligible if you meet this rule: {officialText} Your class year and graduation term disagree; check both.",
+    "CALENDAR_CONVERSION": "Check how the program counts your remaining terms: {officialText}",
+    "BORDERLINE_FIELD": "Check whether your major qualifies: {officialText}",
+    "PARTICIPATION_UNCONFIRMED": "Ask your campus whether it can nominate you: {officialText}",
+    "SENSITIVE_ON_DEVICE": "Check this rule yourself on your device: {officialText}",
+    "SENSITIVE_UNANSWERED": "Eligible if you meet this rule: {officialText}",
+    "CONTEXT_MISSING": "Not fully checked: Novus is missing a date or school detail this rule needs. See the official page.",
+    "RULE_ERROR": "Not fully checked: this rule could not be evaluated. See the official page.",
+    "UNDETERMINED": "Not fully checked: {officialText}",
+    "ATTESTATION_ON_DEVICE": "Confirm this yourself: {officialText}",
+    "ATTESTATION_UNANSWERED": "Eligible if you meet this rule: {officialText}",
+    "ATTESTATION_CONFIRMED": "You confirmed: {officialText}",
+    "ATTESTATION_DECLINED": "You said this does not apply: {officialText}",
+    "COVERAGE_NOT_REVIEWED": "Not fully checked: Novus has not reviewed the {dimension} rules yet. See the official page.",
+    "COVERAGE_ENCODED_EMPTY": "Not fully checked: the {dimension} rules are incomplete. See the official page.",
+    "GROUP_EMPTY": "Not fully checked: the options for {label} are incomplete. See the official page.",
+    "RULE_SET_MISSING": "Not fully checked: Novus has no reviewed eligibility rules for this cycle yet. See the official page."
+  },
+  "selfCheck": {
+    "rule": "Eligible if you meet this rule: {officialText}",
+    "rule_novus": "Not fully checked: {officialText} See the official page.",
+    "attestation": "Eligible if you meet this rule: {officialText}",
+    "coverage": "Not fully checked: Novus has not reviewed the {dimension} rules yet. See the official page.",
+    "group": "Not fully checked: the options for {label} are incomplete. See the official page.",
+    "rule_set_missing": "Not fully checked: Novus has no reviewed eligibility rules for this cycle yet. See the official page."
+  },
+  "dimensionLabels": {
+    "standing": "class standing",
+    "enrollment": "enrollment",
+    "transfer": "transfer",
+    "gpa": "GPA",
+    "citizenship": "citizenship",
+    "pell": "financial need",
+    "institution": "institution",
+    "field": "field of study",
+    "identity": "community",
+    "age": "age",
+    "residency": "residency",
+    "first_gen": "first-generation",
+    "prior_award": "prior award",
+    "team": "team",
+    "host_enrollment": "host enrollment"
+  },
+  "maxText": 400
+}
