@@ -1,0 +1,12 @@
+Self-hosted web fonts for Novus. All three families are licensed under the SIL Open Font
+License 1.1; each license sits next to the files (OFL-*.txt) and must ship with them.
+
+Downloaded 2026-11-11 from the Google Fonts CSS API (fonts.googleapis.com/css2, woff2,
+latin and latin-ext subsets) and kept byte-for-byte:
+
+  DM Mono 400, 500       dm-mono-{400,500}-{latin,latin-ext}.woff2     OFL-DMMono.txt
+  Doto 600-900 (var)     doto-600-900-{latin,latin-ext}.woff2          OFL-Doto.txt
+  Urbanist 400-700 (var) urbanist-400-700-{latin,latin-ext}.woff2      OFL-Urbanist.txt
+
+The @font-face rules live at the top of client/src/index.css. The CSP keeps font-src 'self'.
+To refresh: npx tsx infra/scripts/ci-checks.ts fonts checks the rules, files and licenses.
