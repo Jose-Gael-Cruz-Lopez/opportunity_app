@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/AnalyticsEvent.json",
+  "title": "AnalyticsEvent",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": [
+        "page_view",
+        "program_view",
+        "apply_click",
+        "remind_me_submit",
+        "tracker_add",
+        "onboarding_step",
+        "search",
+        "filter_change",
+        "readiness_open",
+        "ai_explain_open"
+      ]
+    },
+    "deviceId": {
+      "type": "string",
+      "pattern": "^[0-9A-Za-z_-]{16,64}$"
+    },
+    "at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "path": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "props": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 120
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "default": {}
+    }
+  },
+  "required": [
+    "name",
+    "deviceId",
+    "at",
+    "path"
+  ],
+  "additionalProperties": false
+}

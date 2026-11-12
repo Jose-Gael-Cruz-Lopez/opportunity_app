@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Alert.json",
+  "title": "Alert",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "program_cycle.verified",
+        "deadline.changed",
+        "cycle.status_changed",
+        "eligibility.changed",
+        "cycle.urgent_recheck",
+        "cycle.prediction_changed",
+        "cycle.decisions_released",
+        "posting.opened",
+        "posting.closed",
+        "deadline.reminder",
+        "cycle.predicted_soon",
+        "roadmap.replanned",
+        "profile.newly_eligible",
+        "curator.note",
+        "advisor.list_item",
+        "account.notice",
+        "contact.confirmation"
+      ]
+    },
+    "recipientKey": {
+      "type": "string",
+      "pattern": "^[uc]:[0-9a-f-]{36}$"
+    },
+    "programCycleId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "changeEventId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dedupeKey": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "p0",
+        "p1",
+        "p2"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "href": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 300
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scheduledFor": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "readAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "recipientKey",
+    "programCycleId",
+    "changeEventId",
+    "dedupeKey",
+    "priority",
+    "title",
+    "body",
+    "href",
+    "scheduledFor",
+    "readAt",
+    "createdAt"
+  ],
+  "additionalProperties": false
+}
