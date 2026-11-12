@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/RecordCitation.json",
+  "title": "RecordCitation",
+  "type": "object",
+  "properties": {
+    "novusUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "officialUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "official",
+        "attested",
+        "predicted",
+        "estimated"
+      ]
+    },
+    "evidenceUrl": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidenceExcerpt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 400
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastVerifiedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "verifiedBy": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "derivation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": [
+                "cycle_prediction",
+                "campus_estimate"
+              ]
+            },
+            "p10": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "p90": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "leadTimeDays": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "priorCycleUrl": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "method",
+            "p10",
+            "p90",
+            "leadTimeDays",
+            "priorCycleUrl"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sourceCheckedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "verificationState": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "reverifying",
+        "stale",
+        "unverified"
+      ]
+    },
+    "freshness": {
+      "type": "string",
+      "enum": [
+        "fresh",
+        "aging",
+        "stale"
+      ]
+    },
+    "recordVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "license": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "termsUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    }
+  },
+  "required": [
+    "novusUrl",
+    "officialUrl",
+    "basis",
+    "evidenceUrl",
+    "evidenceExcerpt",
+    "lastVerifiedAt",
+    "verifiedBy",
+    "derivation",
+    "sourceCheckedAt",
+    "verificationState",
+    "freshness",
+    "recordVersion",
+    "license",
+    "termsUrl"
+  ],
+  "additionalProperties": false
+}

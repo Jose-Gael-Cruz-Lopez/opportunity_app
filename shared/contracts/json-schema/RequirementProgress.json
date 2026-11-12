@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/RequirementProgress.json",
+  "title": "RequirementProgress",
+  "type": "object",
+  "properties": {
+    "subjectKey": {
+      "type": "string",
+      "pattern": "^(req:[0-9a-f-]{36}|kind:[a-z_]+)$"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "in_progress",
+        "met",
+        "not_applicable"
+      ]
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "subjectKey",
+    "state",
+    "updatedAt"
+  ],
+  "additionalProperties": false
+}
