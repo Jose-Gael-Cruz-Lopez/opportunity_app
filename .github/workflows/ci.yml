@@ -1,0 +1,167 @@
+# CI for a public repository: runs with NO secrets and a read-only token.
+# Deploys happen in Cloudflare Workers Builds, never here (docs/deploy.md).
+# Actions are pinned to commit SHAs; `npx tsx infra/scripts/ci-checks.ts workflows` enforces it.
+name: ci
+
+on:
+  push:
+    branches: [main, release]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  WRANGLER_SEND_METRICS: "false"
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
+jobs:
+  guards:
+    name: guards (secrets, config, sensitive terms, content, workflows)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: No secrets or .dev.vars committed
+        run: npx tsx infra/scripts/ci-checks.ts secrets
+      - name: Wrangler config (no production ids outside production, no public version URLs)
+        run: npx tsx infra/scripts/ci-checks.ts config
+      - name: Sensitive-terms guard (migrations, contract JSON Schemas, log templates)
+        run: npx tsx infra/scripts/ci-checks.ts sensitive
+      - name: Content check (no prototype brand, no readiness percentage or score)
+        run: npx tsx infra/scripts/ci-checks.ts content
+      - name: Workflow hygiene
+        run: npx tsx infra/scripts/ci-checks.ts workflows
+      - name: Self-hosted fonts (no third-party font origins in the build inputs)
+        run: npx tsx infra/scripts/ci-checks.ts fonts
+
+  typecheck:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run typecheck:e2e
+
+  test:
+    name: vitest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Unit tests (shared, server, client)
+        run: npx vitest run
+      - name: Infra tests (guards, backup encryption)
+        run: npx vitest run --config infra/vitest.config.ts
+      - name: Eligibility golden cases inside workerd
+        run: npx vitest run --config infra/vitest.workers.config.ts
+      - name: Release gates (node; workerd runs above, python in the pytest job)
+        run: npx tsx infra/scripts/release-gates.ts --only node
+
+  migrations:
+    name: migrations on a fresh local D1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Apply novus-main migrations
+        run: npx wrangler d1 migrations apply novus-main --local --persist-to .ci-d1 --config infra/wrangler/wrangler.toml
+      - name: Apply novus-events migrations
+        run: npx wrangler d1 migrations apply novus-events --local --persist-to .ci-d1 --config infra/wrangler/wrangler.toml
+      - name: Seed sample data on top
+        run: npx tsx server/db/seed/cli.ts sample --today 2026-11-11 > .ci-seed.sql && npx wrangler d1 execute novus-main --local --persist-to .ci-d1 --config infra/wrangler/wrangler.toml --file .ci-seed.sql --yes
+      - name: Worker bundle dry run (production config)
+        run: |
+          if [ ! -f server/worker.ts ]; then
+            echo "server/worker.ts not present yet; skipping the bundle dry run"
+            exit 0
+          fi
+          npm run build
+          npx wrangler deploy --dry-run --config infra/wrangler/wrangler.toml --env production
+          npx wrangler deploy --dry-run --config infra/wrangler/backup.toml --env production
+
+  pytest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: pipeline/pyproject.toml
+      - run: python -m pip install -e ".[dev]"
+      - name: pytest (no network, no keys; the Gemini client runs against fixtures)
+        env:
+          GEMINI_API_KEY: ""
+        run: python -m pytest
+
+  e2e:
+    name: playwright (local Worker, fresh D1, sample seed)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Playwright suite (traces and screenshots of failures stay in .wrangler/e2e/results)
+        env:
+          E2E_CHANNEL: chromium
+        run: npx playwright test
+
+  audit:
+    name: npm audit (production dependencies)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - run: npm audit --omit=dev --audit-level=high
