@@ -84,8 +84,7 @@ The PDF reader passes `isEvalSupported: false` (the CVE-2024-4367 mitigation), l
 `/api/v1/onboarding/*` stores answers in the shared vocabulary (`ServerPreferencesSchema`,
 `MatchSignalsSchema`), matches with the same `@shared/onboarding` engine over the registry
 catalog, and first door creates the TrackerItem, roadmap rows and reminders. Private eligibility
-on the device goes through `device-eligibility.ts` (`evaluateWithAnswers`). See
-[build-status.md](build-status.md) for the integration notes and the smoke test.
+on the device goes through `device-eligibility.ts` (`evaluateWithAnswers`).
 
 ## Data licenses and attributions
 
