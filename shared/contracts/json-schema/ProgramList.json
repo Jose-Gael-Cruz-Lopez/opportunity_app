@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ProgramList.json",
+  "title": "ProgramList",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "workspaceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 1000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "unlisted"
+      ]
+    },
+    "slug": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "token": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9A-Za-z]{20,32}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "restricted": {
+      "type": "boolean"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "programSlug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "cycleKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "programSlug",
+          "cycleKey",
+          "note",
+          "position"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 200
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "workspaceId",
+    "title",
+    "description",
+    "visibility",
+    "slug",
+    "token",
+    "restricted",
+    "items",
+    "updatedAt"
+  ],
+  "additionalProperties": false
+}

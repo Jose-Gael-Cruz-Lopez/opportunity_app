@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ReadinessExplainResponse.json",
+  "title": "ReadinessExplainResponse",
+  "type": "object",
+  "properties": {
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": [
+            "gemini",
+            "none"
+          ]
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 80
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "promptVersion": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "degraded",
+            "unavailable"
+          ]
+        },
+        "degradedReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "no_api_key",
+                "disabled",
+                "provider_error",
+                "timeout",
+                "rate_limited",
+                "budget_exceeded",
+                "validation_failed",
+                "citation_check_failed",
+                "safety_blocked"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fallback": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "promptVersion",
+        "status",
+        "degradedReason",
+        "generatedAt",
+        "fallback"
+      ],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "part": {
+            "type": "string",
+            "enum": [
+              "eligibility",
+              "requirements",
+              "competitiveness",
+              "next_actions"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 800
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^s\\d{1,3}$"
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "part",
+          "text",
+          "sourceIds"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 12
+    },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "nextActionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^s\\d{1,3}$"
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "text",
+          "nextActionId",
+          "sourceIds"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      },
+      "maxItems": 5
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "pattern": "^s\\d{1,3}$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "program_page",
+              "novus_record",
+              "readiness_report",
+              "methodology",
+              "student_text"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "sourceId",
+          "kind",
+          "title",
+          "url",
+          "quote"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "programCycleId",
+    "meta",
+    "summary",
+    "points",
+    "suggestions",
+    "caveats",
+    "citations"
+  ],
+  "additionalProperties": false
+}

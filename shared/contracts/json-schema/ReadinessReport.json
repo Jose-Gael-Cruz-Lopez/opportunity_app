@@ -1,0 +1,1110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ReadinessReport.json",
+  "title": "ReadinessReport",
+  "type": "object",
+  "properties": {
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "programSlug": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "cycleKey": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "algoVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "eligibility": {
+      "type": "object",
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "met",
+            "not_met",
+            "unknown"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "eligible",
+            "conditional",
+            "unknown",
+            "not_eligible"
+          ]
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ruleId": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_.:-]{0,79}$"
+              },
+              "dimension": {
+                "type": "string",
+                "enum": [
+                  "standing",
+                  "enrollment",
+                  "transfer",
+                  "gpa",
+                  "citizenship",
+                  "pell",
+                  "institution",
+                  "field",
+                  "identity",
+                  "age",
+                  "residency",
+                  "first_gen",
+                  "prior_award",
+                  "team",
+                  "host_enrollment"
+                ]
+              },
+              "group": {
+                "type": "string",
+                "maxLength": 40
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "met",
+                  "not_met",
+                  "unknown"
+                ]
+              },
+              "sensitive": {
+                "type": "boolean"
+              },
+              "reasonCode": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 400
+              },
+              "officialText": {
+                "type": "string",
+                "maxLength": 400
+              },
+              "missingFields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "classYear",
+                    "semestersRemaining",
+                    "yearsRemaining",
+                    "expectedGraduationTerm",
+                    "expectedGraduationYear",
+                    "enrollmentIntensity",
+                    "institutionLevel",
+                    "transferIntent",
+                    "gpaBand",
+                    "gpaMin",
+                    "gpaMax",
+                    "majorCip",
+                    "minorCip",
+                    "majorFamily",
+                    "residenceState",
+                    "ageAtAsOf",
+                    "institutionId",
+                    "institutionParticipates",
+                    "citizenship",
+                    "pell",
+                    "financialNeed",
+                    "firstGeneration",
+                    "identity.race_ethnicity",
+                    "identity.gender_identity",
+                    "identity.sexual_orientation",
+                    "identity.health",
+                    "identity.religion",
+                    "identity.tribal_affiliation",
+                    "identity.military_veteran",
+                    "identity.foster_care",
+                    "identity.crime_victim",
+                    "identity.parenting"
+                  ]
+                }
+              },
+              "resolver": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "student",
+                      "novus"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "evidenceKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^e\\d{1,3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "fieldEvidenceId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "basis": {
+                        "type": "string",
+                        "enum": [
+                          "snapshot",
+                          "attestation",
+                          "api_record",
+                          "manual_note"
+                        ]
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "maxLength": 2048
+                      },
+                      "quote": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 2000
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "retrievedOn": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "basis",
+                      "url",
+                      "quote",
+                      "retrievedOn"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "ruleId",
+              "dimension",
+              "group",
+              "verdict",
+              "sensitive",
+              "reasonCode",
+              "reason",
+              "officialText",
+              "missingFields",
+              "resolver",
+              "evidenceKey",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "pending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "rule",
+                  "attestation",
+                  "coverage",
+                  "rule_set_missing"
+                ]
+              },
+              "dimension": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "standing",
+                      "enrollment",
+                      "transfer",
+                      "gpa",
+                      "citizenship",
+                      "pell",
+                      "institution",
+                      "field",
+                      "identity",
+                      "age",
+                      "residency",
+                      "first_gen",
+                      "prior_award",
+                      "team",
+                      "host_enrollment"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sensitive": {
+                "type": "boolean"
+              },
+              "resolver": {
+                "type": "string",
+                "enum": [
+                  "student",
+                  "novus"
+                ]
+              },
+              "selfCheckText": {
+                "type": "string",
+                "maxLength": 400
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "dimension",
+              "sensitive",
+              "resolver",
+              "selfCheckText"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "nomination": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "nominator": {
+                  "type": "string",
+                  "enum": [
+                    "campus_rep",
+                    "faculty_rep",
+                    "department"
+                  ]
+                },
+                "campusDeadlineKinds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "application",
+                      "campus_internal",
+                      "nomination",
+                      "priority_round",
+                      "recommendation",
+                      "supplemental",
+                      "interest_form",
+                      "decision_expected",
+                      "program_start"
+                    ]
+                  },
+                  "maxItems": 5
+                },
+                "quota": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "base": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bonuses": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "if": {
+                                "type": "string",
+                                "maxLength": 80
+                              },
+                              "add": {
+                                "type": "integer",
+                                "minimum": 1
+                              }
+                            },
+                            "required": [
+                              "if",
+                              "add"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "maxItems": 5
+                        },
+                        "max": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "base",
+                        "bonuses",
+                        "max"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "evidenceKey": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^e\\d{1,3}$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "nominator",
+                "campusDeadlineKinds",
+                "quota",
+                "evidenceKey"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ruleSet": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "hash": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "version",
+                "hash"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basedOnListedRequirements": {
+          "type": "boolean"
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date"
+        },
+        "sensitiveEvaluated": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "verdict",
+        "status",
+        "rules",
+        "pending",
+        "nomination",
+        "ruleSet",
+        "basedOnListedRequirements",
+        "asOf",
+        "sensitiveEvaluated"
+      ],
+      "additionalProperties": false
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "checked": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "requirementId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "recommendation",
+                  "essay",
+                  "campus_nomination",
+                  "test_score",
+                  "portfolio",
+                  "resume",
+                  "transcript",
+                  "interview",
+                  "fee",
+                  "coursework",
+                  "gpa_floor",
+                  "other"
+                ]
+              },
+              "label": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "met",
+                  "in_progress",
+                  "gap",
+                  "unknown",
+                  "not_applicable"
+                ]
+              },
+              "gap": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "startBy": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "severity": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "late",
+                      "soon",
+                      "planned"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "effortHours": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "leadDays": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "fieldEvidenceId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "basis": {
+                        "type": "string",
+                        "enum": [
+                          "snapshot",
+                          "attestation",
+                          "api_record",
+                          "manual_note"
+                        ]
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "maxLength": 2048
+                      },
+                      "quote": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 2000
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "retrievedOn": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "basis",
+                      "url",
+                      "quote",
+                      "retrievedOn"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "key",
+              "requirementId",
+              "kind",
+              "label",
+              "quantity",
+              "state",
+              "gap",
+              "startBy",
+              "severity",
+              "effortHours",
+              "leadDays",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "effectiveDeadline": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "basis": {
+                  "type": "string",
+                  "enum": [
+                    "official",
+                    "attested",
+                    "estimated",
+                    "student_entered",
+                    "predicted"
+                  ]
+                },
+                "scope": {
+                  "type": "string",
+                  "enum": [
+                    "national",
+                    "campus"
+                  ]
+                },
+                "label": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "date",
+                "basis",
+                "scope",
+                "label"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "checked",
+        "items",
+        "effectiveDeadline"
+      ],
+      "additionalProperties": false
+    },
+    "competitiveness": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "available",
+            "official_odds_only",
+            "insufficient_data",
+            "not_applicable"
+          ]
+        },
+        "band": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "below_typical",
+                "typical",
+                "above_typical",
+                "same_for_everyone"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "official_counts",
+                "outcome_model",
+                "profile_signals",
+                "none"
+              ]
+            },
+            "summary": {
+              "type": "string",
+              "maxLength": 400
+            },
+            "stageOdds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "fromStage": {
+                    "type": "string",
+                    "enum": [
+                      "campus_applicants",
+                      "applicants",
+                      "nominees",
+                      "finalists",
+                      "awards",
+                      "alternates"
+                    ]
+                  },
+                  "toStage": {
+                    "type": "string",
+                    "enum": [
+                      "campus_applicants",
+                      "applicants",
+                      "nominees",
+                      "finalists",
+                      "awards",
+                      "alternates"
+                    ]
+                  },
+                  "cycleYear": {
+                    "type": "integer",
+                    "minimum": 1990,
+                    "maximum": 2100
+                  },
+                  "numerator": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "denominator": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0
+                  },
+                  "denominatorKind": {
+                    "type": "string",
+                    "enum": [
+                      "exact",
+                      "lower_bound",
+                      "approx"
+                    ]
+                  },
+                  "sourceUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "maxLength": 2048
+                  },
+                  "verifiedAt": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "verifiedBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 60
+                  }
+                },
+                "required": [
+                  "fromStage",
+                  "toStage",
+                  "cycleYear",
+                  "numerator",
+                  "denominator",
+                  "denominatorKind",
+                  "sourceUrl",
+                  "verifiedAt",
+                  "verifiedBy"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "currentStage": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "campus_applicants",
+                    "applicants",
+                    "nominees",
+                    "finalists",
+                    "awards",
+                    "alternates"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "factors": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "maxLength": 60
+                  },
+                  "label": {
+                    "type": "string",
+                    "maxLength": 200
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "helps",
+                      "hurts",
+                      "neutral"
+                    ]
+                  }
+                },
+                "required": [
+                  "code",
+                  "label",
+                  "direction"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 10
+            },
+            "reportsBanded": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "nEff": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cycles": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 10
+            },
+            "modelVersion": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "methodologyUrl": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "summary",
+            "stageOdds",
+            "currentStage",
+            "factors",
+            "reportsBanded",
+            "nEff",
+            "cycles",
+            "modelVersion",
+            "methodologyUrl"
+          ],
+          "additionalProperties": false
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "no_official_counts",
+                "new_program",
+                "too_few_reports",
+                "sensitive_program",
+                "profile_incomplete"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "band",
+        "basis",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "nextActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 400
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dueOn": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "severity": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "late",
+                  "soon",
+                  "planned"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "gap",
+              "eligibility_unknown",
+              "nomination",
+              "roadmap",
+              "deadline"
+            ]
+          },
+          "roadmapItemKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "relatesTo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "detail",
+          "dueOn",
+          "severity",
+          "source",
+          "roadmapItemKey",
+          "relatesTo"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "programCycleId",
+    "programSlug",
+    "cycleKey",
+    "algoVersion",
+    "generatedAt",
+    "eligibility",
+    "requirements",
+    "competitiveness",
+    "nextActions"
+  ],
+  "additionalProperties": false
+}
