@@ -1,0 +1,259 @@
+# Novus app Worker: one config for local dev, staging and production.
+#
+#   local       npx wrangler dev --config infra/wrangler/wrangler.toml          (top level)
+#   staging     npx wrangler deploy --config infra/wrangler/wrangler.toml --env staging
+#   production  npx wrangler deploy --config infra/wrangler/wrangler.toml --env production
+#
+# Bindings are not inherited by [env.*] tables in Wrangler, so each environment repeats them.
+# Paths are relative to this file. Resource ids are placeholders: run `wrangler d1 create`
+# (docs/deploy.md) and paste the ids in. D1 and R2 ids are not secrets, but secrets
+# (GEMINI_API_KEY, BETTER_AUTH_SECRET, INTERNAL_HMAC_KEYS, SENTRY_DSN) never go in this file:
+# use `wrangler secret put` remotely and `.dev.vars` locally.
+#
+# `npm run check:infra` (infra/scripts/check-config.ts) fails CI when a production id appears in
+# staging or in a previews block, or when production exposes workers.dev or version URLs.
+
+name = "novus-app-local"
+main = "../../server/worker.ts"
+compatibility_date = "2026-11-01"
+# Better Auth and a few libraries use node:crypto / AsyncLocalStorage.
+compatibility_flags = ["nodejs_compat"]
+# Local dev never gets a public workers.dev hostname.
+workers_dev = false
+preview_urls = false
+
+[vars]
+APP_ORIGIN = "http://localhost:8787"
+ENVIRONMENT = "local"
+GEMINI_MODEL = "gemini-3.5-flash-lite"
+# Kill switch read by server/ai: "true" stops every model call (responses degrade, never fail).
+AI_DISABLED = "false"
+
+# Vite builds the SPA into dist/public (vite.config.ts). The Worker runs first for every path
+# except hashed build output, so /app/* gets the security headers and CSP from Hono.
+[assets]
+directory = "../../dist/public"
+binding = "ASSETS"
+run_worker_first = ["/*", "!/assets/*"]
+not_found_handling = "none"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "novus-main"
+database_id = "00000000-0000-4000-8000-000000000001" # local only; any id works with --local
+migrations_dir = "../../server/db/migrations"
+
+[[d1_databases]]
+binding = "EVENTS_DB"
+database_name = "novus-events"
+database_id = "00000000-0000-4000-8000-000000000002" # local only
+migrations_dir = "../../server/db/migrations-events"
+
+# One bucket, prefixes snapshots/, releases/, cards/, ledger/, backups/.
+[[r2_buckets]]
+binding = "STORE"
+bucket_name = "novus-store-local"
+
+# Cloudflare Email Sending. Locally, wrangler dev writes messages to disk instead of sending.
+[[send_email]]
+name = "EMAIL"
+
+# Worker Cron Triggers are the only clock (no GitHub Actions cron). server/jobs/runScheduled
+# switches on controller.cron, so these strings are a contract with server/jobs:
+#   "*/5 * * * *"  tick: light kinds (notify.dispatch, alerts.match, sources.enqueue_due)
+#   "0 * * * *"    hourly: CPU-heavy kinds (reminders.schedule, sweep, cards.render, ...)
+#   "0 8 * * *"    daily slot at 08:00 UTC (growth.*, registry.snapshot, audit.*, ...)
+# Locally: wrangler dev --test-scheduled, then curl "http://localhost:8787/__scheduled?cron=*/5+*+*+*+*"
+[triggers]
+crons = ["*/5 * * * *", "0 * * * *", "0 8 * * *"]
+
+# Invocation logs record each request's full URL, and paths carry bearer tokens
+# (/cal/u/{token}.ics, /e/u/{token}). Keep only the sanitized lines server/lib/log.ts writes,
+# and strip query strings (search terms) from anything the platform records.
+[observability]
+enabled = true
+head_sampling_rate = 1
+redact_query_string = true
+
+[observability.logs]
+enabled = true
+invocation_logs = false
+
+# The tick may use up to 30 s of CPU; hourly and daily invocations get the plan maximum.
+[limits]
+cpu_ms = 300000
+
+[dev]
+ip = "127.0.0.1" # localhost-only dev server
+port = 8787
+local_protocol = "http"
+
+# ---------------------------------------------------------------------------------------------
+# Staging: branch builds of `main`, synthetic users only, behind Cloudflare Access, noindex.
+# ---------------------------------------------------------------------------------------------
+[env.staging]
+name = "novus-app-staging"
+workers_dev = false
+preview_urls = false
+# routes = [{ pattern = "staging.YOUR_DOMAIN/*", zone_name = "YOUR_DOMAIN" }]
+# Curator console (staff only, behind a Cloudflare Access application); /curate/* answers 404
+# on any other hostname outside local:
+# routes = [{ pattern = "curate.staging.YOUR_DOMAIN/*", zone_name = "YOUR_DOMAIN" }]
+
+[env.staging.vars]
+APP_ORIGIN = "https://staging.example.org"
+ENVIRONMENT = "staging"
+GEMINI_MODEL = "gemini-3.5-flash-lite"
+AI_DISABLED = "false"
+# Public Turnstile site key (not a secret; TURNSTILE_SECRET_KEY is a wrangler secret). Empty until
+# the widget exists, so GET /api/v1/turnstile reports siteKey null.
+TURNSTILE_SITE_KEY = ""
+
+[env.staging.assets]
+directory = "../../dist/public"
+binding = "ASSETS"
+run_worker_first = ["/*", "!/assets/*"]
+not_found_handling = "none"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "novus-main-staging"
+database_id = "REPLACE_WITH_STAGING_NOVUS_MAIN_ID"
+migrations_dir = "../../server/db/migrations"
+
+[[env.staging.d1_databases]]
+binding = "EVENTS_DB"
+database_name = "novus-events-staging"
+database_id = "REPLACE_WITH_STAGING_NOVUS_EVENTS_ID"
+migrations_dir = "../../server/db/migrations-events"
+
+[[env.staging.r2_buckets]]
+binding = "STORE"
+bucket_name = "novus-store-staging"
+
+[[env.staging.send_email]]
+name = "EMAIL"
+
+# Workers rate limiting (optional in server/env.ts; absent locally, where server code falls back).
+# namespace_id values are account-unique integers chosen here; staging and production differ.
+[[env.staging.ratelimits]]
+name = "RATE_LIMIT_PUBLIC" # anonymous public API, per client IP
+namespace_id = "2001"
+simple = { limit = 120, period = 60 }
+
+[[env.staging.ratelimits]]
+name = "RATE_LIMIT_SEND" # mail-sending endpoints, per client IP
+namespace_id = "2002"
+# 2 a minute (plan 2.3.10): the binding counts only 10- or 60-second periods.
+simple = { limit = 2, period = 60 }
+
+[[env.staging.ratelimits]]
+name = "RATE_LIMIT_AI" # assistant endpoints, per user
+namespace_id = "2003"
+simple = { limit = 10, period = 60 }
+
+[[env.staging.ratelimits]]
+name = "ONBOARDING_AI_RATE_LIMITER" # onboarding resume extraction
+namespace_id = "2004"
+simple = { limit = 5, period = 60 }
+
+[env.staging.triggers]
+crons = ["*/5 * * * *", "0 * * * *", "0 8 * * *"]
+
+# Same as the top level: no invocation logs (URLs carry tokens), no query strings.
+[env.staging.observability]
+enabled = true
+head_sampling_rate = 1
+redact_query_string = true
+
+[env.staging.observability.logs]
+enabled = true
+invocation_logs = false
+
+[env.staging.limits]
+cpu_ms = 300000
+
+# ---------------------------------------------------------------------------------------------
+# Production: deployed only from the protected `release` branch, migrations first.
+# Version URLs and workers.dev stay off: they would serve production data on public hostnames.
+# ---------------------------------------------------------------------------------------------
+[env.production]
+name = "novus-app"
+workers_dev = false
+preview_urls = false
+# routes = [{ pattern = "YOUR_DOMAIN/*", zone_name = "YOUR_DOMAIN" }]
+# Curator console (staff only, behind a Cloudflare Access application):
+# routes = [{ pattern = "curate.YOUR_DOMAIN/*", zone_name = "YOUR_DOMAIN" }]
+
+[env.production.vars]
+APP_ORIGIN = "https://novus.example.org"
+ENVIRONMENT = "production"
+GEMINI_MODEL = "gemini-3.5-flash-lite"
+AI_DISABLED = "false"
+# Public Turnstile site key (not a secret; TURNSTILE_SECRET_KEY is a wrangler secret). Empty until
+# the widget exists, so GET /api/v1/turnstile reports siteKey null.
+TURNSTILE_SITE_KEY = ""
+
+[env.production.assets]
+directory = "../../dist/public"
+binding = "ASSETS"
+run_worker_first = ["/*", "!/assets/*"]
+not_found_handling = "none"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "novus-main"
+database_id = "REPLACE_WITH_PRODUCTION_NOVUS_MAIN_ID"
+migrations_dir = "../../server/db/migrations"
+
+[[env.production.d1_databases]]
+binding = "EVENTS_DB"
+database_name = "novus-events"
+database_id = "REPLACE_WITH_PRODUCTION_NOVUS_EVENTS_ID"
+migrations_dir = "../../server/db/migrations-events"
+
+[[env.production.r2_buckets]]
+binding = "STORE"
+bucket_name = "novus-store"
+
+[[env.production.send_email]]
+name = "EMAIL"
+
+# Workers rate limiting (optional in server/env.ts; absent locally, where server code falls back).
+# namespace_id values are account-unique integers chosen here; staging and production differ.
+[[env.production.ratelimits]]
+name = "RATE_LIMIT_PUBLIC" # anonymous public API, per client IP
+namespace_id = "1001"
+simple = { limit = 120, period = 60 }
+
+[[env.production.ratelimits]]
+name = "RATE_LIMIT_SEND" # mail-sending endpoints, per client IP
+namespace_id = "1002"
+# 2 a minute (plan 2.3.10): the binding counts only 10- or 60-second periods.
+simple = { limit = 2, period = 60 }
+
+[[env.production.ratelimits]]
+name = "RATE_LIMIT_AI" # assistant endpoints, per user
+namespace_id = "1003"
+simple = { limit = 10, period = 60 }
+
+[[env.production.ratelimits]]
+name = "ONBOARDING_AI_RATE_LIMITER" # onboarding resume extraction
+namespace_id = "1004"
+simple = { limit = 5, period = 60 }
+
+[env.production.triggers]
+crons = ["*/5 * * * *", "0 * * * *", "0 8 * * *"]
+
+# Same as the top level: no invocation logs (URLs carry tokens), no query strings.
+[env.production.observability]
+enabled = true
+head_sampling_rate = 1
+redact_query_string = true
+
+[env.production.observability.logs]
+enabled = true
+invocation_logs = false
+
+[env.production.limits]
+cpu_ms = 300000
