@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Verification.json",
+  "title": "Verification",
+  "type": "object",
+  "properties": {
+    "entityType": {
+      "type": "string",
+      "enum": [
+        "program",
+        "program_cycle",
+        "deadline",
+        "requirement",
+        "eligibility_rule_set",
+        "program_cycle_count",
+        "institution_participation",
+        "organization",
+        "official_domain"
+      ]
+    },
+    "entityId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "verified",
+        "reverifying",
+        "unverified"
+      ]
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "curator_review",
+        "second_review",
+        "api_record",
+        "bulk_unchanged"
+      ]
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verifiedBy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "maxItems": 100
+    },
+    "note": {
+      "type": "string",
+      "maxLength": 500
+    }
+  },
+  "required": [
+    "entityType",
+    "entityId",
+    "state",
+    "method",
+    "verifiedAt",
+    "verifiedBy",
+    "evidenceIds"
+  ],
+  "additionalProperties": false
+}
