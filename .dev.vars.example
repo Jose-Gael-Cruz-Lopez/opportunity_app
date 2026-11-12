@@ -1,0 +1,24 @@
+# Local secrets for `wrangler dev`. Copy to .dev.vars (git-ignored) and fill in your own values.
+# This repository is public: never commit .dev.vars or real keys. Staging and production use
+# `npx wrangler secret put NAME --config infra/wrangler/wrangler.toml --env <staging|production>`.
+
+# Google Gemini key for the readiness assistant (server/ai). Leave as is to run without AI:
+# every AI response then degrades to its deterministic fallback.
+GEMINI_API_KEY=your-gemini-key-here
+
+# Better Auth signing secret, at least 32 random bytes. Generate: openssl rand -base64 32
+BETTER_AUTH_SECRET=your-better-auth-secret
+
+# Internal API HMAC keys as a JSON object keyId -> secret (one per pipeline key id).
+# Generate each secret with: openssl rand -hex 32
+INTERNAL_HMAC_KEYS={"fetch":"your-fetch-hmac-secret"}
+
+# Optional: Turnstile server secret. Cloudflare publishes always-pass test keys for local use.
+TURNSTILE_SECRET_KEY=
+
+# Optional: Sentry DSN for server errors. Empty disables Sentry.
+SENTRY_DSN=
+
+# Non-secret overrides (defaults live in infra/wrangler/wrangler.toml [vars]).
+# GEMINI_MODEL=gemini-3.5-flash-lite
+# AI_DISABLED=false
