@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Program.json",
+  "title": "Program",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "organizationId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 600
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "officialUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "recurrence": {
+      "type": "string",
+      "enum": [
+        "annual",
+        "biannual",
+        "rolling",
+        "one_time",
+        "irregular"
+      ]
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "ended",
+        "merged"
+      ]
+    },
+    "opportunityTypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "summer_internship",
+          "off_cycle_internship",
+          "new_grad_rotational",
+          "early_career_exposure",
+          "uk_spring_week",
+          "sprinternship",
+          "externship_shadowing",
+          "micro_internship",
+          "virtual_job_simulation",
+          "apprenticeship",
+          "undergraduate_fellowship",
+          "graduate_fellowship",
+          "national_scholarship",
+          "private_scholarship",
+          "institutional_scholarship",
+          "service_scholarship",
+          "grant",
+          "research_program",
+          "pipeline_program",
+          "leadership_cohort",
+          "affinity_community",
+          "conference_travel",
+          "competition",
+          "open_source_mentorship",
+          "study_abroad_language",
+          "government_service",
+          "service_year",
+          "accelerator_founder",
+          "campus_ambassador",
+          "campus_job",
+          "paid_training",
+          "gap_year",
+          "high_school_pathway"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 5
+    },
+    "sensitiveAudience": {
+      "type": "boolean"
+    },
+    "identityAudience": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "race_ethnicity",
+          "gender_identity",
+          "sexual_orientation",
+          "health",
+          "religion",
+          "tribal_affiliation",
+          "military_veteran",
+          "foster_care",
+          "crime_victim",
+          "parenting"
+        ]
+      },
+      "maxItems": 10
+    },
+    "majorFamilies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "agriculture_environment",
+          "arts_design",
+          "business",
+          "communication_media",
+          "computing",
+          "education",
+          "engineering_technology",
+          "health",
+          "humanities_languages",
+          "life_sciences",
+          "math_statistics",
+          "physical_sciences",
+          "social_sciences",
+          "law_policy_service",
+          "trades_applied",
+          "undeclared"
+        ]
+      },
+      "maxItems": 16,
+      "default": []
+    },
+    "interestTags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+      },
+      "maxItems": 20,
+      "default": []
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      },
+      "maxItems": 20,
+      "default": []
+    },
+    "isWedge": {
+      "type": "boolean",
+      "default": false
+    },
+    "isPublished": {
+      "type": "boolean"
+    },
+    "isSample": {
+      "type": "boolean",
+      "default": false
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "id",
+    "slug",
+    "name",
+    "organizationId",
+    "summary",
+    "officialUrl",
+    "recurrence",
+    "lifecycle",
+    "opportunityTypes",
+    "sensitiveAudience",
+    "identityAudience",
+    "isPublished",
+    "version"
+  ],
+  "additionalProperties": false
+}
