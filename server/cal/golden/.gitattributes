@@ -1,0 +1,2 @@
+# Golden ICS files must keep their CRLF line endings byte for byte.
+*.ics -text
