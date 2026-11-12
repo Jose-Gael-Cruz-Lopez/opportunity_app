@@ -1,0 +1,8 @@
+{
+  "_note": "Hand-written in the documented Interactions API shape; status incomplete means max_output_tokens was reached.",
+  "id": "int_sample_0002",
+  "model": "gemini-3.5-flash-lite",
+  "status": "incomplete",
+  "steps": [{ "type": "model_output", "content": [{ "type": "text", "text": "{\"summary\":\"You meet" }] }],
+  "usage": { "total_input_tokens": 1820, "total_output_tokens": 1500, "total_thought_tokens": 0, "total_cached_tokens": 0, "total_tokens": 3320 }
+}

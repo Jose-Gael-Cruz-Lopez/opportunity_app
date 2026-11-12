@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ProgramCycleCount.json",
+  "title": "ProgramCycleCount",
+  "type": "object",
+  "properties": {
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "campus_applicants",
+        "applicants",
+        "nominees",
+        "finalists",
+        "awards",
+        "alternates"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "lower_bound",
+        "approx"
+      ]
+    },
+    "provenance": {
+      "type": "string",
+      "enum": [
+        "official_publication",
+        "owner_reported"
+      ]
+    },
+    "asOf": {
+      "type": "string",
+      "format": "date"
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "fieldEvidenceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "basis": {
+              "type": "string",
+              "enum": [
+                "snapshot",
+                "attestation",
+                "api_record",
+                "manual_note"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 2048
+            },
+            "quote": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "retrievedOn": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "basis",
+            "url",
+            "quote",
+            "retrievedOn"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "programCycleId",
+    "stage",
+    "count",
+    "kind",
+    "provenance",
+    "asOf",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/SearchRequest.json",
+  "title": "SearchRequest",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "filters": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summer_internship",
+              "off_cycle_internship",
+              "new_grad_rotational",
+              "early_career_exposure",
+              "uk_spring_week",
+              "sprinternship",
+              "externship_shadowing",
+              "micro_internship",
+              "virtual_job_simulation",
+              "apprenticeship",
+              "undergraduate_fellowship",
+              "graduate_fellowship",
+              "national_scholarship",
+              "private_scholarship",
+              "institutional_scholarship",
+              "service_scholarship",
+              "grant",
+              "research_program",
+              "pipeline_program",
+              "leadership_cohort",
+              "affinity_community",
+              "conference_travel",
+              "competition",
+              "open_source_mentorship",
+              "study_abroad_language",
+              "government_service",
+              "service_year",
+              "accelerator_founder",
+              "campus_ambassador",
+              "campus_job",
+              "paid_training",
+              "gap_year",
+              "high_school_pathway"
+            ]
+          },
+          "maxItems": 33
+        },
+        "classYears": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "incoming_first_year",
+              "first_year",
+              "second_year",
+              "third_year",
+              "fourth_year",
+              "fifth_year_plus",
+              "recent_graduate",
+              "graduate"
+            ]
+          },
+          "maxItems": 8
+        },
+        "majorFamilies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "agriculture_environment",
+              "arts_design",
+              "business",
+              "communication_media",
+              "computing",
+              "education",
+              "engineering_technology",
+              "health",
+              "humanities_languages",
+              "life_sciences",
+              "math_statistics",
+              "physical_sciences",
+              "social_sciences",
+              "law_policy_service",
+              "trades_applied",
+              "undeclared"
+            ]
+          },
+          "maxItems": 16
+        },
+        "statuses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "expected",
+              "open",
+              "closed",
+              "paused",
+              "ended",
+              "relaunched"
+            ]
+          },
+          "maxItems": 6
+        }
+      },
+      "additionalProperties": false,
+      "default": {}
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 25,
+      "default": 10
+    },
+    "cursor": {
+      "type": "string",
+      "maxLength": 512
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "additionalProperties": false
+}

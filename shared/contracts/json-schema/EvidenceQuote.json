@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/EvidenceQuote.json",
+  "title": "EvidenceQuote",
+  "type": "object",
+  "properties": {
+    "fieldEvidenceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "snapshot",
+        "attestation",
+        "api_record",
+        "manual_note"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "quote": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 2000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "retrievedOn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "basis",
+    "url",
+    "quote",
+    "retrievedOn"
+  ],
+  "additionalProperties": false
+}

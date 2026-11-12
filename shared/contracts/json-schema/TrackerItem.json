@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/TrackerItem.json",
+  "title": "TrackerItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "programSlug": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "cycleKey": {
+      "type": "string",
+      "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "interested",
+        "applying",
+        "submitted",
+        "decided",
+        "not_applying"
+      ]
+    },
+    "statusSource": {
+      "type": "string",
+      "enum": [
+        "student",
+        "email_action",
+        "system"
+      ]
+    },
+    "ownCampusDeadline": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "submittedOn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nameInMessages": {
+      "type": "boolean"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "id",
+    "programCycleId",
+    "programSlug",
+    "cycleKey",
+    "status",
+    "statusSource",
+    "ownCampusDeadline",
+    "submittedOn",
+    "nameInMessages",
+    "createdAt",
+    "updatedAt",
+    "version"
+  ],
+  "additionalProperties": false
+}

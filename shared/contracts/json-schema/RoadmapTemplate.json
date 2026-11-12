@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/RoadmapTemplate.json",
+  "title": "RoadmapTemplate",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "path": {
+      "type": "string",
+      "enum": [
+        "four_year",
+        "two_year_transfer",
+        "two_year_career"
+      ]
+    },
+    "majorFamilies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "agriculture_environment",
+          "arts_design",
+          "business",
+          "communication_media",
+          "computing",
+          "education",
+          "engineering_technology",
+          "health",
+          "humanities_languages",
+          "life_sciences",
+          "math_statistics",
+          "physical_sciences",
+          "social_sciences",
+          "law_policy_service",
+          "trades_applied",
+          "undeclared"
+        ]
+      },
+      "maxItems": 16
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 400
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "termIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          },
+          "programCycleId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "detail",
+          "termIndex",
+          "programCycleId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "prepare": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 400
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "termIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          },
+          "programCycleId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "detail",
+          "termIndex",
+          "programCycleId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "featuredProgramSlugs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "maxItems": 30
+    },
+    "applyItemsPerTerm": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 4
+    },
+    "isSample": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "key",
+    "path",
+    "majorFamilies",
+    "milestones",
+    "prepare",
+    "featuredProgramSlugs"
+  ],
+  "additionalProperties": false
+}

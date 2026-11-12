@@ -1,0 +1,2829 @@
+{
+  "$comment": "Golden eligibility cases (sample data, hand-labelled). Shared by the TS runners (node now; workerd and browsers once configured) and the Python pipeline. Cases with a `device` block hold synthetic sensitive answers and run only where runtimes allows (browser, node); every runner derives a redacted twin without them and checks it never contradicts the full result. Rule sets live in rule-sets.json; contexts below are EvalContext objects.",
+  "format": "jsonlogic-v1",
+  "engineMin": "1.0.0",
+  "sample": true,
+  "contexts": {
+    "semester-participating": {
+      "anchors": {
+        "program_start": "2027-09-01",
+        "national_deadline": "2027-01-29",
+        "campus_deadline": "2026-12-01"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": true
+      }
+    },
+    "semester-no-program-start": {
+      "anchors": {
+        "national_deadline": "2027-01-29"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": true
+      }
+    },
+    "quarter-participating": {
+      "anchors": {
+        "program_start": "2027-09-01",
+        "national_deadline": "2027-01-29"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "quarter",
+        "academicYearStartMonth": 9,
+        "participates": true
+      }
+    },
+    "semester-not-listed": {
+      "anchors": {
+        "program_start": "2027-09-01"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": null
+      }
+    },
+    "no-institution": {
+      "anchors": {
+        "program_start": "2027-09-01"
+      },
+      "institution": null
+    },
+    "four-year-deadline": {
+      "anchors": {
+        "national_deadline": "2027-02-01"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": null
+      }
+    },
+    "two-year-deadline": {
+      "anchors": {
+        "national_deadline": "2027-02-01"
+      },
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "two_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": null
+      }
+    },
+    "four-year-no-deadline": {
+      "anchors": {},
+      "institution": {
+        "id": "00000000-0000-4000-8000-000000000301",
+        "level": "four_year",
+        "calendar": "semester",
+        "academicYearStartMonth": 8,
+        "participates": null
+      }
+    },
+    "empty": {
+      "anchors": {},
+      "institution": null
+    }
+  },
+  "cases": [
+    {
+      "id": "semester-may2029-server",
+      "sample": true,
+      "tags": [
+        "standing",
+        "semester",
+        "sensitive-split"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "semester-may2029-device-eligible",
+      "sample": true,
+      "tags": [
+        "standing",
+        "device",
+        "attestation"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "us_citizen"
+        },
+        "attestations": {
+          "prior-award": true
+        }
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "met",
+          "institution": "met",
+          "prior-award": "met"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "MET",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_CONFIRMED"
+        },
+        "pending": [],
+        "basedOnListedRequirements": true
+      }
+    },
+    {
+      "id": "semester-dec2027-graduate",
+      "sample": true,
+      "tags": [
+        "standing",
+        "semester"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "third_year",
+        "expectedGraduationTerm": "fall-2027",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "semester-may2027-graduate-no",
+      "sample": true,
+      "tags": [
+        "standing",
+        "semester",
+        "false-yes-guard"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "fourth_year",
+        "expectedGraduationTerm": "spring-2027",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "not_met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "NOT_MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "semester-may2030-too-many-left",
+      "sample": true,
+      "tags": [
+        "standing",
+        "semester"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "first_year",
+        "expectedGraduationTerm": "spring-2030",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "not_met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "NOT_MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "semester-five-year-engineer-no",
+      "sample": true,
+      "tags": [
+        "standing",
+        "semester"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2030",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "not_met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "NOT_MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "semester-missing-grad-term",
+      "sample": true,
+      "tags": [
+        "standing",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "unknown",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MISSING_FIELD",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ],
+          "standing": [
+            "expectedGraduationTerm"
+          ]
+        },
+        "pending": [
+          {
+            "id": "standing",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "semester-enrollment-not-sure",
+      "sample": true,
+      "tags": [
+        "enrollment",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "not_sure"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "met",
+          "enrollment": "unknown",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MISSING_FIELD",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ],
+          "enrollment": [
+            "enrollmentIntensity"
+          ]
+        },
+        "pending": [
+          {
+            "id": "enrollment",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "semester-anchor-missing-novus",
+      "sample": true,
+      "tags": [
+        "standing",
+        "context"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-no-program-start",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {
+          "standing": "unknown",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "CONTEXT_MISSING",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "standing",
+            "kind": "rule",
+            "resolver": "novus",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "quarter-three-left-unknown",
+      "sample": true,
+      "tags": [
+        "standing",
+        "quarter"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "quarter-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "third_year",
+        "expectedGraduationTerm": "spring-2028",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "unknown",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "CALENDAR_CONVERSION",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "standing",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "quarter-six-left-unknown",
+      "sample": true,
+      "tags": [
+        "standing",
+        "quarter"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "quarter-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "unknown",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "CALENDAR_CONVERSION",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "standing",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "quarter-nine-left-no",
+      "sample": true,
+      "tags": [
+        "standing",
+        "quarter"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "quarter-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "first_year",
+        "expectedGraduationTerm": "spring-2030",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "not_met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "NOT_MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "participation-unconfirmed",
+      "sample": true,
+      "tags": [
+        "institution",
+        "participation"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-not-listed",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "unknown",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "PARTICIPATION_UNCONFIRMED",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "pending": [
+          {
+            "id": "institution",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "no-institution-on-profile",
+      "sample": true,
+      "tags": [
+        "institution",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "no-institution",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "unknown",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "unknown",
+          "prior-award": "unknown"
+        },
+        "reasonCodes": {
+          "standing": "MISSING_FIELD",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_ON_DEVICE",
+          "institution": "MISSING_FIELD",
+          "prior-award": "ATTESTATION_ON_DEVICE"
+        },
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ],
+          "standing": [
+            "institutionId"
+          ],
+          "institution": [
+            "institutionId"
+          ]
+        },
+        "pending": [
+          {
+            "id": "standing",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "institution",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "prior-award",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "device-f1-not-eligible",
+      "sample": true,
+      "tags": [
+        "citizenship",
+        "device",
+        "f1-vs-j1"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "f1"
+        },
+        "attestations": {
+          "prior-award": true
+        }
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "not_met",
+          "institution": "met",
+          "prior-award": "met"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "NOT_MET",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_CONFIRMED"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "device-citizenship-prefer-not",
+      "sample": true,
+      "tags": [
+        "citizenship",
+        "device",
+        "prefer-not"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "prefer_not"
+        },
+        "attestations": {
+          "prior-award": true
+        }
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "unknown",
+          "institution": "met",
+          "prior-award": "met"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "SENSITIVE_UNANSWERED",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_CONFIRMED"
+        },
+        "missingFields": {
+          "citizenship": [
+            "citizenship"
+          ]
+        },
+        "pending": [
+          {
+            "id": "citizenship",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "device-attestation-declined",
+      "sample": true,
+      "tags": [
+        "attestation",
+        "device"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-semester-standing",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029",
+        "enrollmentIntensity": "full_time"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "permanent_resident"
+        },
+        "attestations": {
+          "prior-award": false
+        }
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "standing": "met",
+          "enrollment": "met",
+          "citizenship": "met",
+          "institution": "met",
+          "prior-award": "not_met"
+        },
+        "reasonCodes": {
+          "standing": "MET",
+          "enrollment": "MET",
+          "citizenship": "MET",
+          "institution": "MET",
+          "prior-award": "ATTESTATION_DECLINED"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "gpa-field-age-all-met",
+      "sample": true,
+      "tags": [
+        "gpa",
+        "field",
+        "age",
+        "any-of",
+        "none-stated"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": true
+      }
+    },
+    {
+      "id": "gpa-band-straddles-floor",
+      "sample": true,
+      "tags": [
+        "gpa",
+        "straddle"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_25_to_3_49",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "unknown",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "STRADDLES_LIMIT",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "gpa-floor",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "gpa-band-below-floor",
+      "sample": true,
+      "tags": [
+        "gpa"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_0_to_3_24",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "not_met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "NOT_MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "gpa-prefer-not",
+      "sample": true,
+      "tags": [
+        "gpa",
+        "prefer-not"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "prefer_not",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "unknown",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MISSING_FIELD",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "missingFields": {
+          "gpa-floor": [
+            "gpaBand"
+          ]
+        },
+        "pending": [
+          {
+            "id": "gpa-floor",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "interdisciplinary-major-borderline",
+      "sample": true,
+      "tags": [
+        "field",
+        "borderline"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "30.7001",
+        "majorFamily": null,
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "unknown",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "BORDERLINE_FIELD",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "stem-major",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "public-health-on-borderline-list",
+      "sample": true,
+      "tags": [
+        "field",
+        "borderline"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "51.2201",
+        "majorFamily": "health",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "unknown",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "BORDERLINE_FIELD",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "stem-major",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "business-major-not-met",
+      "sample": true,
+      "tags": [
+        "field"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "52.0201",
+        "majorFamily": "business",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "not_met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "NOT_MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "undeclared-major",
+      "sample": true,
+      "tags": [
+        "field",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": null,
+        "majorFamily": "undeclared",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "unknown",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MISSING_FIELD",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "missingFields": {
+          "stem-major": [
+            "majorCip"
+          ]
+        },
+        "pending": [
+          {
+            "id": "stem-major",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "birth-month-straddles-age",
+      "sample": true,
+      "tags": [
+        "age",
+        "straddle"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2009-02",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "unknown",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "STRADDLES_LIMIT",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "age-18",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "age-18-by-deadline",
+      "sample": true,
+      "tags": [
+        "age"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2008-12",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": true
+      }
+    },
+    {
+      "id": "age-17-at-deadline",
+      "sample": true,
+      "tags": [
+        "age"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2009-03",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "not_met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "NOT_MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "age-missing-birth-month",
+      "sample": true,
+      "tags": [
+        "age",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": null,
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "unknown",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MISSING_FIELD",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "missingFields": {
+          "age-18": [
+            "ageAtAsOf"
+          ]
+        },
+        "pending": [
+          {
+            "id": "age-18",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "age-deadline-unknown-novus",
+      "sample": true,
+      "tags": [
+        "age",
+        "context"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-no-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "unknown",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "CONTEXT_MISSING",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "age-18",
+            "kind": "rule",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "cc-sophomore-planning-transfer",
+      "sample": true,
+      "tags": [
+        "any-of",
+        "transfer"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "two-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "second_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "planning_to_transfer"
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "not_met",
+          "transfer-bound": "met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "NOT_MET",
+          "transfer-bound": "MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": true
+      }
+    },
+    {
+      "id": "cc-not-planning-transfer",
+      "sample": true,
+      "tags": [
+        "any-of",
+        "transfer"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "two-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "not_met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "NOT_MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "cc-transfer-not-sure",
+      "sample": true,
+      "tags": [
+        "any-of",
+        "transfer",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "two-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "first_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_sure"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "class-year": "met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "not_met",
+          "transfer-bound": "unknown"
+        },
+        "reasonCodes": {
+          "class-year": "MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "NOT_MET",
+          "transfer-bound": "MISSING_FIELD"
+        },
+        "missingFields": {
+          "transfer-bound": [
+            "transferIntent"
+          ]
+        },
+        "pending": [
+          {
+            "id": "transfer-bound",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "third-year-not-eligible",
+      "sample": true,
+      "tags": [
+        "standing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-gpa-field-age",
+      "context": "four-year-deadline",
+      "asOf": "2026-11-11",
+      "profile": {
+        "classYear": "third_year",
+        "gpaBand": "3_5_to_3_74",
+        "majorCip": "11.0701",
+        "majorFamily": "computing",
+        "birthYearMonth": "2007-05",
+        "transferIntent": "not_planning"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "class-year": "not_met",
+          "gpa-floor": "met",
+          "stem-major": "met",
+          "age-18": "met",
+          "four-year": "met",
+          "transfer-bound": "not_met"
+        },
+        "reasonCodes": {
+          "class-year": "NOT_MET",
+          "gpa-floor": "MET",
+          "stem-major": "MET",
+          "age-18": "MET",
+          "four-year": "MET",
+          "transfer-bound": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "identity-pell-server-self-check",
+      "sample": true,
+      "tags": [
+        "identity",
+        "pell",
+        "sensitive-split"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-identity-pell",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "gender": "unknown",
+          "pell": "unknown",
+          "community-member": "unknown"
+        },
+        "reasonCodes": {
+          "gender": "SENSITIVE_ON_DEVICE",
+          "pell": "SENSITIVE_ON_DEVICE",
+          "community-member": "ATTESTATION_ON_DEVICE"
+        },
+        "missingFields": {
+          "gender": [
+            "identity.gender_identity"
+          ],
+          "pell": [
+            "pell"
+          ]
+        },
+        "pending": [
+          {
+            "id": "gender",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "pell",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "community-member",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": true
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "identity-pell-device-eligible",
+      "sample": true,
+      "tags": [
+        "identity",
+        "pell",
+        "device"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-identity-pell",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "device": {
+        "answers": {
+          "identity": {
+            "gender_identity": [
+              "woman"
+            ]
+          },
+          "pell": "recipient"
+        },
+        "attestations": {
+          "community-member": true
+        }
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "gender": "met",
+          "pell": "met",
+          "community-member": "met"
+        },
+        "reasonCodes": {
+          "gender": "MET",
+          "pell": "MET",
+          "community-member": "ATTESTATION_CONFIRMED"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "identity-prefer-not",
+      "sample": true,
+      "tags": [
+        "identity",
+        "device",
+        "prefer-not"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-identity-pell",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "device": {
+        "answers": {
+          "identity": {
+            "gender_identity": [
+              "prefer_not"
+            ]
+          },
+          "pell": "recipient"
+        },
+        "attestations": {
+          "community-member": true
+        }
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "gender": "unknown",
+          "pell": "met",
+          "community-member": "met"
+        },
+        "reasonCodes": {
+          "gender": "SENSITIVE_UNANSWERED",
+          "pell": "MET",
+          "community-member": "ATTESTATION_CONFIRMED"
+        },
+        "missingFields": {
+          "gender": [
+            "identity.gender_identity"
+          ]
+        },
+        "pending": [
+          {
+            "id": "gender",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "identity-answered-none",
+      "sample": true,
+      "tags": [
+        "identity",
+        "device"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-identity-pell",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "device": {
+        "answers": {
+          "identity": {
+            "gender_identity": []
+          },
+          "pell": "eligible_not_receiving"
+        },
+        "attestations": {
+          "community-member": true
+        }
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "gender": "not_met",
+          "pell": "met",
+          "community-member": "met"
+        },
+        "reasonCodes": {
+          "gender": "NOT_MET",
+          "pell": "MET",
+          "community-member": "ATTESTATION_CONFIRMED"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "pell-not-recipient",
+      "sample": true,
+      "tags": [
+        "pell",
+        "device"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-identity-pell",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "device": {
+        "answers": {
+          "identity": {
+            "gender_identity": [
+              "woman",
+              "nonbinary"
+            ]
+          },
+          "pell": "not_recipient"
+        },
+        "attestations": {}
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "gender": "met",
+          "pell": "not_met",
+          "community-member": "unknown"
+        },
+        "reasonCodes": {
+          "gender": "MET",
+          "pell": "NOT_MET",
+          "community-member": "ATTESTATION_UNANSWERED"
+        },
+        "pending": [
+          {
+            "id": "community-member",
+            "kind": "attestation",
+            "resolver": "student",
+            "sensitive": true
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "partial-coverage-server",
+      "sample": true,
+      "tags": [
+        "coverage",
+        "not-reviewed"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-partially-reviewed",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {
+        "residenceState": "CA"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {
+          "visa-status": "unknown",
+          "residency": "met"
+        },
+        "reasonCodes": {
+          "visa-status": "SENSITIVE_ON_DEVICE",
+          "residency": "MET"
+        },
+        "pending": [
+          {
+            "id": "visa-status",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "coverage:identity",
+            "kind": "coverage",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "visa-status": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "j1-allowed-coverage-still-open",
+      "sample": true,
+      "tags": [
+        "citizenship",
+        "f1-vs-j1",
+        "device",
+        "coverage"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-partially-reviewed",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {
+        "residenceState": "WA"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "j1"
+        },
+        "attestations": {}
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {
+          "visa-status": "met",
+          "residency": "met"
+        },
+        "reasonCodes": {
+          "visa-status": "MET",
+          "residency": "MET"
+        },
+        "pending": [
+          {
+            "id": "coverage:identity",
+            "kind": "coverage",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "f1-excluded",
+      "sample": true,
+      "tags": [
+        "citizenship",
+        "f1-vs-j1",
+        "device"
+      ],
+      "runtimes": [
+        "browser",
+        "node"
+      ],
+      "ruleSet": "sample-partially-reviewed",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {
+        "residenceState": "WA"
+      },
+      "device": {
+        "answers": {
+          "citizenship": "f1"
+        },
+        "attestations": {}
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "visa-status": "not_met",
+          "residency": "met"
+        },
+        "reasonCodes": {
+          "visa-status": "NOT_MET",
+          "residency": "MET"
+        },
+        "pending": [
+          {
+            "id": "coverage:identity",
+            "kind": "coverage",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "residency-not-met",
+      "sample": true,
+      "tags": [
+        "residency"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-partially-reviewed",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {
+        "residenceState": "TX"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "visa-status": "unknown",
+          "residency": "not_met"
+        },
+        "reasonCodes": {
+          "visa-status": "SENSITIVE_ON_DEVICE",
+          "residency": "NOT_MET"
+        },
+        "pending": [
+          {
+            "id": "visa-status",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "coverage:identity",
+            "kind": "coverage",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false,
+        "missingFields": {
+          "visa-status": [
+            "citizenship"
+          ]
+        }
+      }
+    },
+    {
+      "id": "residency-unanswered",
+      "sample": true,
+      "tags": [
+        "residency",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-partially-reviewed",
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {
+          "visa-status": "unknown",
+          "residency": "unknown"
+        },
+        "reasonCodes": {
+          "visa-status": "SENSITIVE_ON_DEVICE",
+          "residency": "MISSING_FIELD"
+        },
+        "missingFields": {
+          "visa-status": [
+            "citizenship"
+          ],
+          "residency": [
+            "residenceState"
+          ]
+        },
+        "pending": [
+          {
+            "id": "visa-status",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": true
+          },
+          {
+            "id": "residency",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          },
+          {
+            "id": "coverage:identity",
+            "kind": "coverage",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "first-year-now-sophomore-at-start",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "first_year",
+        "expectedGraduationTerm": "spring-2030"
+      },
+      "expect": {
+        "verdict": "met",
+        "status": "eligible",
+        "rules": {
+          "rising-sophomore": "met"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "second-year-now-junior-at-start",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "second_year",
+        "expectedGraduationTerm": "spring-2029"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "rising-sophomore": "not_met"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "fourth-year-no-grad-term",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection",
+        "worlds"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "fourth_year"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "rising-sophomore": "not_met"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "class-year-missing",
+      "sample": true,
+      "tags": [
+        "standing",
+        "missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {},
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "rising-sophomore": "unknown"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "MISSING_FIELD"
+        },
+        "missingFields": {
+          "rising-sophomore": [
+            "classYear"
+          ]
+        },
+        "pending": [
+          {
+            "id": "rising-sophomore",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "class-year-conflicts-with-grad-term",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection",
+        "conflict"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "first_year",
+        "expectedGraduationTerm": "spring-2027"
+      },
+      "expect": {
+        "verdict": "unknown",
+        "status": "conditional",
+        "rules": {
+          "rising-sophomore": "unknown"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "PROFILE_CONFLICT"
+        },
+        "pending": [
+          {
+            "id": "rising-sophomore",
+            "kind": "rule",
+            "resolver": "student",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "senior-graduates-before-start",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "fourth_year",
+        "expectedGraduationTerm": "spring-2027"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "rising-sophomore": "not_met"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "incoming-first-year-at-start",
+      "sample": true,
+      "tags": [
+        "standing",
+        "projection"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": "sample-rising-sophomore",
+      "context": "semester-participating",
+      "asOf": "2027-01-15",
+      "profile": {
+        "classYear": "incoming_first_year",
+        "expectedGraduationTerm": "spring-2031"
+      },
+      "expect": {
+        "verdict": "not_met",
+        "status": "not_eligible",
+        "rules": {
+          "rising-sophomore": "not_met"
+        },
+        "reasonCodes": {
+          "rising-sophomore": "NOT_MET"
+        },
+        "pending": [],
+        "basedOnListedRequirements": false
+      }
+    },
+    {
+      "id": "no-rule-set",
+      "sample": true,
+      "tags": [
+        "rule-set-missing"
+      ],
+      "runtimes": [
+        "node",
+        "workerd",
+        "browser",
+        "python"
+      ],
+      "ruleSet": null,
+      "context": "empty",
+      "asOf": "2026-11-11",
+      "profile": {},
+      "expect": {
+        "verdict": "unknown",
+        "status": "unknown",
+        "rules": {},
+        "reasonCodes": {},
+        "pending": [
+          {
+            "id": "rule_set",
+            "kind": "rule_set_missing",
+            "resolver": "novus",
+            "sensitive": false
+          }
+        ],
+        "basedOnListedRequirements": false
+      }
+    }
+  ]
+}

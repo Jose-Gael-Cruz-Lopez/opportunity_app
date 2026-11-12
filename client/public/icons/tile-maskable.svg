@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Novus</title>
+  <defs>
+    <linearGradient id="ramp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A150A"/>
+      <stop offset=".44" stop-color="#C2611E"/>
+      <stop offset=".70" stop-color="#F2C88E"/>
+      <stop offset="1" stop-color="#FCE8CC"/>
+    </linearGradient>
+    <radialGradient id="floor" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(256 512) scale(486.40000000000003 317.44)">
+      <stop offset="0.1" stop-color="#FCE8CC"/>
+      <stop offset="0.72" stop-color="#FCE8CC" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rim" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(0 256) scale(215.04 184.32)">
+      <stop offset="0" stop-color="#D9772A"/>
+      <stop offset="0.74" stop-color="#D9772A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sky" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(512 20.48) scale(276.48 266.24)">
+      <stop offset="0" stop-color="#A7BFC4"/>
+      <stop offset="0.7" stop-color="#A7BFC4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="soil" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(153.6 102.4) scale(286.72 225.28)">
+      <stop offset="0" stop-color="#130905"/>
+      <stop offset="0.74" stop-color="#130905" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lip" x1="0" y1="0" x2="0" y2="1">
+      <stop offset=".82" stop-color="#FFF0DC" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FFF0DC" stop-opacity=".45"/>
+    </linearGradient>
+    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#3C1908" flood-opacity="0.4"/>
+    </filter>
+    <clipPath id="tile"><rect width="512" height="512" rx="0"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="url(#ramp)"/>
+    <rect width="512" height="512" fill="url(#floor)"/>
+    <rect width="512" height="512" fill="url(#rim)"/>
+    <rect width="512" height="512" fill="url(#sky)"/>
+    <rect width="512" height="512" fill="url(#soil)"/>
+    <rect width="512" height="512" fill="url(#lip)"/>
+  </g>
+  <path d="M198 352 V186 M198 262 C206 224 238 210 270 210 C302 210 314 236 314 272 V352" fill="none" stroke="#FFFFFF" stroke-width="48" stroke-linejoin="round" filter="url(#lift)"/>
+</svg>

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/AuditLogEntry.json",
+  "title": "AuditLogEntry",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "log": {
+          "const": "registry"
+        },
+        "id": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "user",
+                "curator",
+                "system",
+                "pipeline",
+                "admin"
+              ]
+            },
+            "ref": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "required": [
+            "kind",
+            "ref"
+          ],
+          "additionalProperties": false
+        },
+        "entityType": {
+          "type": "string",
+          "enum": [
+            "program",
+            "program_cycle",
+            "deadline",
+            "requirement",
+            "eligibility_rule_set",
+            "program_cycle_count",
+            "institution_participation",
+            "organization",
+            "official_domain"
+          ]
+        },
+        "entityId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "field": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "before": {},
+        "after": {},
+        "taskId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 80
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "snapshotIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "log",
+        "id",
+        "at",
+        "actor",
+        "entityType",
+        "entityId",
+        "field",
+        "before",
+        "after",
+        "taskId",
+        "snapshotIds"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "log": {
+          "const": "access"
+        },
+        "id": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "user",
+                "curator",
+                "system",
+                "pipeline",
+                "admin"
+              ]
+            },
+            "ref": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "required": [
+            "kind",
+            "ref"
+          ],
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "read",
+            "export",
+            "update",
+            "delete",
+            "share"
+          ]
+        },
+        "purpose": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "maxItems": 50
+        },
+        "subjectKey": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "requestId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "log",
+        "id",
+        "at",
+        "actor",
+        "action",
+        "purpose",
+        "fields",
+        "subjectKey",
+        "requestId"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

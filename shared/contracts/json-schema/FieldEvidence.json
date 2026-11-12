@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/FieldEvidence.json",
+  "title": "FieldEvidence",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "entityType": {
+      "type": "string",
+      "enum": [
+        "program",
+        "program_cycle",
+        "deadline",
+        "requirement",
+        "eligibility_rule_set",
+        "program_cycle_count",
+        "institution_participation",
+        "organization",
+        "official_domain"
+      ]
+    },
+    "entityId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "fieldPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "snapshot",
+        "attestation",
+        "api_record",
+        "manual_note"
+      ]
+    },
+    "snapshotId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attestationTaskId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "quote": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "locator": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "html"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "selector": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "kind",
+                "start",
+                "end"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "pdf_text"
+                },
+                "page": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "kind",
+                "page",
+                "start",
+                "end"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "upload_text"
+                },
+                "documentId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "page": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "kind",
+                "documentId",
+                "page",
+                "start",
+                "end"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "ocr_image"
+                },
+                "documentId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "page": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "bbox": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "required": [
+                "kind",
+                "documentId",
+                "page",
+                "bbox"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "qr"
+                },
+                "documentId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "payloadUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048
+                }
+              },
+              "required": [
+                "kind",
+                "documentId",
+                "payloadUrl"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "match": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "aligned",
+        "manual"
+      ]
+    },
+    "verifiedBy": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supersededAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "entityType",
+    "entityId",
+    "fieldPath",
+    "basis",
+    "snapshotId",
+    "attestationTaskId",
+    "url",
+    "quote",
+    "locator",
+    "match",
+    "verifiedBy",
+    "supersededAt"
+  ],
+  "additionalProperties": false
+}

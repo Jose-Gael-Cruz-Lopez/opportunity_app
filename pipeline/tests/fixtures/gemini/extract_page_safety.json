@@ -1,0 +1,20 @@
+{
+ "candidates": [
+  {
+   "finishReason": "SAFETY",
+   "index": 0,
+   "safetyRatings": [
+    {
+     "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+     "probability": "HIGH"
+    }
+   ]
+  }
+ ],
+ "usageMetadata": {
+  "promptTokenCount": 2310,
+  "totalTokenCount": 2310
+ },
+ "modelVersion": "gemini-3.5-flash-lite",
+ "responseId": "sample-response-0002"
+}

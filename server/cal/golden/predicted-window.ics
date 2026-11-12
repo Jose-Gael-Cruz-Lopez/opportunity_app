@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Novus//Deadline Calendar 1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Novus: Sample National STEM Scholarship
+X-WR-CALNAME:Novus: Sample National STEM Scholarship
+DESCRIPTION:Official deadlines for Sample National STEM Scholarship\, as re
+ corded by Novus. Sample data\, not a real program. Always confirm dates on
+  the official page.
+X-WR-CALDESC:Official deadlines for Sample National STEM Scholarship\, as r
+ ecorded by Novus. Sample data\, not a real program. Always confirm dates o
+ n the official page.
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:366f2a0f-e818-51ac-87d5-6f15b56076e2
+DTSTAMP:20261201T120000Z
+LAST-MODIFIED:20261201T120000Z
+SEQUENCE:1
+DTSTART;VALUE=DATE:20270910
+DTEND;VALUE=DATE:20270911
+SUMMARY:[National] Sample National STEM Scholarship: application deadline (
+ predicted)
+DESCRIPTION:Sample data\, not a real program.\nSample National STEM Scholar
+ ship (Example Science Foundation)\nPredicted to fall between 2027-09-10 an
+ d 2027-09-30\, based on past cycles\nThis date is a prediction\, not an an
+ nounced deadline.\nOfficial page: https://example.org/stem-scholarship\nOn
+  Novus: https://novus.example.org/programs/sample-national-stem-scholarshi
+ p\nAlways confirm dates on the official page.
+URL:https://novus.example.org/programs/sample-national-stem-scholarship
+CATEGORIES:Novus
+STATUS:TENTATIVE
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sample National STEM Scholarship: application deadline in 7 day
+ s
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sample National STEM Scholarship: application deadline in 1 day
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

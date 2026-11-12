@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/SnapshotIngest.json",
+  "title": "SnapshotIngest",
+  "type": "object",
+  "properties": {
+    "sourceId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sourceKind": {
+      "type": "string",
+      "enum": [
+        "official_page",
+        "official_pdf",
+        "federal_api",
+        "ats_board",
+        "list_row",
+        "campus_page",
+        "hint",
+        "licensed"
+      ]
+    },
+    "requestedUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "finalUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "redirectChain": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2048
+      },
+      "maxItems": 10
+    },
+    "fetchedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "httpStatus": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 599
+    },
+    "contentType": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "rawSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "mainTextSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalizerVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "rawBase64": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 14000000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "mainText": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "aiInputAllowed": {
+      "type": "boolean"
+    },
+    "pdfPages": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "sourceId",
+    "sourceKind",
+    "requestedUrl",
+    "finalUrl",
+    "redirectChain",
+    "fetchedAt",
+    "httpStatus",
+    "contentType",
+    "rawSha256",
+    "mainTextSha256",
+    "normalizerVersion",
+    "rawBase64",
+    "mainText",
+    "aiInputAllowed",
+    "pdfPages"
+  ],
+  "additionalProperties": false
+}

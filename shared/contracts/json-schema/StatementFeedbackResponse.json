@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/StatementFeedbackResponse.json",
+  "title": "StatementFeedbackResponse",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": [
+            "gemini",
+            "none"
+          ]
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 80
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "promptVersion": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "degraded",
+            "unavailable"
+          ]
+        },
+        "degradedReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "no_api_key",
+                "disabled",
+                "provider_error",
+                "timeout",
+                "rate_limited",
+                "budget_exceeded",
+                "validation_failed",
+                "citation_check_failed",
+                "safety_blocked"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fallback": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "promptVersion",
+        "status",
+        "degradedReason",
+        "generatedAt",
+        "fallback"
+      ],
+      "additionalProperties": false
+    },
+    "wordCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "wordLimit": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "overLimit": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "overall": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "fit_to_prompt",
+              "specificity",
+              "structure",
+              "clarity",
+              "evidence_of_impact",
+              "voice",
+              "mechanics",
+              "length"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 600
+          },
+          "excerpt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "aspect",
+          "comment",
+          "excerpt"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "improvements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "fit_to_prompt",
+              "specificity",
+              "structure",
+              "clarity",
+              "evidence_of_impact",
+              "voice",
+              "mechanics",
+              "length"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 600
+          },
+          "excerpt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "suggestion": {
+            "type": "string",
+            "maxLength": 600
+          }
+        },
+        "required": [
+          "aspect",
+          "comment",
+          "excerpt",
+          "suggestion"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "promptCoverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "promptPart": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "addressed": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "partly",
+              "no"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 400
+          }
+        },
+        "required": [
+          "promptPart",
+          "addressed",
+          "note"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "pattern": "^s\\d{1,3}$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "program_page",
+              "novus_record",
+              "readiness_report",
+              "methodology",
+              "student_text"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "sourceId",
+          "kind",
+          "title",
+          "url",
+          "quote"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "redactionApplied": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "meta",
+    "wordCount",
+    "wordLimit",
+    "overLimit",
+    "overall",
+    "strengths",
+    "improvements",
+    "promptCoverage",
+    "citations",
+    "redactionApplied"
+  ],
+  "additionalProperties": false
+}

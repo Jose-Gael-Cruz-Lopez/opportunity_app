@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Requirement.json",
+  "title": "Requirement",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "recommendation",
+        "essay",
+        "campus_nomination",
+        "test_score",
+        "portfolio",
+        "resume",
+        "transcript",
+        "interview",
+        "fee",
+        "coursework",
+        "gpa_floor",
+        "other"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "detail": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 200
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20,
+      "default": 1
+    },
+    "wordLimit": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "deadlineId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "effortHours": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 500
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "leadTimeDays": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 365
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "fieldEvidenceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "basis": {
+              "type": "string",
+              "enum": [
+                "snapshot",
+                "attestation",
+                "api_record",
+                "manual_note"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 2048
+            },
+            "quote": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "retrievedOn": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "basis",
+            "url",
+            "quote",
+            "retrievedOn"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "verificationState": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "verified",
+        "reverifying",
+        "unverified"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "programCycleId",
+    "kind",
+    "label",
+    "detail",
+    "wordLimit",
+    "deadlineId",
+    "effortHours",
+    "leadTimeDays",
+    "evidence",
+    "verificationState"
+  ],
+  "additionalProperties": false
+}

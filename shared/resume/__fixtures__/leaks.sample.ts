@@ -1,0 +1,96 @@
+/**
+ * SAMPLE lines that once got past on-device redaction or the server recheck (review findings,
+ * 2026-11). Every line is invented. Each must be caught on the device (redactForAi removes or
+ * masks it) and refused by the server (scanOutgoingText returns ok:false). Add a line here
+ * whenever a new miss is found, so both sides are tested against the same list.
+ */
+
+/** Contact details and identifiers written in ways the first patterns missed. */
+export const CONTACT_LEAKS: readonly string[] = [
+  "- reach me at mlopez06 @gmail.com",
+  "- email jane . doe @ gmail . com",
+  "- text 555 - 867 - 5309 to join",
+  "- call 555 867 53 09",
+  "- Lives at 42 elm street apt 3",
+  "- Age 19, enjoys chess",
+  "- 19 years old",
+  "- Born 2006",
+  "- linkedin/janedoe",
+  "- github: janedoe",
+  "- Discord: maria#1234",
+  "- Born 01/02/2005",
+  "- Springfield, IL",
+  "- E. Vasquez, A. Mehta",
+];
+
+/** Statements that reveal a SensitiveAnswers category. */
+export const SENSITIVE_LEAKS: readonly string[] = [
+  // veteran
+  "- Former Marine; mentored cohort",
+  "- Ex-Marine",
+  "- Served as a Marine rifleman before college",
+  "- Soldier, 82nd Airborne Division",
+  "- Combat medic",
+  "- Corpsman",
+  "- Infantryman",
+  "- Paratrooper",
+  "- USMC infantry, 4 years",
+  "- Served 4 years in an infantry unit",
+  // religion
+  "- Treasurer, Baha'i Club",
+  "- Bahá'í community volunteer",
+  "- Member, Sangha Meditation Group",
+  "- Chapter Lead, Ahmadiyya Youth",
+  "- Organized Hijab Day and halal food drive",
+  "- Kept kosher kitchen at Shabbat dinners",
+  "- Ran Friday prayer logistics",
+  "- Taught Sunday catechesis",
+  "- Pagan Student Alliance",
+  "- Wiccan",
+  "- Shia",
+  "- Sunni",
+  "- Ismaili",
+  "- Coptic",
+  "- Greek Orthodox",
+  "- Kirtan",
+  "- Bhakti Yoga Club",
+  "- LDS",
+  "- Seventh-day Adventist",
+  "- Ramadan iftar organizer",
+  "Field of study: Biblical Studies",
+  "Field of study: Divinity",
+  // citizenship, immigration, national origin, race and ethnicity
+  "- Worked with Daca students on a scholarship tracker",
+  "- Daca recipient",
+  "- Age 19, born in Monterrey, Mexico",
+  "- Moved to the US from Guatemala at age 12",
+  "- Mi familia es de Mexico",
+  "- Led Mujeres Unidas outreach",
+  "- Treasurer, Korean American Students Association",
+  "- Juneteenth event",
+  "- Race: White",
+  "- Caucasian",
+  // disability and health
+  "- Hearing aid user",
+  "- Wear hearing aids",
+  "- Cochlear implant",
+  "- Use a cane",
+  "- Use screen reader",
+  "- Sled hockey",
+  "- Support group for students in recovery; AA sponsor",
+  "- Spina bifida",
+  // income, first-generation, gender, family, crime victims
+  "- Volunteered at the homeless shelter where I lived for six months",
+  "- Lower-income family; paid tuition myself",
+  "- Received SNAP benefits",
+  "- First in family to attend university",
+  "- Gender: F",
+  "- Gender: Female",
+  "- Sex: M",
+  "- ella/she",
+  "- she / her",
+  "- he/they",
+  "Field of study: Sexuality Studies",
+  "- Mother of two",
+  "- Survivor of domestic violence",
+];

@@ -1,0 +1,23 @@
+{
+  "_note": "Hand-written in the documented Interactions API response shape (aistudio.google.com/docs/interactions-overview); not captured from the live API. Sample data only.",
+  "id": "int_sample_0001",
+  "model": "gemini-3.5-flash-lite",
+  "status": "completed",
+  "steps": [
+    { "type": "thought", "summary": [{ "type": "text", "text": "thinking summary is not output" }] },
+    {
+      "type": "model_output",
+      "content": [
+        { "type": "text", "text": "{\"summary\":\"You meet the class-year rule. The main open item is your two recommendation letters.\"," },
+        { "type": "text", "text": "\"points\":[{\"part\":\"eligibility\",\"text\":\"The program is open to first- and second-year students, and you are a first-year.\",\"sourceIds\":[\"s1\"]},{\"part\":\"requirements\",\"text\":\"You still need two recommendation letters; the report says to start by 2026-12-14.\",\"sourceIds\":[\"s1\",\"s2\"]}],\"suggestions\":[{\"text\":\"Ask two faculty members for letters this month.\",\"nextActionId\":\"act.recommenders\",\"sourceIds\":[\"s1\"]}],\"caveats\":[]}" }
+      ]
+    }
+  ],
+  "usage": {
+    "total_input_tokens": 1820,
+    "total_output_tokens": 160,
+    "total_thought_tokens": 40,
+    "total_cached_tokens": 0,
+    "total_tokens": 2020
+  }
+}

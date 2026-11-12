@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Institution.json",
+  "title": "Institution",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "unitId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^\\d{6}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "two_year",
+        "four_year",
+        "other"
+      ]
+    },
+    "control": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "public",
+            "private_nonprofit",
+            "private_for_profit"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "DC",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY",
+            "AS",
+            "GU",
+            "MP",
+            "PR",
+            "VI",
+            "UM"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "calendar": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "semester",
+            "quarter",
+            "trimester",
+            "four_one_four",
+            "other_academic",
+            "differs_by_program",
+            "continuous"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "academicYearStartMonth": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12,
+      "default": 8
+    },
+    "timeZone": {
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "IANA time zone, e.g. America/Chicago"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "isHbcu": {
+      "type": "boolean",
+      "default": false
+    },
+    "isTribal": {
+      "type": "boolean",
+      "default": false
+    },
+    "isHsi": {
+      "type": "boolean",
+      "default": false
+    },
+    "emailDomains": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 253
+      },
+      "maxItems": 20,
+      "default": []
+    }
+  },
+  "required": [
+    "id",
+    "unitId",
+    "name",
+    "level",
+    "control",
+    "state",
+    "calendar",
+    "timeZone"
+  ],
+  "additionalProperties": false
+}

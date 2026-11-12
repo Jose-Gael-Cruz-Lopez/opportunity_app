@@ -1,0 +1,12 @@
+{
+  "_note": "Hand-written in the documented generateContent response shape; not captured from the live API.",
+  "responseId": "gc_sample_0001",
+  "modelVersion": "gemini-3.5-flash-lite",
+  "candidates": [
+    {
+      "content": { "role": "model", "parts": [{ "text": "hidden reasoning", "thought": true }, { "text": "{\"ok\":true}" }] },
+      "finishReason": "STOP"
+    }
+  ],
+  "usageMetadata": { "promptTokenCount": 100, "candidatesTokenCount": 10, "thoughtsTokenCount": 5, "cachedContentTokenCount": 0, "totalTokenCount": 115 }
+}

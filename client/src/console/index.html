@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d0a08" />
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- same-origin, never no-referrer: a no-referrer document sends "Origin: null" on its own
+         POSTs (Fetch spec), and the Worker's CSRF checks refuse that, so every console write fails. -->
+    <meta name="referrer" content="same-origin" />
+    <title>Novus Curator console</title>
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

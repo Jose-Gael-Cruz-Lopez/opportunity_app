@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/StageOdds.json",
+  "title": "StageOdds",
+  "type": "object",
+  "properties": {
+    "fromStage": {
+      "type": "string",
+      "enum": [
+        "campus_applicants",
+        "applicants",
+        "nominees",
+        "finalists",
+        "awards",
+        "alternates"
+      ]
+    },
+    "toStage": {
+      "type": "string",
+      "enum": [
+        "campus_applicants",
+        "applicants",
+        "nominees",
+        "finalists",
+        "awards",
+        "alternates"
+      ]
+    },
+    "cycleYear": {
+      "type": "integer",
+      "minimum": 1990,
+      "maximum": 2100
+    },
+    "numerator": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "denominator": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "denominatorKind": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "lower_bound",
+        "approx"
+      ]
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "verifiedBy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    }
+  },
+  "required": [
+    "fromStage",
+    "toStage",
+    "cycleYear",
+    "numerator",
+    "denominator",
+    "denominatorKind",
+    "sourceUrl",
+    "verifiedAt",
+    "verifiedBy"
+  ],
+  "additionalProperties": false
+}

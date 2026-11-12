@@ -1,0 +1,398 @@
+/*
+ * Novus glass look for the Program, Readiness and Tracker screens, ported from the app mockup.
+ * Ember (soil, clay, sand, sky) is the default; Meadow (moss, olive, sage, cream) applies when
+ * the root element carries data-look="meadow". Classes use the nvr- prefix (root .nvr), never the
+ * shell's nv- names: this file is unlayered, so a shared name would override the shell's
+ * @layer components rules on every screen once a Program page had loaded. Every token has a
+ * solid fallback:
+ *   - prefers-reduced-transparency, prefers-contrast: more and forced-colors get solid surfaces;
+ *   - prefers-reduced-motion removes transitions and the breathing glow;
+ *   - browsers without backdrop-filter get an opaque fill.
+ * Text is ivory on warm near-black (never #FFF on #000); contrast pairs come from the design
+ * research: ivory on soil is above 15:1, the muted label tone stays above 7:1.
+ */
+
+.nvr {
+  --nv-night: #0d0a08;
+  --nv-surface: #1c120c;
+  --nv-surface-solid: #2a1b12;
+  --nv-glass: rgba(44, 26, 16, 0.55);
+  --nv-line: rgba(255, 226, 196, 0.18);
+  --nv-pill: rgba(255, 238, 220, 0.09);
+  --nv-pill-on: rgba(8, 5, 3, 0.42);
+  --nv-ink: #fff6ea;
+  --nv-ink-2: rgba(255, 246, 234, 0.84);
+  --nv-ink-3: rgba(255, 246, 234, 0.7);
+  --nv-ink-dark: #1f0e07;
+  --nv-cream: #fff4e4;
+  --nv-wheat: #f7d9a6;
+  --nv-accent: #f3b26a;
+  --nv-sky: #aecbd0;
+  --nv-good: #d3e5b6;
+  --nv-warn: #f6b36c;
+  --nv-bad: #f2a08c;
+  --nv-done: #aecbd0;
+  /* Primary action fill: solid and dark enough for cream text (5.4:1 at the lightest end). */
+  --nv-go-a: #a9501d;
+  --nv-go-b: #6e2f10;
+  --nv-solid-a: #f6be78;
+  --nv-solid-b: #b85a22;
+  --nv-solid-ink: #2a1408;
+  --nv-bar: rgba(246, 190, 130, 0.45);
+  --nv-rim: rgba(255, 236, 214, 0.34);
+  --nv-glow-in: rgba(255, 184, 130, 0.3);
+  --nv-halo: rgba(246, 186, 120, 0.22);
+  --nv-shade: 14, 8, 4;
+  --nv-focus: #f8e0b0;
+  --nv-f-dot: "Doto", "DM Mono", ui-monospace, monospace;
+  --nv-f-sans: "Urbanist", "DM Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --nv-f-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --nv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color: var(--nv-ink);
+  font: 400 15px/1.5 var(--nv-f-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[data-look="meadow"] .nvr,
+.nvr[data-look="meadow"] {
+  --nv-night: #15180f;
+  --nv-surface: #1d2114;
+  --nv-surface-solid: #2b3020;
+  --nv-glass: rgba(56, 62, 36, 0.55);
+  --nv-line: rgba(255, 255, 255, 0.2);
+  --nv-pill: rgba(255, 255, 255, 0.1);
+  --nv-pill-on: rgba(16, 18, 9, 0.36);
+  --nv-ink: #fbf7ea;
+  --nv-ink-2: rgba(251, 247, 234, 0.84);
+  --nv-ink-3: rgba(251, 247, 234, 0.7);
+  --nv-ink-dark: #1d1c15;
+  --nv-cream: #fbf7ea;
+  --nv-wheat: #e6d3a6;
+  --nv-accent: #a9d37a;
+  --nv-sky: #a6c8c4;
+  --nv-good: #c3e6a0;
+  --nv-warn: #f2d08a;
+  --nv-bad: #f0b49e;
+  --nv-done: #dccbfb;
+  --nv-go-a: #4f7330;
+  --nv-go-b: #2f4a1c;
+  --nv-solid-a: #a9d37a;
+  --nv-solid-b: #5f8c3c;
+  --nv-solid-ink: #14200c;
+  --nv-bar: rgba(195, 230, 160, 0.5);
+  --nv-rim: rgba(255, 255, 255, 0.32);
+  --nv-glow-in: rgba(255, 255, 255, 0.2);
+  --nv-halo: rgba(169, 211, 122, 0.2);
+  --nv-shade: 10, 12, 6;
+}
+
+/* Standalone page ground (NvPage standalone, previews): warm near-black, one soft light from the
+   top, and fine grain against banding. Inside the app shell the shell draws the ground instead. */
+.nvr-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  padding: 24px max(16px, env(safe-area-inset-right, 0px)) 72px max(16px, env(safe-area-inset-left, 0px));
+  background:
+    radial-gradient(90% 60% at 70% -10%, var(--nv-halo), transparent 70%),
+    radial-gradient(70% 50% at 0% 100%, rgba(var(--nv-shade), 0.9), transparent 70%),
+    var(--nv-night);
+  overflow-x: clip;
+}
+.nvr-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Inside the app shell: no ground and no gutter of its own (the shell's main column has both). */
+.nvr-in-shell { position: relative; min-width: 0; }
+.nvr-content { max-width: 1180px; margin-inline: auto; }
+
+.nvr :focus-visible {
+  outline: 2px solid var(--nv-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(var(--nv-shade), 0.9);
+}
+/* Component display rules must not defeat the hidden attribute (the private-answer panel relies on it). */
+.nvr [hidden] { display: none !important; }
+.nvr a { color: inherit; text-decoration: none; }
+.nvr a.nvr-link { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--nv-ink-3); }
+.nvr a.nvr-link:hover { text-decoration-color: var(--nv-ink); }
+.nvr button { font: inherit; color: inherit; cursor: pointer; }
+.nvr button:disabled { cursor: not-allowed; opacity: 0.6; }
+
+.nvr-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Type */
+.nvr-dot { font-family: var(--nv-f-dot); font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; line-height: 0.92; }
+.nvr-meta { font: 400 12.5px/1.45 var(--nv-f-mono); color: var(--nv-ink-3); letter-spacing: 0.01em; }
+.nvr-label { font: 500 11px/1.2 var(--nv-f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--nv-ink-3); }
+.nvr-h1 { font: 650 clamp(30px, 3.6vw, 48px)/1.05 var(--nv-f-sans); letter-spacing: -0.025em; text-wrap: balance; }
+.nvr-h2 { font: 600 22px/1.2 var(--nv-f-sans); letter-spacing: -0.01em; }
+.nvr-h3 { font: 600 18px/1.25 var(--nv-f-sans); }
+.nvr-body { color: var(--nv-ink-2); font-size: 14.5px; }
+
+/* Glass. Solid by default where blur is unsupported, and wherever the viewer asks for less. */
+.nvr-glass {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 46%, rgba(255, 255, 255, 0.06)), var(--nv-glass);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid var(--nv-line);
+  border-radius: 28px;
+  box-shadow: inset 1px 1px 0 var(--nv-rim), inset -16px -20px 34px -22px var(--nv-glow-in), 0 26px 60px -32px rgba(0, 0, 0, 0.7);
+}
+.nvr-iris::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 210deg, rgba(255, 255, 255, 0.55), rgba(167, 191, 196, 0.45), rgba(236, 176, 156, 0.42), rgba(240, 212, 146, 0.45), rgba(255, 255, 255, 0.55));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nvr-glass { background: var(--nv-surface-solid); }
+}
+
+/* Tags and buttons */
+.nvr-tag {
+  display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 11px; border-radius: 999px;
+  font: 500 11px/1 var(--nv-f-mono); letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(var(--nv-shade), 0.55); color: var(--nv-ink); white-space: nowrap;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+}
+.nvr-tag .nvr-led { width: 7px; height: 7px; border-radius: 50%; background: var(--nv-good); box-shadow: 0 0 0 3px rgba(211, 229, 182, 0.2); }
+.nvr-tag[data-tone="soon"] .nvr-led { background: var(--nv-warn); box-shadow: 0 0 0 3px rgba(246, 179, 108, 0.2); }
+.nvr-tag[data-tone="off"] .nvr-led { background: rgba(255, 255, 255, 0.45); box-shadow: none; }
+.nvr-tag[data-ghost] { background: rgba(255, 255, 255, 0.1); }
+.nvr-tag[data-sample] { background: var(--nv-wheat); color: var(--nv-ink-dark); }
+
+.nvr-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--nv-line); background: rgba(255, 255, 255, 0.1);
+  font-weight: 600; font-size: 15px; white-space: nowrap; transition: background 0.2s var(--nv-ease);
+}
+.nvr-btn:hover { background: rgba(255, 255, 255, 0.18); }
+.nvr-btn[aria-pressed="true"] { background: var(--nv-cream); color: var(--nv-ink-dark); border-color: var(--nv-cream); }
+.nvr-btn-go {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 26px;
+  border-radius: 999px; font-weight: 600; font-size: 16px; color: #fff8ef;
+  background: linear-gradient(90deg, var(--nv-go-a), var(--nv-go-b));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 18px 40px -22px rgba(40, 20, 8, 0.9);
+  text-shadow: 0 1px 2px rgba(40, 16, 4, 0.45);
+  white-space: nowrap;
+}
+.nvr-btn-go:hover { filter: brightness(1.07); }
+.nvr-mini {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 13px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.26); background: rgba(255, 255, 255, 0.1);
+  font-size: 13px; font-weight: 600; white-space: nowrap;
+}
+.nvr-mini:hover { background: rgba(255, 255, 255, 0.18); }
+.nvr-mini[aria-pressed="true"], .nvr-mini[aria-checked="true"] { background: var(--nv-cream); color: var(--nv-ink-dark); border-color: var(--nv-cream); }
+.nvr-icon { width: 18px; height: 18px; flex: none; }
+
+/* Panels and rows */
+.nvr-panel { display: flex; flex-direction: column; padding: 22px; border-radius: 30px; min-width: 0; overflow-wrap: anywhere; }
+.nvr-panel-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.nvr-panel-head .nvr-part { margin-left: auto; }
+.nvr-rows { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; list-style: none; padding: 0; }
+.nvr-row {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  padding: 10px 12px; border-radius: 18px; background: rgba(255, 255, 255, 0.07);
+}
+.nvr-row small { display: block; font: 400 12px/1.4 var(--nv-f-mono); color: var(--nv-ink-3); margin-top: 2px; }
+.nvr-mk { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 700 15px var(--nv-f-sans); }
+.nvr-mk[data-verdict="met"] { background: rgba(211, 229, 182, 0.2); color: var(--nv-good); }
+.nvr-mk[data-verdict="unknown"] { background: rgba(246, 179, 108, 0.18); color: var(--nv-warn); }
+.nvr-mk[data-verdict="not_met"] { background: rgba(242, 160, 140, 0.18); color: var(--nv-bad); }
+.nvr-status {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; background: rgba(255, 255, 255, 0.1);
+}
+.nvr-status[data-status="eligible"] { background: rgba(211, 229, 182, 0.17); color: var(--nv-good); }
+.nvr-status[data-status="conditional"] { background: rgba(246, 179, 108, 0.15); color: var(--nv-warn); }
+.nvr-status[data-status="not_eligible"] { background: rgba(242, 160, 140, 0.15); color: var(--nv-bad); }
+
+/* Private answers */
+.nvr-private { margin-top: 10px; padding: 14px; border-radius: 20px; background: rgba(var(--nv-shade), 0.55); display: flex; flex-direction: column; gap: 12px; }
+.nvr-private fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.nvr-private legend { font-weight: 600; padding: 0; margin-bottom: 8px; }
+.nvr-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.nvr-lock { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--nv-ink-2); }
+.nvr-lock .nvr-icon { color: var(--nv-accent); width: 16px; height: 16px; margin-top: 1px; }
+
+/* Native radio and checkbox choices drawn as pills (keyboard and screen-reader behaviour stay native). */
+.nvr-choice {
+  position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.26); background: rgba(255, 255, 255, 0.08); font-size: 13.5px; font-weight: 600; cursor: pointer;
+}
+.nvr-choice input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.nvr-choice[data-checked] { background: var(--nv-cream); color: var(--nv-ink-dark); border-color: var(--nv-cream); }
+.nvr-choice:focus-within { outline: 2px solid var(--nv-focus); outline-offset: 2px; }
+
+/* Checklist */
+.nvr-checks { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; list-style: none; padding: 0; }
+.nvr-check {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 50px; padding: 8px 14px 8px 9px;
+  border-radius: 20px; border: 0; background: var(--nv-pill); text-align: left; font-size: 15px;
+  transition: background 0.2s var(--nv-ease);
+}
+.nvr-check:hover { background: rgba(255, 255, 255, 0.16); }
+.nvr-check .nvr-ring {
+  flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.6px solid rgba(255, 255, 255, 0.78);
+  display: grid; place-items: center; transition: background 0.2s, border-color 0.2s;
+}
+.nvr-check .nvr-ring svg { width: 15px; height: 15px; stroke-width: 2.4; color: var(--nv-ink-dark); opacity: 0; }
+.nvr-check[aria-checked="true"] { background: var(--nv-pill-on); }
+.nvr-check[aria-checked="true"] .nvr-ring { background: var(--nv-done); border-color: var(--nv-done); }
+.nvr-check[aria-checked="true"] .nvr-ring svg { opacity: 1; }
+.nvr-check .nvr-lbl { flex: 1; min-width: 0; }
+.nvr-check .nvr-side { font: 400 12px/1.3 var(--nv-f-mono); color: var(--nv-ink-3); text-align: right; }
+.nvr-check .nvr-side[data-severity="late"] { color: var(--nv-bad); }
+.nvr-check .nvr-side[data-severity="soon"] { color: var(--nv-warn); }
+
+/* Countdown ruler: ticks with a lit marker at today */
+.nvr-ruler { position: relative; display: flex; justify-content: space-between; align-items: flex-end; width: 100%; height: 38px; }
+.nvr-ruler i { width: 1.5px; height: 15px; border-radius: 1px; background: rgba(255, 246, 234, 0.34); }
+.nvr-ruler i[data-major] { height: 27px; background: rgba(255, 246, 234, 0.56); }
+.nvr-ruler::after {
+  content: ""; position: absolute; bottom: 0; left: var(--nv-at, 0%); width: 3px; height: 38px; margin-left: -1.5px;
+  border-radius: 2px; background: var(--nv-cream); box-shadow: 0 0 14px rgba(255, 240, 220, 0.75);
+}
+.nvr-ruler-ends { display: flex; justify-content: space-between; width: 100%; margin-top: 8px; font: 400 11px var(--nv-f-mono); color: var(--nv-ink-3); }
+
+/* Stat tiles */
+.nvr-stat { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; min-height: 108px; padding: 16px; border-radius: 26px; }
+.nvr-stat-num { font-family: var(--nv-f-dot); font-weight: 800; font-size: 44px; line-height: 0.9; }
+
+/* Band scale: three steps, the student's band lit */
+.nvr-band { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
+.nvr-band span { padding: 10px 8px; border-radius: 14px; text-align: center; font-size: 13px; background: rgba(255, 255, 255, 0.07); color: var(--nv-ink-3); }
+.nvr-band span[data-on] { background: var(--nv-wheat); color: var(--nv-ink-dark); font-weight: 600; box-shadow: 0 0 18px -4px var(--nv-halo); }
+
+/* Odds rows */
+.nvr-odds { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.nvr-odds li { padding: 12px 14px; border-radius: 18px; background: rgba(255, 255, 255, 0.07); }
+.nvr-odds li[data-current] { box-shadow: inset 0 0 0 1px var(--nv-rim); background: rgba(255, 255, 255, 0.12); }
+
+/* Steps (next actions) */
+.nvr-steps { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; }
+.nvr-steps li { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 14.5px; }
+.nvr-steps li:first-child { border-top: 0; }
+.nvr-steps .nvr-meta[data-severity="late"] { color: var(--nv-bad); }
+.nvr-steps .nvr-meta[data-severity="soon"] { color: var(--nv-warn); }
+
+/* Program hero */
+.nvr-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: 28px; border-radius: 34px; overflow: hidden; }
+.nvr-hero::after {
+  content: ""; position: absolute; inset: auto -20% -60% 40%; height: 120%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, var(--nv-halo), transparent 70%);
+}
+.nvr-count { text-align: center; padding: 4px 6px; min-width: 220px; }
+.nvr-count .nvr-dot { font-size: clamp(64px, 8vw, 112px); color: var(--nv-cream); }
+.nvr-count .nvr-unit { font-size: 18px; letter-spacing: 0.14em; color: var(--nv-ink-2); margin-top: 8px; }
+.nvr-verified {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 7px 12px 7px 9px; border-radius: 999px;
+  background: rgba(var(--nv-shade), 0.45); font: 400 12.5px var(--nv-f-mono); color: var(--nv-ink-2);
+}
+.nvr-verified .nvr-icon { width: 16px; height: 16px; color: var(--nv-good); }
+
+/* Cycle history lanes */
+.nvr-cyc { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 12px; align-items: center; }
+.nvr-lane { position: relative; height: 30px; border-radius: 10px; background: rgba(255, 255, 255, 0.07); }
+.nvr-lane-bar { position: absolute; top: 4px; bottom: 4px; border-radius: 8px; background: var(--nv-bar); }
+.nvr-cyc[data-now] .nvr-lane-bar { background: linear-gradient(90deg, var(--nv-solid-a), var(--nv-solid-b)); }
+
+/* Tracker board */
+.nvr-board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(232px, 1fr); gap: 14px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; }
+.nvr-col { display: flex; flex-direction: column; gap: 10px; min-height: 420px; padding: 14px; border-radius: 28px; scroll-snap-align: start; }
+.nvr-col[data-drop-target] { box-shadow: inset 0 0 0 2px var(--nv-focus); }
+.nvr-col-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 8px; }
+.nvr-col-head .nvr-dot { font-size: 32px; }
+.nvr-tcard {
+  display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 20px;
+  background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.13); transition: background 0.2s var(--nv-ease);
+}
+.nvr-tcard:hover { background: rgba(255, 255, 255, 0.14); }
+.nvr-tcard[data-dragging] { opacity: 0.55; }
+.nvr-tcard .nvr-line[data-hot] { color: var(--nv-warn); }
+.nvr-mono-badge {
+  width: 44px; height: 44px; border-radius: 13px; flex: none; display: grid; place-items: center;
+  font: 700 15px var(--nv-f-sans); color: var(--nv-solid-ink);
+  background: linear-gradient(150deg, var(--nv-solid-a), var(--nv-solid-b));
+}
+.nvr-select {
+  flex: 1 1 100%; width: 100%; max-width: 100%; min-width: 0;
+  min-height: 34px; padding: 0 30px 0 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(var(--nv-shade), 0.6); color: var(--nv-ink); font-size: 13px; font-weight: 600;
+}
+.nvr-select option { background: var(--nv-surface-solid); color: var(--nv-ink); }
+.nvr-input {
+  min-height: 34px; padding: 0 10px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(var(--nv-shade), 0.6); color: var(--nv-ink); font: inherit; font-size: 13px; color-scheme: dark;
+}
+
+/* Banners */
+.nvr-banner { display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border-radius: 18px; background: rgba(247, 217, 166, 0.14); border: 1px solid rgba(247, 217, 166, 0.35); font-size: 14px; }
+.nvr-banner[data-tone="error"] { background: rgba(242, 160, 140, 0.12); border-color: rgba(242, 160, 140, 0.4); }
+.nvr-skeleton { border-radius: 28px; background: rgba(255, 255, 255, 0.06); min-height: 160px; animation: nvr-pulse 1.6s ease-in-out infinite; }
+@keyframes nvr-pulse { 50% { opacity: 0.55; } }
+
+/* Look toggle */
+.nvr-looks { display: inline-flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(var(--nv-shade), 0.5); border: 1px solid var(--nv-line); }
+.nvr-looks button { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 12px 0 8px; border-radius: 999px; border: 0; background: transparent; color: var(--nv-ink-2); font-size: 13px; font-weight: 600; }
+.nvr-looks button[aria-pressed="true"] { background: rgba(255, 255, 255, 0.17); color: var(--nv-ink); }
+.nvr-swatch { width: 15px; height: 19px; border-radius: 31% / 25%; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4); }
+.nvr-swatch[data-look="ember"] { background: linear-gradient(180deg, #2a150a, #d9772a 52%, #fce8cc); }
+.nvr-swatch[data-look="meadow"] { background: linear-gradient(180deg, #2c3a1a, #8c9a3e 52%, #f3f1da); }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .nvr-panel { padding: 18px; border-radius: 24px; }
+  .nvr-row { grid-template-columns: 30px minmax(0, 1fr); }
+  .nvr-row > :nth-child(3):not(:empty) { grid-column: 2; justify-self: start; }
+  .nvr-check .nvr-side { max-width: 40%; }
+  .nvr-hero { grid-template-columns: minmax(0, 1fr); padding: 22px; }
+  .nvr-count { min-width: 0; text-align: left; }
+  .nvr-steps li { grid-template-columns: 72px minmax(0, 1fr); }
+  .nvr-steps li > :last-child { grid-column: 2; justify-self: start; }
+}
+
+/* Reduced motion: no transitions, no pulsing. */
+@media (prefers-reduced-motion: reduce) {
+  .nvr *, .nvr *::before, .nvr *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+
+/* Reduced transparency and higher contrast: solid surfaces, stronger borders and labels. */
+@media (prefers-reduced-transparency: reduce) {
+  .nvr .nvr-glass { background: var(--nv-surface-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nvr .nvr-page::before, .nvr.nvr-page::before { display: none; }
+}
+@media (prefers-contrast: more) {
+  .nvr { --nv-ink-2: var(--nv-ink); --nv-ink-3: rgba(255, 246, 234, 0.9); --nv-line: rgba(255, 246, 234, 0.6); }
+  .nvr .nvr-glass { background: var(--nv-surface-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nvr .nvr-row, .nvr .nvr-check, .nvr .nvr-tcard, .nvr .nvr-mini, .nvr .nvr-btn { border: 1px solid var(--nv-line); }
+}
+@media (forced-colors: active) {
+  .nvr .nvr-glass, .nvr .nvr-row, .nvr .nvr-check, .nvr .nvr-tcard { border: 1px solid CanvasText; background: Canvas; }
+  .nvr .nvr-ruler::after { background: Highlight; box-shadow: none; }
+}
+
+/* The shell's glass gate (design/glass-gate.ts) sets html[data-glass] only when the device can
+   blur cheaply and the student has not turned on "Solid surfaces"; follow it like every page. */
+:root:not([data-glass]) .nvr .nvr-glass { background: var(--nv-surface-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }

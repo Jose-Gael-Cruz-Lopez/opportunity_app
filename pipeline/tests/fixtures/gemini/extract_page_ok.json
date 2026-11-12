@@ -1,0 +1,24 @@
+{
+ "candidates": [
+  {
+   "content": {
+    "role": "model",
+    "parts": [
+     {
+      "text": "{\"page_kind\": \"current_cycle\", \"program_name\": {\"value\": \"Sample Summer Research Fellowship\", \"quote\": \"Sample Summer Research Fellowship\", \"status\": \"found\", \"basis\": \"stated\"}, \"organization_name\": {\"value\": \"Example Institute\", \"quote\": \"The Example Institute hosts undergraduate researchers for ten weeks in Summer 2027.\", \"status\": \"found\", \"basis\": \"stated\"}, \"cycle_label\": {\"value\": \"Summer 2027\", \"quote\": \"Applications for Summer 2027 open November 1, 2026.\", \"status\": \"found\", \"basis\": \"stated\"}, \"cycle_status\": {\"value\": \"open\", \"quote\": \"Applications for Summer 2027 open November 1, 2026.\", \"status\": \"found\", \"basis\": \"inferred\"}, \"opens_on\": {\"value\": \"November 1, 2026\", \"quote\": \"Applications for Summer 2027 open November 1, 2026.\", \"status\": \"found\", \"basis\": \"stated\"}, \"application_url\": {\"value\": \"https://apply.example.org/sample-fellowship\", \"quote\": \"Apply at https://apply.example.org/sample-fellowship.\", \"status\": \"found\", \"basis\": \"stated\"}, \"cost_to_participate\": {\"value\": \"$0\", \"quote\": \"There is no application fee.\", \"status\": \"found\", \"basis\": \"inferred\"}, \"stipend\": {\"value\": \"$6,500\", \"quote\": \"Fellows receive a stipend of $6,500 and campus housing.\", \"status\": \"found\", \"basis\": \"stated\"}, \"award_count\": {\"value\": \"\", \"quote\": \"\", \"status\": \"not_stated\", \"basis\": \"stated\"}, \"applicant_count\": {\"value\": \"\", \"quote\": \"\", \"status\": \"not_stated\", \"basis\": \"stated\"}, \"nomination_required\": {\"value\": \"\", \"quote\": \"\", \"status\": \"not_stated\", \"basis\": \"stated\"}, \"campus_quota_text\": {\"value\": \"\", \"quote\": \"\", \"status\": \"not_stated\", \"basis\": \"stated\"}, \"primary_type\": {\"value\": \"research_program\", \"quote\": \"The Example Institute hosts undergraduate researchers for ten weeks in Summer 2027.\", \"status\": \"found\", \"basis\": \"inferred\"}, \"deadlines\": [{\"kind\": \"application\", \"scope\": \"national\", \"precision\": \"exact\", \"tz_mode\": \"fixed\", \"round_label\": \"\", \"local_date\": \"2027-01-15\", \"local_time\": \"17:00\", \"time_zone_text\": \"Eastern Time\", \"quote\": \"Applications are due Friday, January 15, 2027 at 5:00 PM Eastern Time.\", \"status\": \"found\", \"basis\": \"stated\"}], \"requirements\": [{\"kind\": \"essay\", \"detail\": \"Personal statement, at most 500 words\", \"quote\": \"A personal statement of no more than 500 words.\"}, {\"kind\": \"recommendation\", \"detail\": \"Two letters of recommendation\", \"quote\": \"Two letters of recommendation.\"}, {\"kind\": \"transcript\", \"detail\": \"Unofficial transcript\", \"quote\": \"An unofficial transcript.\"}], \"eligibility_rows\": [{\"clause_id\": \"c1\", \"row_kind\": \"clause\", \"dimension\": \"citizenship\", \"operator\": \"in\", \"values\": [\"us_citizen\", \"permanent_resident\"], \"measure\": \"\", \"as_of\": \"\", \"borderline\": [], \"group\": \"all\", \"quote\": \"Open to U.S. citizens and permanent residents.\"}, {\"clause_id\": \"c2\", \"row_kind\": \"clause\", \"dimension\": \"standing\", \"operator\": \"in\", \"values\": [\"first_year\", \"sophomore\"], \"measure\": \"\", \"as_of\": \"\", \"borderline\": [], \"group\": \"all\", \"quote\": \"Applicants must be first-year or sophomore students with a GPA of at least 3.0.\"}, {\"clause_id\": \"c3\", \"row_kind\": \"clause\", \"dimension\": \"gpa\", \"operator\": \"gte\", \"values\": [\"3.0\"], \"measure\": \"cumulative\", \"as_of\": \"\", \"borderline\": [], \"group\": \"all\", \"quote\": \"Applicants must be first-year or sophomore students with a GPA of at least 3.0.\"}]}"
+     }
+    ]
+   },
+   "finishReason": "STOP",
+   "index": 0
+  }
+ ],
+ "usageMetadata": {
+  "promptTokenCount": 2310,
+  "candidatesTokenCount": 905,
+  "thoughtsTokenCount": 412,
+  "totalTokenCount": 3627
+ },
+ "modelVersion": "gemini-3.5-flash-lite",
+ "responseId": "sample-response-0001"
+}

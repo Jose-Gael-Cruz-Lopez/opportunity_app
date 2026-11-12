@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Notification.json",
+  "title": "Notification",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "alertId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "in_app",
+        "push"
+      ]
+    },
+    "stream": {
+      "type": "string",
+      "enum": [
+        "transactional",
+        "digest"
+      ]
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "sent",
+        "failed",
+        "suppressed",
+        "expired"
+      ]
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sentAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attempts": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "id",
+    "alertId",
+    "channel",
+    "stream",
+    "idempotencyKey",
+    "state",
+    "expiresAt",
+    "sentAt",
+    "attempts"
+  ],
+  "additionalProperties": false
+}

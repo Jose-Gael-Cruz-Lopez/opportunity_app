@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/AskModelOutput.json",
+  "title": "AskModelOutput",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string"
+    },
+    "answerType": {
+      "type": "string",
+      "enum": [
+        "answered",
+        "partial",
+        "not_in_sources"
+      ]
+    },
+    "sourceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "followUps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "answer",
+    "answerType",
+    "sourceIds",
+    "followUps"
+  ],
+  "additionalProperties": false
+}
