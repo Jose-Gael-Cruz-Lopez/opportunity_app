@@ -1,0 +1,64 @@
+# novus-backup: the routeless Worker that runs the weekly encrypted D1 export (Workflow).
+#
+#   npx wrangler deploy --config infra/wrangler/backup.toml --env production
+#   npx wrangler secret put D1_EXPORT_TOKEN --config infra/wrangler/backup.toml --env production
+#
+# It has no routes, no workers.dev hostname and no version URLs: nothing can call it over HTTP.
+# The D1 export token lives only here (docs/deploy.md, "Backups"). Ids below are placeholders.
+
+name = "novus-backup-local"
+main = "../backup/worker.ts"
+compatibility_date = "2026-11-01"
+workers_dev = false
+preview_urls = false
+
+[vars]
+CF_ACCOUNT_ID = "REPLACE_WITH_ACCOUNT_ID"
+BACKUP_DATABASES = '[{"name":"novus-main","id":"00000000-0000-4000-8000-000000000001"},{"name":"novus-events","id":"00000000-0000-4000-8000-000000000002"}]'
+# Public half of the founders' offline RSA-OAEP-3072 key (JWK). The private half never leaves
+# the founders' offline storage. Generate offline: node --experimental-strip-types infra/scripts/backup-keys.ts keygen --out DIR
+BACKUP_PUBLIC_KEY_JWK = "REPLACE_WITH_PUBLIC_JWK_JSON"
+BACKUP_KEY_ID = "founders-2026"
+
+[[r2_buckets]]
+binding = "BACKUPS"
+bucket_name = "novus-backups-local"
+
+[[workflows]]
+name = "novus-backup-local"
+binding = "BACKUP_WORKFLOW"
+class_name = "BackupWorkflow"
+
+# Sunday 08:00 UTC.
+[triggers]
+crons = ["0 8 * * 0"]
+
+[observability]
+enabled = true
+
+[env.production]
+name = "novus-backup"
+workers_dev = false
+preview_urls = false
+
+[env.production.vars]
+CF_ACCOUNT_ID = "REPLACE_WITH_ACCOUNT_ID"
+BACKUP_DATABASES = '[{"name":"novus-main","id":"REPLACE_WITH_PRODUCTION_NOVUS_MAIN_ID"},{"name":"novus-events","id":"REPLACE_WITH_PRODUCTION_NOVUS_EVENTS_ID"}]'
+BACKUP_PUBLIC_KEY_JWK = "REPLACE_WITH_PUBLIC_JWK_JSON"
+BACKUP_KEY_ID = "founders-2026"
+
+# Bucket lock: 35 days on full/ (set in the dashboard or with `wrangler r2 bucket lock add`).
+[[env.production.r2_buckets]]
+binding = "BACKUPS"
+bucket_name = "novus-backups"
+
+[[env.production.workflows]]
+name = "novus-backup"
+binding = "BACKUP_WORKFLOW"
+class_name = "BackupWorkflow"
+
+[env.production.triggers]
+crons = ["0 8 * * 0"]
+
+[env.production.observability]
+enabled = true
