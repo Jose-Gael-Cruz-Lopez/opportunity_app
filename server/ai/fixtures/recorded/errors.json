@@ -1,0 +1,11 @@
+{
+  "_note": "Error bodies in the documented {error:{code,message}} shape (aistudio.google.com/docs/api-errors); hand-written.",
+  "rate_limited": { "status": 429, "body": { "error": { "code": "rate_limit_exceeded", "message": "Too many requests per minute." } } },
+  "quota_exceeded": { "status": 429, "body": { "error": { "code": "quota_exceeded", "message": "Quota exceeded for requests per day." } } },
+  "safety": { "status": 400, "body": { "error": { "code": "safety", "message": "The input was blocked." } } },
+  "location": { "status": 400, "body": { "error": { "code": 400, "status": "FAILED_PRECONDITION", "message": "User location is not supported for the API use." } } },
+  "invalid_schema": { "status": 400, "body": { "error": { "code": "invalid_argument", "message": "Schema too complex." } } },
+  "model_not_found": { "status": 404, "body": { "error": { "code": "model_not_found", "message": "Model not found." } } },
+  "unauthenticated": { "status": 401, "body": { "error": { "code": "unauthenticated", "message": "API key not valid." } } },
+  "unavailable": { "status": 503, "body": { "error": { "code": "service_unavailable", "message": "The model is overloaded." } } }
+}
