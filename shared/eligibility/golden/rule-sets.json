@@ -1,0 +1,638 @@
+{
+  "$comment": "Golden rule sets (sample data). Every default is explicit so other runtimes need no zod. expectHash pins canonical JSON + SHA-256 parity.",
+  "ruleSets": {
+    "sample-semester-standing": {
+      "sample": true,
+      "note": "Synthetic rule set for tests; not a real program and not verified.",
+      "expectHash": "027e614fed850841134d92f7711ce989464f88557a3b9f56e8efa591a0654582",
+      "ruleSet": {
+        "id": "00000000-0000-4000-8000-000000000101",
+        "programCycleId": "00000000-0000-4000-8000-000000000201",
+        "version": 1,
+        "format": "jsonlogic-v1",
+        "state": "draft",
+        "templateKey": null,
+        "coverage": {
+          "standing": "encoded",
+          "enrollment": "encoded",
+          "transfer": "no_restriction",
+          "gpa": "no_restriction",
+          "citizenship": "encoded",
+          "pell": "no_restriction",
+          "institution": "encoded",
+          "field": "none_stated",
+          "identity": "none_stated",
+          "age": "none_stated",
+          "residency": "none_stated",
+          "first_gen": "none_stated",
+          "prior_award": "encoded",
+          "team": "no_restriction",
+          "host_enrollment": "no_restriction"
+        },
+        "rules": [
+          {
+            "id": "standing",
+            "dimension": "standing",
+            "group": "all",
+            "logic": {
+              "<=": [
+                1,
+                {
+                  "var": "semestersRemaining"
+                },
+                4
+              ]
+            },
+            "fields": [
+              "semestersRemaining"
+            ],
+            "sensitive": false,
+            "asOf": "program_start",
+            "borderline": [],
+            "officialText": "Sample rule: one to four semesters of full-time undergraduate study left, counted from the program start.",
+            "evidenceKey": "e1"
+          },
+          {
+            "id": "enrollment",
+            "dimension": "enrollment",
+            "group": "all",
+            "logic": {
+              "==": [
+                {
+                  "var": "enrollmentIntensity"
+                },
+                "full_time"
+              ]
+            },
+            "fields": [
+              "enrollmentIntensity"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: enrolled full time.",
+            "evidenceKey": "e2"
+          },
+          {
+            "id": "citizenship",
+            "dimension": "citizenship",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "var": "citizenship"
+                },
+                [
+                  "us_citizen",
+                  "us_national",
+                  "permanent_resident"
+                ]
+              ]
+            },
+            "fields": [
+              "citizenship"
+            ],
+            "sensitive": true,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: U.S. citizens, nationals or permanent residents.",
+            "evidenceKey": "e3"
+          },
+          {
+            "id": "institution",
+            "dimension": "institution",
+            "group": "all",
+            "logic": {
+              "==": [
+                {
+                  "var": "institutionParticipates"
+                },
+                true
+              ]
+            },
+            "fields": [
+              "institutionParticipates"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: your school must be able to nominate you.",
+            "evidenceKey": "e4"
+          }
+        ],
+        "anyOf": [],
+        "attestations": [
+          {
+            "id": "prior-award",
+            "dimension": "prior_award",
+            "text": "Sample rule: you have not received this award before.",
+            "sensitive": false,
+            "evidenceKey": "e5"
+          }
+        ],
+        "nomination": {
+          "nominator": "campus_rep",
+          "campusDeadlineKinds": [
+            "campus_internal"
+          ],
+          "quota": {
+            "base": 4,
+            "bonuses": [
+              {
+                "if": "any_nominee_transfer_or_veteran",
+                "add": 1
+              }
+            ],
+            "max": 6
+          },
+          "evidenceKey": "e4"
+        },
+        "evidence": {
+          "e1": {
+            "basis": "snapshot",
+            "url": "https://example.org/sample-program/eligibility#e1",
+            "quote": "(sample) one to four semesters remaining",
+            "retrievedOn": "2026-11-01"
+          },
+          "e2": {
+            "basis": "snapshot",
+            "url": "https://example.org/sample-program/eligibility#e2",
+            "quote": "(sample) full-time students",
+            "retrievedOn": "2026-11-01"
+          },
+          "e3": {
+            "basis": "snapshot",
+            "url": "https://example.org/sample-program/eligibility#e3",
+            "quote": "(sample) citizens, nationals or permanent residents",
+            "retrievedOn": "2026-11-01"
+          },
+          "e4": {
+            "basis": "snapshot",
+            "url": "https://example.org/sample-program/eligibility#e4",
+            "quote": "(sample) nominated by your institution",
+            "retrievedOn": "2026-11-01"
+          },
+          "e5": {
+            "basis": "snapshot",
+            "url": "https://example.org/sample-program/eligibility#e5",
+            "quote": "(sample) previous recipients are not eligible",
+            "retrievedOn": "2026-11-01"
+          }
+        },
+        "hash": null,
+        "createdVia": "sample",
+        "verifiedAt": null,
+        "verifiedBy": null,
+        "fromCycleKey": null
+      }
+    },
+    "sample-gpa-field-age": {
+      "sample": true,
+      "note": "Synthetic rule set for tests; not a real program and not verified.",
+      "expectHash": "31c24594bf373ddf7ee6a915c67c4764e02aabe01ed7e3a72de0a01179654519",
+      "ruleSet": {
+        "id": "00000000-0000-4000-8000-000000000102",
+        "programCycleId": "00000000-0000-4000-8000-000000000202",
+        "version": 1,
+        "format": "jsonlogic-v1",
+        "state": "draft",
+        "templateKey": null,
+        "coverage": {
+          "standing": "encoded",
+          "enrollment": "encoded",
+          "transfer": "encoded",
+          "gpa": "encoded",
+          "citizenship": "no_restriction",
+          "pell": "no_restriction",
+          "institution": "none_stated",
+          "field": "encoded",
+          "identity": "none_stated",
+          "age": "encoded",
+          "residency": "none_stated",
+          "first_gen": "none_stated",
+          "prior_award": "none_stated",
+          "team": "none_stated",
+          "host_enrollment": "none_stated"
+        },
+        "rules": [
+          {
+            "id": "class-year",
+            "dimension": "standing",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "var": "classYear"
+                },
+                [
+                  "first_year",
+                  "second_year"
+                ]
+              ]
+            },
+            "fields": [
+              "classYear"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: first- and second-year students.",
+            "evidenceKey": null
+          },
+          {
+            "id": "gpa-floor",
+            "dimension": "gpa",
+            "group": "all",
+            "logic": {
+              ">=": [
+                {
+                  "var": "gpaMin"
+                },
+                3.3
+              ]
+            },
+            "fields": [
+              "gpaMin"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: GPA of at least 3.3.",
+            "evidenceKey": null
+          },
+          {
+            "id": "stem-major",
+            "dimension": "field",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "substr": [
+                    {
+                      "var": "majorCip"
+                    },
+                    0,
+                    2
+                  ]
+                },
+                [
+                  "11",
+                  "14",
+                  "26",
+                  "27",
+                  "40"
+                ]
+              ]
+            },
+            "fields": [
+              "majorCip"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [
+              "51.22"
+            ],
+            "officialText": "Sample rule: majors in computing, engineering, biology, mathematics or physical sciences.",
+            "evidenceKey": null
+          },
+          {
+            "id": "age-18",
+            "dimension": "age",
+            "group": "all",
+            "logic": {
+              ">=": [
+                {
+                  "var": "ageAtAsOf"
+                },
+                18
+              ]
+            },
+            "fields": [
+              "ageAtAsOf"
+            ],
+            "sensitive": false,
+            "asOf": "national_deadline",
+            "borderline": [],
+            "officialText": "Sample rule: at least 18 years old by the application deadline.",
+            "evidenceKey": null
+          },
+          {
+            "id": "four-year",
+            "dimension": "enrollment",
+            "group": "pathway",
+            "logic": {
+              "==": [
+                {
+                  "var": "institutionLevel"
+                },
+                "four_year"
+              ]
+            },
+            "fields": [
+              "institutionLevel"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: enrolled at a four-year institution.",
+            "evidenceKey": null
+          },
+          {
+            "id": "transfer-bound",
+            "dimension": "transfer",
+            "group": "pathway",
+            "logic": {
+              "and": [
+                {
+                  "==": [
+                    {
+                      "var": "institutionLevel"
+                    },
+                    "two_year"
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "transferIntent"
+                    },
+                    "planning_to_transfer"
+                  ]
+                }
+              ]
+            },
+            "fields": [
+              "institutionLevel",
+              "transferIntent"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: community college students planning to transfer.",
+            "evidenceKey": null
+          }
+        ],
+        "anyOf": [
+          {
+            "id": "pathway",
+            "label": "Four-year students or transfer-bound students"
+          }
+        ],
+        "attestations": [],
+        "nomination": null,
+        "evidence": {},
+        "hash": null,
+        "createdVia": "sample",
+        "verifiedAt": null,
+        "verifiedBy": null,
+        "fromCycleKey": null
+      }
+    },
+    "sample-identity-pell": {
+      "sample": true,
+      "note": "Synthetic rule set for tests; not a real program and not verified.",
+      "expectHash": "3c5672b99594c46bb8291f7780e4300a1a29b75fe1814cad6708908a22c8ae9d",
+      "ruleSet": {
+        "id": "00000000-0000-4000-8000-000000000103",
+        "programCycleId": "00000000-0000-4000-8000-000000000203",
+        "version": 1,
+        "format": "jsonlogic-v1",
+        "state": "draft",
+        "templateKey": null,
+        "coverage": {
+          "standing": "no_restriction",
+          "enrollment": "no_restriction",
+          "transfer": "no_restriction",
+          "gpa": "no_restriction",
+          "citizenship": "no_restriction",
+          "pell": "encoded",
+          "institution": "no_restriction",
+          "field": "no_restriction",
+          "identity": "encoded",
+          "age": "no_restriction",
+          "residency": "no_restriction",
+          "first_gen": "encoded",
+          "prior_award": "no_restriction",
+          "team": "no_restriction",
+          "host_enrollment": "no_restriction"
+        },
+        "rules": [
+          {
+            "id": "gender",
+            "dimension": "identity",
+            "group": "all",
+            "logic": {
+              "in": [
+                "woman",
+                {
+                  "var": "identity.gender_identity"
+                }
+              ]
+            },
+            "fields": [
+              "identity.gender_identity"
+            ],
+            "sensitive": true,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: open to women.",
+            "evidenceKey": null
+          },
+          {
+            "id": "pell",
+            "dimension": "pell",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "var": "pell"
+                },
+                [
+                  "recipient",
+                  "eligible_not_receiving"
+                ]
+              ]
+            },
+            "fields": [
+              "pell"
+            ],
+            "sensitive": true,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: Pell Grant recipients or Pell-eligible students.",
+            "evidenceKey": null
+          }
+        ],
+        "anyOf": [],
+        "attestations": [
+          {
+            "id": "community-member",
+            "dimension": "first_gen",
+            "text": "Sample rule: first in your family to attend college.",
+            "sensitive": true,
+            "evidenceKey": null
+          }
+        ],
+        "nomination": null,
+        "evidence": {},
+        "hash": null,
+        "createdVia": "sample",
+        "verifiedAt": null,
+        "verifiedBy": null,
+        "fromCycleKey": null
+      }
+    },
+    "sample-partially-reviewed": {
+      "sample": true,
+      "note": "Synthetic rule set for tests; not a real program and not verified.",
+      "expectHash": "639c12f862c837d415c3f6cf03ef959c55ecb12a2c0f7261af2959a2a52dabc2",
+      "ruleSet": {
+        "id": "00000000-0000-4000-8000-000000000104",
+        "programCycleId": "00000000-0000-4000-8000-000000000204",
+        "version": 1,
+        "format": "jsonlogic-v1",
+        "state": "draft",
+        "templateKey": null,
+        "coverage": {
+          "standing": "no_restriction",
+          "enrollment": "no_restriction",
+          "transfer": "no_restriction",
+          "gpa": "no_restriction",
+          "citizenship": "encoded",
+          "pell": "no_restriction",
+          "residency": "encoded",
+          "field": "none_stated",
+          "age": "none_stated",
+          "institution": "none_stated",
+          "first_gen": "none_stated",
+          "prior_award": "none_stated",
+          "team": "no_restriction",
+          "host_enrollment": "no_restriction"
+        },
+        "rules": [
+          {
+            "id": "visa-status",
+            "dimension": "citizenship",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "var": "citizenship"
+                },
+                [
+                  "us_citizen",
+                  "permanent_resident",
+                  "j1"
+                ]
+              ]
+            },
+            "fields": [
+              "citizenship"
+            ],
+            "sensitive": true,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: U.S. citizens, permanent residents or J-1 exchange visitors (not F-1).",
+            "evidenceKey": null
+          },
+          {
+            "id": "residency",
+            "dimension": "residency",
+            "group": "all",
+            "logic": {
+              "in": [
+                {
+                  "var": "residenceState"
+                },
+                [
+                  "CA",
+                  "OR",
+                  "WA"
+                ]
+              ]
+            },
+            "fields": [
+              "residenceState"
+            ],
+            "sensitive": false,
+            "asOf": "today",
+            "borderline": [],
+            "officialText": "Sample rule: residents of California, Oregon or Washington.",
+            "evidenceKey": null
+          }
+        ],
+        "anyOf": [],
+        "attestations": [],
+        "nomination": null,
+        "evidence": {},
+        "hash": null,
+        "createdVia": "sample",
+        "verifiedAt": null,
+        "verifiedBy": null,
+        "fromCycleKey": null
+      }
+    },
+    "sample-rising-sophomore": {
+      "sample": true,
+      "note": "Synthetic rule set for tests; not a real program and not verified.",
+      "expectHash": "14ca7766e9cea4c4f0af45e44d253c4e54d55c89f605ab21ed3e181eacefb6ab",
+      "ruleSet": {
+        "id": "00000000-0000-4000-8000-000000000105",
+        "programCycleId": "00000000-0000-4000-8000-000000000205",
+        "version": 1,
+        "format": "jsonlogic-v1",
+        "state": "draft",
+        "templateKey": null,
+        "coverage": {
+          "standing": "encoded",
+          "enrollment": "no_restriction",
+          "transfer": "no_restriction",
+          "gpa": "no_restriction",
+          "citizenship": "no_restriction",
+          "pell": "no_restriction",
+          "institution": "no_restriction",
+          "field": "no_restriction",
+          "identity": "no_restriction",
+          "age": "no_restriction",
+          "residency": "no_restriction",
+          "first_gen": "no_restriction",
+          "prior_award": "no_restriction",
+          "team": "no_restriction",
+          "host_enrollment": "no_restriction"
+        },
+        "rules": [
+          {
+            "id": "rising-sophomore",
+            "dimension": "standing",
+            "group": "all",
+            "logic": {
+              "==": [
+                {
+                  "var": "classYear"
+                },
+                "second_year"
+              ]
+            },
+            "fields": [
+              "classYear"
+            ],
+            "sensitive": false,
+            "asOf": "program_start",
+            "borderline": [],
+            "officialText": "Sample rule: second-year students at the program start.",
+            "evidenceKey": null
+          }
+        ],
+        "anyOf": [],
+        "attestations": [],
+        "nomination": null,
+        "evidence": {},
+        "hash": null,
+        "createdVia": "sample",
+        "verifiedAt": null,
+        "verifiedBy": null,
+        "fromCycleKey": null
+      }
+    }
+  }
+}
