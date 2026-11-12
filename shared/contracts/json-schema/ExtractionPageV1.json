@@ -1,0 +1,684 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ExtractionPageV1.json",
+  "title": "ExtractionPageV1",
+  "type": "object",
+  "properties": {
+    "page_kind": {
+      "type": "string",
+      "enum": [
+        "current_cycle",
+        "next_cycle_announced",
+        "past_cycle",
+        "program_ended",
+        "not_a_program_page",
+        "mixed"
+      ]
+    },
+    "program_name": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "organization_name": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "cycle_label": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "cycle_status": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "opens_on": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "application_url": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "cost_to_participate": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "stipend": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "award_count": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "applicant_count": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "nomination_required": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "campus_quota_text": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "primary_type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_stated",
+            "ambiguous"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "stated",
+            "inferred"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "quote",
+        "status",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "application",
+              "campus_internal",
+              "nomination",
+              "priority_round",
+              "recommendation",
+              "supplemental",
+              "interest_form",
+              "decision_expected",
+              "program_start"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "national",
+              "campus"
+            ]
+          },
+          "precision": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "date_only",
+              "month_only",
+              "rolling",
+              "tbd"
+            ]
+          },
+          "tz_mode": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "applicant_local",
+              "not_stated"
+            ]
+          },
+          "round_label": {
+            "type": "string"
+          },
+          "local_date": {
+            "type": "string"
+          },
+          "local_time": {
+            "type": "string"
+          },
+          "time_zone_text": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "not_stated",
+              "ambiguous"
+            ]
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "stated",
+              "inferred"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "scope",
+          "precision",
+          "tz_mode",
+          "round_label",
+          "local_date",
+          "local_time",
+          "time_zone_text",
+          "quote",
+          "status",
+          "basis"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "recommendation",
+              "essay",
+              "campus_nomination",
+              "test_score",
+              "portfolio",
+              "resume",
+              "transcript",
+              "interview",
+              "fee",
+              "coursework",
+              "gpa_floor",
+              "other"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "detail",
+          "quote"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "eligibility_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "clause_id": {
+            "type": "string"
+          },
+          "row_kind": {
+            "type": "string",
+            "enum": [
+              "clause",
+              "attest"
+            ]
+          },
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "standing",
+              "enrollment",
+              "transfer",
+              "gpa",
+              "citizenship",
+              "pell",
+              "institution",
+              "field",
+              "identity",
+              "age",
+              "residency",
+              "first_gen",
+              "prior_award",
+              "team",
+              "host_enrollment"
+            ]
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "in",
+              "not_in",
+              "gte",
+              "lte",
+              "between",
+              "is_true",
+              "is_false",
+              "no_restriction"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "measure": {
+            "type": "string"
+          },
+          "as_of": {
+            "type": "string"
+          },
+          "borderline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "group": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "clause_id",
+          "row_kind",
+          "dimension",
+          "operator",
+          "values",
+          "measure",
+          "as_of",
+          "borderline",
+          "group",
+          "quote"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "page_kind",
+    "program_name",
+    "organization_name",
+    "cycle_label",
+    "cycle_status",
+    "opens_on",
+    "application_url",
+    "cost_to_participate",
+    "stipend",
+    "award_count",
+    "applicant_count",
+    "nomination_required",
+    "campus_quota_text",
+    "primary_type",
+    "deadlines",
+    "requirements",
+    "eligibility_rows"
+  ],
+  "additionalProperties": false
+}
