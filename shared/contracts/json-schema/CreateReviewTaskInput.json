@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/CreateReviewTaskInput.json",
+  "title": "CreateReviewTaskInput",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "new_program",
+        "cycle_update",
+        "reconfirm",
+        "rollover",
+        "posting_match",
+        "possible_duplicate",
+        "error_report",
+        "community_hint",
+        "source_broken",
+        "extraction_failed",
+        "scam_flag",
+        "overdue_opening",
+        "counts_table",
+        "outcome_anomaly",
+        "relation_proposal",
+        "band_model_approval",
+        "campus_deadline",
+        "sponsor_claim",
+        "owner_update",
+        "promotion_copy",
+        "resource_link"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "program",
+            "program_cycle",
+            "deadline",
+            "requirement",
+            "eligibility_rule_set",
+            "program_cycle_count",
+            "institution_participation",
+            "organization",
+            "official_domain"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "reasonCodes": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "key_change",
+              "quote_missing",
+              "urgent_recheck",
+              "pdf_changed",
+              "close_unconfirmed",
+              "value_changed",
+              "key_change_pending_draft",
+              "deadline_audit",
+              "page_changed",
+              "extraction_change",
+              "evidence_changed",
+              "ocr_disagreement",
+              "hidden_text_suspect",
+              "no_text_layer",
+              "parse_failed",
+              "list_row",
+              "pre_fetcher_entry",
+              "slug_collision",
+              "max_tokens",
+              "schema_invalid",
+              "budget_deferred",
+              "killed",
+              "policy_blocked",
+              "error",
+              "outcome_over_count",
+              "outcome_flagged",
+              "outcome_decision_week"
+            ]
+          },
+          {
+            "type": "string",
+            "pattern": "^(refused|draft_unavailable):[a-z_]{1,40}$"
+          }
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "maxItems": 50,
+      "default": []
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9,
+      "default": 5
+    },
+    "dueAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "kind",
+    "subject",
+    "reasonCodes"
+  ],
+  "additionalProperties": false
+}

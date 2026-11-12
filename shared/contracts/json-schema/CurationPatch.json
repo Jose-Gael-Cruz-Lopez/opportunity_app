@@ -1,0 +1,1639 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/CurationPatch.json",
+  "title": "CurationPatch",
+  "type": "object",
+  "properties": {
+    "rowHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "organization": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "federal_agency",
+            "state_agency",
+            "foundation",
+            "nonprofit",
+            "company",
+            "university",
+            "national_lab",
+            "professional_society",
+            "other"
+          ]
+        },
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "default": "US"
+        },
+        "defaultTimeZone": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "IANA time zone, e.g. America/Chicago"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "websiteUrl": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 2048
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "slug",
+        "name",
+        "kind",
+        "defaultTimeZone",
+        "websiteUrl"
+      ],
+      "additionalProperties": false
+    },
+    "program": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 600
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "officialUrl": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "recurrence": {
+          "type": "string",
+          "enum": [
+            "annual",
+            "biannual",
+            "rolling",
+            "one_time",
+            "irregular"
+          ]
+        },
+        "opportunityTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summer_internship",
+              "off_cycle_internship",
+              "new_grad_rotational",
+              "early_career_exposure",
+              "uk_spring_week",
+              "sprinternship",
+              "externship_shadowing",
+              "micro_internship",
+              "virtual_job_simulation",
+              "apprenticeship",
+              "undergraduate_fellowship",
+              "graduate_fellowship",
+              "national_scholarship",
+              "private_scholarship",
+              "institutional_scholarship",
+              "service_scholarship",
+              "grant",
+              "research_program",
+              "pipeline_program",
+              "leadership_cohort",
+              "affinity_community",
+              "conference_travel",
+              "competition",
+              "open_source_mentorship",
+              "study_abroad_language",
+              "government_service",
+              "service_year",
+              "accelerator_founder",
+              "campus_ambassador",
+              "campus_job",
+              "paid_training",
+              "gap_year",
+              "high_school_pathway"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "sensitiveAudience": {
+          "type": "boolean"
+        },
+        "identityAudience": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "race_ethnicity",
+              "gender_identity",
+              "sexual_orientation",
+              "health",
+              "religion",
+              "tribal_affiliation",
+              "military_veteran",
+              "foster_care",
+              "crime_victim",
+              "parenting"
+            ]
+          },
+          "maxItems": 10
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "maxItems": 20,
+          "default": []
+        }
+      },
+      "required": [
+        "slug",
+        "name",
+        "summary",
+        "officialUrl",
+        "recurrence",
+        "opportunityTypes",
+        "sensitiveAudience",
+        "identityAudience"
+      ],
+      "additionalProperties": false
+    },
+    "cycle": {
+      "type": "object",
+      "properties": {
+        "cycleKey": {
+          "type": "string",
+          "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+        },
+        "termLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "cycleModel": {
+          "type": "string",
+          "enum": [
+            "term",
+            "rolling",
+            "event",
+            "round_based"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "expected",
+            "open",
+            "closed",
+            "paused",
+            "ended",
+            "relaunched"
+          ]
+        },
+        "timeZone": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "IANA time zone, e.g. America/Chicago"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "opensOn": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "applicationUrl": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 2048
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "applicationFeeCents": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "participantCostCents": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pellDisplacement": {
+          "type": "string",
+          "enum": [
+            "none",
+            "possible",
+            "yes",
+            "unknown"
+          ],
+          "default": "unknown"
+        },
+        "statusEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fieldPath": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "maxLength": 2048
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "snapshotId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "locator": {
+                "anyOf": [
+                  {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "html"
+                          },
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "selector": {
+                            "type": "string",
+                            "maxLength": 500
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "start",
+                          "end"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "pdf_text"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "page",
+                          "start",
+                          "end"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "upload_text"
+                          },
+                          "documentId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "documentId",
+                          "page",
+                          "start",
+                          "end"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "ocr_image"
+                          },
+                          "documentId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "minItems": 4,
+                            "maxItems": 4
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "documentId",
+                          "page",
+                          "bbox"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "qr"
+                          },
+                          "documentId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "payloadUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "maxLength": 2048
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "documentId",
+                          "payloadUrl"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "snapshot",
+                  "api_record",
+                  "manual_note"
+                ]
+              }
+            },
+            "required": [
+              "fieldPath",
+              "url",
+              "quote",
+              "snapshotId",
+              "locator",
+              "basis"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 5
+        }
+      },
+      "required": [
+        "cycleKey",
+        "termLabel",
+        "cycleModel",
+        "status",
+        "timeZone",
+        "opensOn",
+        "applicationUrl",
+        "applicationFeeCents",
+        "participantCostCents",
+        "statusEvidence"
+      ],
+      "additionalProperties": false
+    },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "application",
+              "campus_internal",
+              "nomination",
+              "priority_round",
+              "recommendation",
+              "supplemental",
+              "interest_form",
+              "decision_expected",
+              "program_start"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "national",
+              "campus"
+            ]
+          },
+          "institutionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "roundLabel": {
+            "type": "string",
+            "maxLength": 60,
+            "default": ""
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "official",
+              "attested",
+              "predicted"
+            ]
+          },
+          "precision": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "date_only",
+              "month_only",
+              "window",
+              "rolling",
+              "tbd"
+            ]
+          },
+          "tzMode": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "applicant_local"
+            ]
+          },
+          "localDate": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "localTime": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^([01]\\d|2[0-3]):([0-5]\\d)(?::([0-5]\\d))?$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "windowStart": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "windowEnd": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "timeZone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "IANA time zone, e.g. America/Chicago"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fieldPath": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "snapshotId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "locator": {
+                  "anyOf": [
+                    {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "html"
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "selector": {
+                              "type": "string",
+                              "maxLength": 500
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "pdf_text"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "page",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "upload_text"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "page",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "ocr_image"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "bbox": {
+                              "type": "array",
+                              "prefixItems": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                }
+                              ],
+                              "minItems": 4,
+                              "maxItems": 4
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "page",
+                            "bbox"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "qr"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "payloadUrl": {
+                              "type": "string",
+                              "format": "uri",
+                              "maxLength": 2048
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "payloadUrl"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "basis": {
+                  "type": "string",
+                  "enum": [
+                    "snapshot",
+                    "api_record",
+                    "manual_note"
+                  ]
+                }
+              },
+              "required": [
+                "fieldPath",
+                "url",
+                "quote",
+                "snapshotId",
+                "locator",
+                "basis"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "kind",
+          "scope",
+          "basis",
+          "precision",
+          "tzMode",
+          "localDate",
+          "localTime",
+          "timeZone",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "recommendation",
+              "essay",
+              "campus_nomination",
+              "test_score",
+              "portfolio",
+              "resume",
+              "transcript",
+              "interview",
+              "fee",
+              "coursework",
+              "gpa_floor",
+              "other"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 1
+          },
+          "wordLimit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fieldPath": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "snapshotId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "locator": {
+                  "anyOf": [
+                    {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "html"
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "selector": {
+                              "type": "string",
+                              "maxLength": 500
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "pdf_text"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "page",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "upload_text"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "page",
+                            "start",
+                            "end"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "ocr_image"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "page": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "bbox": {
+                              "type": "array",
+                              "prefixItems": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                }
+                              ],
+                              "minItems": 4,
+                              "maxItems": 4
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "page",
+                            "bbox"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "qr"
+                            },
+                            "documentId": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "payloadUrl": {
+                              "type": "string",
+                              "format": "uri",
+                              "maxLength": 2048
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "documentId",
+                            "payloadUrl"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "basis": {
+                  "type": "string",
+                  "enum": [
+                    "snapshot",
+                    "api_record",
+                    "manual_note"
+                  ]
+                }
+              },
+              "required": [
+                "fieldPath",
+                "url",
+                "quote",
+                "snapshotId",
+                "locator",
+                "basis"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "kind",
+          "label",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "ruleSet": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "jsonlogic-v1"
+            },
+            "templateKey": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "coverage": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "encoded",
+                  "no_restriction",
+                  "none_stated",
+                  "not_reviewed"
+                ]
+              },
+              "propertyNames": {
+                "enum": [
+                  "standing",
+                  "enrollment",
+                  "transfer",
+                  "gpa",
+                  "citizenship",
+                  "pell",
+                  "institution",
+                  "field",
+                  "identity",
+                  "age",
+                  "residency",
+                  "first_gen",
+                  "prior_award",
+                  "team",
+                  "host_enrollment"
+                ]
+              }
+            },
+            "rules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_.:-]{0,79}$"
+                  },
+                  "dimension": {
+                    "type": "string",
+                    "enum": [
+                      "standing",
+                      "enrollment",
+                      "transfer",
+                      "gpa",
+                      "citizenship",
+                      "pell",
+                      "institution",
+                      "field",
+                      "identity",
+                      "age",
+                      "residency",
+                      "first_gen",
+                      "prior_award",
+                      "team",
+                      "host_enrollment"
+                    ]
+                  },
+                  "group": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40,
+                    "default": "all"
+                  },
+                  "logic": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  },
+                  "fields": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "classYear",
+                        "semestersRemaining",
+                        "yearsRemaining",
+                        "expectedGraduationTerm",
+                        "expectedGraduationYear",
+                        "enrollmentIntensity",
+                        "institutionLevel",
+                        "transferIntent",
+                        "gpaBand",
+                        "gpaMin",
+                        "gpaMax",
+                        "majorCip",
+                        "minorCip",
+                        "majorFamily",
+                        "residenceState",
+                        "ageAtAsOf",
+                        "institutionId",
+                        "institutionParticipates",
+                        "citizenship",
+                        "pell",
+                        "financialNeed",
+                        "firstGeneration",
+                        "identity.race_ethnicity",
+                        "identity.gender_identity",
+                        "identity.sexual_orientation",
+                        "identity.health",
+                        "identity.religion",
+                        "identity.tribal_affiliation",
+                        "identity.military_veteran",
+                        "identity.foster_care",
+                        "identity.crime_victim",
+                        "identity.parenting"
+                      ]
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  },
+                  "sensitive": {
+                    "type": "boolean"
+                  },
+                  "asOf": {
+                    "type": "string",
+                    "enum": [
+                      "today",
+                      "campus_deadline",
+                      "national_deadline",
+                      "program_start"
+                    ],
+                    "default": "today"
+                  },
+                  "borderline": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 7
+                    },
+                    "maxItems": 50,
+                    "default": []
+                  },
+                  "officialText": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 400
+                  },
+                  "evidenceKey": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^e\\d{1,3}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null
+                  }
+                },
+                "required": [
+                  "id",
+                  "dimension",
+                  "logic",
+                  "fields",
+                  "sensitive",
+                  "officialText"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 60
+            },
+            "anyOf": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  }
+                },
+                "required": [
+                  "id",
+                  "label"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 10,
+              "default": []
+            },
+            "attestations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_.:-]{0,79}$"
+                  },
+                  "dimension": {
+                    "type": "string",
+                    "enum": [
+                      "standing",
+                      "enrollment",
+                      "transfer",
+                      "gpa",
+                      "citizenship",
+                      "pell",
+                      "institution",
+                      "field",
+                      "identity",
+                      "age",
+                      "residency",
+                      "first_gen",
+                      "prior_award",
+                      "team",
+                      "host_enrollment"
+                    ]
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 400
+                  },
+                  "sensitive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "evidenceKey": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^e\\d{1,3}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null
+                  }
+                },
+                "required": [
+                  "id",
+                  "dimension",
+                  "text"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 20,
+              "default": []
+            },
+            "nomination": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "nominator": {
+                      "type": "string",
+                      "enum": [
+                        "campus_rep",
+                        "faculty_rep",
+                        "department"
+                      ]
+                    },
+                    "campusDeadlineKinds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "application",
+                          "campus_internal",
+                          "nomination",
+                          "priority_round",
+                          "recommendation",
+                          "supplemental",
+                          "interest_form",
+                          "decision_expected",
+                          "program_start"
+                        ]
+                      },
+                      "maxItems": 5
+                    },
+                    "quota": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "base": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "bonuses": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "if": {
+                                    "type": "string",
+                                    "maxLength": 80
+                                  },
+                                  "add": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                  }
+                                },
+                                "required": [
+                                  "if",
+                                  "add"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "maxItems": 5
+                            },
+                            "max": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "base",
+                            "bonuses",
+                            "max"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "evidenceKey": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^e\\d{1,3}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "nominator",
+                    "campusDeadlineKinds",
+                    "quota",
+                    "evidenceKey"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "evidence": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "fieldEvidenceId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "snapshot",
+                      "attestation",
+                      "api_record",
+                      "manual_note"
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "maxLength": 2048
+                  },
+                  "quote": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 2000
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "retrievedOn": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "basis",
+                  "url",
+                  "quote",
+                  "retrievedOn"
+                ],
+                "additionalProperties": false
+              },
+              "propertyNames": {
+                "pattern": "^e\\d{1,3}$"
+              },
+              "default": {}
+            },
+            "createdVia": {
+              "type": "string",
+              "enum": [
+                "sheet",
+                "console",
+                "rollover",
+                "llm_draft",
+                "sample"
+              ]
+            },
+            "fromCycleKey": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 20
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "format",
+            "coverage",
+            "rules",
+            "createdVia"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "isSample": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "rowHash",
+    "organization",
+    "program",
+    "cycle",
+    "deadlines",
+    "requirements",
+    "ruleSet"
+  ],
+  "additionalProperties": false
+}
