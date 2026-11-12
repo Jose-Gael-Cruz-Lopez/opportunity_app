@@ -65,4 +65,4 @@ Alerts (log lines for the on-call founder): `events.sensitive_key_rejected`,
   `VITE_RELEASE` the client was built with (registration for the deploy workflow and
   `wrangler.toml`). Unset, any well-formed release is accepted. Island reports must carry an
   island's own release and file; SPA files must be null or named like a Vite hashed bundle.
-  Checking the file against the build's asset manifest is not built (BUILD_REPORT section 5).
+  Checking the file against the build's asset manifest is not built.
