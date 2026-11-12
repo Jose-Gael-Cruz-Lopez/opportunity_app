@@ -185,7 +185,7 @@ codes only. Job payload values and emails stay on the server.
 
 ## Registration (integration agent)
 
-Done in the wave 3 integration pass (docs/build-status.md): the router is mounted, `/curate/*`
+Done in the wave 3 integration pass: the router is mounted, `/curate/*`
 serves the console shell, Vite builds the console entry, the four extra routes are mapped
 (`getReviewTask`, `recheckReviewTask`, `reviewTaskOfficialOpened`, `retryJob`), and the schemas
 live in `shared/contracts/curator.ts`. Only the Cloudflare route and Access application remain.
