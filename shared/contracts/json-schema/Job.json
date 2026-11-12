@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Job.json",
+  "title": "Job",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "notify.dispatch",
+        "reminders.schedule",
+        "alerts.match",
+        "digest.send",
+        "eligibility.audience",
+        "campus_lead.refresh",
+        "sources.enqueue_due",
+        "pipeline.hourly",
+        "audit.draw",
+        "release.build",
+        "cards.render",
+        "sweep",
+        "deletion.process",
+        "audit.digest",
+        "growth.daily",
+        "growth.weekly",
+        "registry.snapshot",
+        "outcomes.quality",
+        "aggregates.publish",
+        "bands.fit",
+        "curate_import",
+        "fetch",
+        "nsf_sync",
+        "list_sync",
+        "rollover",
+        "predict_cycles",
+        "llm",
+        "llm_collect",
+        "eval_run",
+        "docintel_ocr_hint",
+        "docintel_eval",
+        "mirror_export",
+        "backup_copy"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "concurrencyKey": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 200
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "leased",
+        "done",
+        "dead"
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9
+    },
+    "attempts": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxAttempts": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20
+    },
+    "runAfter": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "leaseOwner": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 100
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "leaseExpiresAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastError": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 200
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finishedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "payload",
+    "idempotencyKey",
+    "concurrencyKey",
+    "status",
+    "priority",
+    "attempts",
+    "maxAttempts",
+    "runAfter",
+    "leaseOwner",
+    "leaseExpiresAt",
+    "lastError",
+    "finishedAt"
+  ],
+  "additionalProperties": false
+}

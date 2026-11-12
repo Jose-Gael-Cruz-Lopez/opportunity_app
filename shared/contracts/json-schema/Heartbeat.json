@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Heartbeat.json",
+  "title": "Heartbeat",
+  "type": "object",
+  "properties": {
+    "worker": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "leasedJobs": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "worker",
+    "at",
+    "version",
+    "leasedJobs"
+  ],
+  "additionalProperties": false
+}
