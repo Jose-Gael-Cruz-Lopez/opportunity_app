@@ -30,7 +30,7 @@ const HASHED_BUNDLE = /^[A-Za-z0-9_.-]{1,64}-[A-Za-z0-9_-]{8}\.m?js$/;
  * and file. SPA and console reports must carry the deployed release when `RELEASE_ID` is set,
  * and a file that is null or named like a Vite hashed bundle, so client-chosen strings cannot
  * multiply rows. (Checking the file against the build's asset manifest needs the manifest at
- * runtime; BUILD_REPORT section 5.)
+ * runtime, which is not built yet.)
  */
 export function acceptedErrorReport(report: ClientErrorReport, deployedRelease: string | undefined): boolean {
   if (report.surface === "island" || report.kind === "island") {
