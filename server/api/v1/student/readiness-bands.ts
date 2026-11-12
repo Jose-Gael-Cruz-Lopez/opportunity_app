@@ -10,7 +10,7 @@ import type { ReadinessSource, StudentStore } from "./ports";
 import { evaluateServerEligibility, otherWorkloads, studentTimeZone, type ReadinessRequest } from "./readiness";
 
 /**
- * Stored band models wired into readiness (plan 7.5.5; BUILD_REPORT section 5).
+ * Stored band models wired into readiness (plan 7.5.5).
  *
  * On every readiness read the route gathers the program's band facts (live `band_models` rows,
  * live founder approvals, held cycles, the counted report total), decides at read time whether a
