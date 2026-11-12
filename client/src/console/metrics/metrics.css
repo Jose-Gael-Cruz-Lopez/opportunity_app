@@ -1,0 +1,40 @@
+/* Founders' metrics: solid surfaces only, like the rest of the console (console.css). One accent
+   (--nv-leaf) for magnitude; hidden counts carry an icon AND words, never colour alone. */
+
+.mx-root { display: grid; gap: 12px; }
+.mx-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.mx-seg { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.mx-seg-label { font-size: 12px; color: var(--nv-ink-3); margin-right: 4px; }
+
+.mx-note { display: flex; gap: 8px; align-items: flex-start; margin: 0; }
+.mx-note svg { flex: none; width: 16px; height: 16px; margin-top: 1px; }
+
+.mx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mx-num { text-align: right; font-family: var(--nv-f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cn-table th.mx-num { text-align: right; }
+.cn-table tbody th { text-align: left; font-weight: 500; color: var(--nv-ink); padding: 5px 6px; border-bottom: 1px solid var(--nv-line); }
+.mx-optional { color: var(--nv-ink-3); font-weight: 400; }
+
+.mx-hidden { display: inline-flex; align-items: center; gap: 4px; color: var(--nv-ink-3); font-family: var(--nv-f-sans); font-size: 12px; }
+.mx-hidden svg { width: 12px; height: 12px; }
+
+.mx-bar-col { width: 45%; min-width: 120px; }
+.mx-track { height: 14px; border-radius: 4px; background: var(--nv-surface-strong); }
+.mx-bar { height: 100%; border-radius: 0 4px 4px 0; background: var(--nv-leaf); }
+.mx-bar-hidden { width: 100%; border-radius: 4px; background: repeating-linear-gradient(135deg, transparent 0 5px, var(--nv-line) 5px 7px); }
+
+.mx-scroll { overflow-x: auto; }
+.mx-cohorts td.mx-heat { min-width: 52px; color: var(--nv-ink); border: 2px solid var(--nv-surface); }
+.mx-cohorts td.mx-heat[data-dark] { color: var(--nv-ink-dark); }
+.mx-narrow { width: auto; min-width: 260px; }
+
+.mx-fresh + .mx-fresh { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--nv-line); }
+.mx-fresh h3 { display: flex; align-items: center; gap: 8px; }
+
+@media (max-width: 640px) {
+  .mx-bar-col { display: none; }
+}
+@media (forced-colors: active) {
+  .mx-bar { background: CanvasText; }
+  .mx-cohorts td.mx-heat { forced-color-adjust: auto; }
+}
