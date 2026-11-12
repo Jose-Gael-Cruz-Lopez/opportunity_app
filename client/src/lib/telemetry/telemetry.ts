@@ -15,7 +15,7 @@ import { randomId, SessionId, type SessionStore } from "./session";
  *   the rest of the tab: it drops the queue, forgets the session id and the error counter, and
  *   leaves a sessionStorage flag that this class reads on start, so a reload stays off and a
  *   later `setConsent(true)` cannot turn it back on. Events sent before the answer are on the
- *   server under the forgotten id; purging them needs an endpoint (BUILD_REPORT section 5).
+ *   server under the forgotten id; purging them needs an endpoint, which is not built yet.
  * - Events about a status- or identity-defined program (`{ restricted: true }`) are sent alone,
  *   without cookies, with a one-time id and the day only, so the server can count them but
  *   nothing can link them to the session (s10 10.9.2).
