@@ -1,0 +1,567 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Roadmap.json",
+  "title": "Roadmap",
+  "type": "object",
+  "properties": {
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "algoVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "templateKey": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 80
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "string",
+            "pattern": "^(winter|spring|summer|fall)-(\\d{4})$"
+          },
+          "apply": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "itemKey": {
+                  "type": "string",
+                  "pattern": "^(apply|prep|ms|tpl):[A-Za-z0-9_.:-]{1,110}$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "prepare",
+                    "milestone"
+                  ]
+                },
+                "term": {
+                  "type": "string",
+                  "pattern": "^(winter|spring|summer|fall)-(\\d{4})$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "detail": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 400
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programSlug": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programCycleId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cycleKey": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dueOn": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "startBy": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dateConfidence": {
+                  "type": "string",
+                  "enum": [
+                    "official",
+                    "estimated",
+                    "expected",
+                    "unknown"
+                  ]
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "done",
+                    "dismissed",
+                    "missed"
+                  ]
+                },
+                "pinned": {
+                  "type": "boolean"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "maxLength": 60
+                  },
+                  "maxItems": 8
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "template",
+                    "rule",
+                    "student"
+                  ]
+                }
+              },
+              "required": [
+                "itemKey",
+                "kind",
+                "term",
+                "title",
+                "detail",
+                "programId",
+                "programSlug",
+                "programCycleId",
+                "cycleKey",
+                "dueOn",
+                "startBy",
+                "dateConfidence",
+                "state",
+                "pinned",
+                "reasonCodes",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "prepare": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "itemKey": {
+                  "type": "string",
+                  "pattern": "^(apply|prep|ms|tpl):[A-Za-z0-9_.:-]{1,110}$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "prepare",
+                    "milestone"
+                  ]
+                },
+                "term": {
+                  "type": "string",
+                  "pattern": "^(winter|spring|summer|fall)-(\\d{4})$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "detail": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 400
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programSlug": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programCycleId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cycleKey": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dueOn": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "startBy": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dateConfidence": {
+                  "type": "string",
+                  "enum": [
+                    "official",
+                    "estimated",
+                    "expected",
+                    "unknown"
+                  ]
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "done",
+                    "dismissed",
+                    "missed"
+                  ]
+                },
+                "pinned": {
+                  "type": "boolean"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "maxLength": 60
+                  },
+                  "maxItems": 8
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "template",
+                    "rule",
+                    "student"
+                  ]
+                }
+              },
+              "required": [
+                "itemKey",
+                "kind",
+                "term",
+                "title",
+                "detail",
+                "programId",
+                "programSlug",
+                "programCycleId",
+                "cycleKey",
+                "dueOn",
+                "startBy",
+                "dateConfidence",
+                "state",
+                "pinned",
+                "reasonCodes",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "milestones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "itemKey": {
+                  "type": "string",
+                  "pattern": "^(apply|prep|ms|tpl):[A-Za-z0-9_.:-]{1,110}$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "prepare",
+                    "milestone"
+                  ]
+                },
+                "term": {
+                  "type": "string",
+                  "pattern": "^(winter|spring|summer|fall)-(\\d{4})$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "detail": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 400
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programSlug": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "programCycleId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cycleKey": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(?:(spring|summer|fall|winter|year|rolling)-(\\d{4})|ay-(\\d{4})-(\\d{2}))$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dueOn": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "startBy": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dateConfidence": {
+                  "type": "string",
+                  "enum": [
+                    "official",
+                    "estimated",
+                    "expected",
+                    "unknown"
+                  ]
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "done",
+                    "dismissed",
+                    "missed"
+                  ]
+                },
+                "pinned": {
+                  "type": "boolean"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "maxLength": 60
+                  },
+                  "maxItems": 8
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "template",
+                    "rule",
+                    "student"
+                  ]
+                }
+              },
+              "required": [
+                "itemKey",
+                "kind",
+                "term",
+                "title",
+                "detail",
+                "programId",
+                "programSlug",
+                "programCycleId",
+                "cycleKey",
+                "dueOn",
+                "startBy",
+                "dateConfidence",
+                "state",
+                "pinned",
+                "reasonCodes",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "more": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "capacityWarning": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "term",
+          "apply",
+          "prepare",
+          "milestones",
+          "more",
+          "capacityWarning"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "changedSinceLastVisit": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(apply|prep|ms|tpl):[A-Za-z0-9_.:-]{1,110}$"
+      }
+    }
+  },
+  "required": [
+    "generatedAt",
+    "algoVersion",
+    "templateKey",
+    "terms",
+    "changedSinceLastVisit"
+  ],
+  "additionalProperties": false
+}

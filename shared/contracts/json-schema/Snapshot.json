@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/Snapshot.json",
+  "title": "Snapshot",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "sourceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "fetchedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "requestedUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "finalUrl": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "redirectChain": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2048
+      },
+      "maxItems": 10
+    },
+    "httpStatus": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 599
+    },
+    "contentType": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "rawSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "mainTextSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalizerVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "rawKey": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "textKey": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 512
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "changeClass": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "none",
+            "cosmetic",
+            "minor",
+            "key"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hostPolicy": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "api_only",
+        "manual_only",
+        "link_only",
+        "never"
+      ]
+    },
+    "aiInputAllowed": {
+      "type": "boolean"
+    },
+    "deleteAfter": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "legalHold": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "sourceId",
+    "fetchedAt",
+    "requestedUrl",
+    "finalUrl",
+    "redirectChain",
+    "httpStatus",
+    "contentType",
+    "rawSha256",
+    "mainTextSha256",
+    "normalizerVersion",
+    "rawKey",
+    "textKey",
+    "changeClass",
+    "hostPolicy",
+    "aiInputAllowed",
+    "deleteAfter",
+    "legalHold"
+  ],
+  "additionalProperties": false
+}
