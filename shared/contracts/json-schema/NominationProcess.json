@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/NominationProcess.json",
+  "title": "NominationProcess",
+  "type": "object",
+  "properties": {
+    "nominator": {
+      "type": "string",
+      "enum": [
+        "campus_rep",
+        "faculty_rep",
+        "department"
+      ]
+    },
+    "campusDeadlineKinds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "application",
+          "campus_internal",
+          "nomination",
+          "priority_round",
+          "recommendation",
+          "supplemental",
+          "interest_form",
+          "decision_expected",
+          "program_start"
+        ]
+      },
+      "maxItems": 5
+    },
+    "quota": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "bonuses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "if": {
+                    "type": "string",
+                    "maxLength": 80
+                  },
+                  "add": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "if",
+                  "add"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 5
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "base",
+            "bonuses",
+            "max"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidenceKey": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^e\\d{1,3}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "nominator",
+    "campusDeadlineKinds",
+    "quota",
+    "evidenceKey"
+  ],
+  "additionalProperties": false
+}

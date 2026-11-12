@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/OutcomeReport.json",
+  "title": "OutcomeReport",
+  "type": "object",
+  "properties": {
+    "publicId": {
+      "type": "string",
+      "pattern": "^[0-9A-Za-z]{16,32}$"
+    },
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "self_reported",
+        "institution_email",
+        "letter_checked",
+        "email_authenticated",
+        "official_list"
+      ]
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": [
+              "submitted",
+              "campus_nominated",
+              "not_nominated",
+              "interview_invited",
+              "interviewed",
+              "waitlisted"
+            ]
+          },
+          "on": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "stage",
+          "on"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "decision": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "accepted",
+            "rejected",
+            "withdrew",
+            "declined_offer",
+            "no_response"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decidedOn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "classYear": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "incoming_first_year",
+                "first_year",
+                "second_year",
+                "third_year",
+                "fourth_year",
+                "fifth_year_plus",
+                "recent_graduate",
+                "graduate"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gpaBand": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "none_yet",
+                "under_2_0",
+                "2_0_to_2_49",
+                "2_5_to_2_74",
+                "2_75_to_2_99",
+                "3_0_to_3_24",
+                "3_25_to_3_49",
+                "3_5_to_3_74",
+                "3_75_plus",
+                "prefer_not"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "majorFamily": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "agriculture_environment",
+                "arts_design",
+                "business",
+                "communication_media",
+                "computing",
+                "education",
+                "engineering_technology",
+                "health",
+                "humanities_languages",
+                "life_sciences",
+                "math_statistics",
+                "physical_sciences",
+                "social_sciences",
+                "law_policy_service",
+                "trades_applied",
+                "undeclared"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "institutionType": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "two_year",
+                "four_year",
+                "other"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priorFeeder": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "classYear",
+        "gpaBand",
+        "majorFamily",
+        "institutionType",
+        "priorFeeder"
+      ],
+      "additionalProperties": false
+    },
+    "qualityState": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "flagged"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "publicId",
+    "programCycleId",
+    "tier",
+    "stages",
+    "decision",
+    "decidedOn",
+    "snapshot",
+    "qualityState",
+    "createdAt"
+  ],
+  "additionalProperties": false
+}
