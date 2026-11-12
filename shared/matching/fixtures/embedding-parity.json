@@ -1,0 +1,347 @@
+{
+  "programs": [
+    {
+      "card": {
+        "name": "Coastal Ecology REU Site",
+        "aliases": [
+          "Coastal REU"
+        ],
+        "organizationName": "Example Marine Lab",
+        "opportunityTypes": [
+          "research_program"
+        ],
+        "majorFamilies": [
+          "life_sciences",
+          "agriculture_environment"
+        ],
+        "interestTags": [
+          "life_sciences"
+        ],
+        "summary": "Ten-week summer research in marine biology and coastal field ecology with a faculty mentor."
+      },
+      "text": "Coastal Ecology REU Site\nAlso known as: Coastal REU\nOrganization: Example Marine Lab\nType: research program\nFields: life sciences; agriculture environment\nTopics: life sciences\nTen-week summer research in marine biology and coastal field ecology with a faculty mentor.",
+      "textHash": "722f4232416f8d7f2def726eb4c4ec62389789c0da57a03b2353fe77356ec182"
+    },
+    {
+      "card": {
+        "name": "Harbor Data Sprinternship",
+        "aliases": [],
+        "organizationName": "Example Harbor Tech",
+        "opportunityTypes": [
+          "sprinternship"
+        ],
+        "majorFamilies": [
+          "computing",
+          "math_statistics"
+        ],
+        "interestTags": [
+          "computing"
+        ],
+        "summary": "A three-week winter sprint building data tools with a small engineering team."
+      },
+      "text": "Harbor Data Sprinternship\nOrganization: Example Harbor Tech\nType: sprinternship\nFields: computing; math statistics\nTopics: computing\nA three-week winter sprint building data tools with a small engineering team.",
+      "textHash": "da47231c94b36694306b9ed4075f9a23204aa21ea7b612caf9452812bd447a6e"
+    },
+    {
+      "card": {
+        "name": "Summit Bank Insight Week",
+        "aliases": [],
+        "organizationName": "Example Summit Bank",
+        "opportunityTypes": [
+          "early_career_exposure"
+        ],
+        "majorFamilies": [],
+        "interestTags": [],
+        "summary": "A week of workshops and job shadowing across markets and operations for first-years."
+      },
+      "text": "Summit Bank Insight Week\nOrganization: Example Summit Bank\nType: early career exposure\nA week of workshops and job shadowing across markets and operations for first-years.",
+      "textHash": "583a623207d2af787f6b19c9bb10d86d4612d01bac75e8ca315a04927a0e0389"
+    },
+    {
+      "card": {
+        "name": "Summit Bank Sophomore Analyst Program",
+        "aliases": [],
+        "organizationName": "Example Summit Bank",
+        "opportunityTypes": [
+          "summer_internship"
+        ],
+        "majorFamilies": [
+          "business",
+          "math_statistics"
+        ],
+        "interestTags": [],
+        "summary": "Paid summer analyst program for second-year students."
+      },
+      "text": "Summit Bank Sophomore Analyst Program\nOrganization: Example Summit Bank\nType: summer internship\nFields: business; math statistics\nPaid summer analyst program for second-year students.",
+      "textHash": "034a5166480dbbd6c7d717cc212ca756db3c058a38273a433ca6e596906c1d5b"
+    },
+    {
+      "card": {
+        "name": "Summit Bank Technology Internship",
+        "aliases": [],
+        "organizationName": "Example Summit Bank",
+        "opportunityTypes": [
+          "summer_internship"
+        ],
+        "majorFamilies": [
+          "computing"
+        ],
+        "interestTags": [],
+        "summary": "Software engineering internship on trading platforms."
+      },
+      "text": "Summit Bank Technology Internship\nOrganization: Example Summit Bank\nType: summer internship\nFields: computing\nSoftware engineering internship on trading platforms.",
+      "textHash": "1db3357c8753222561eed7a6c4f9420300b526eb825d809a33ed02184e5342de"
+    },
+    {
+      "card": {
+        "name": "Meridian Undergraduate Scholarship",
+        "aliases": [
+          "Meridian"
+        ],
+        "organizationName": "Example Meridian Foundation",
+        "opportunityTypes": [
+          "national_scholarship"
+        ],
+        "majorFamilies": [
+          "life_sciences",
+          "physical_sciences",
+          "math_statistics",
+          "engineering_technology",
+          "computing"
+        ],
+        "interestTags": [],
+        "summary": "Merit scholarship for students planning research careers; applicants need a campus nomination."
+      },
+      "text": "Meridian Undergraduate Scholarship\nAlso known as: Meridian\nOrganization: Example Meridian Foundation\nType: national scholarship\nFields: life sciences; physical sciences; math statistics; engineering technology; computing\nMerit scholarship for students planning research careers; applicants need a campus nomination.",
+      "textHash": "c414b60b9655d9c68b2c5b20d4b9fcec709cbba265b7a1bacd49cf9306b8bdf4"
+    },
+    {
+      "card": {
+        "name": "Quartz Lab Summer Research",
+        "aliases": [],
+        "organizationName": "Example Quartz Lab",
+        "opportunityTypes": [
+          "research_program"
+        ],
+        "majorFamilies": [
+          "physical_sciences"
+        ],
+        "interestTags": [],
+        "summary": null
+      },
+      "text": "Quartz Lab Summer Research\nOrganization: Example Quartz Lab\nType: research program\nFields: physical sciences",
+      "textHash": "7592a1acd02067a53214e0f2f7cc26821e4fc7fe6427a2a684b41473a834ef13"
+    },
+    {
+      "card": {
+        "name": "  Ｅxample Café   Fellowship ",
+        "aliases": [
+          "",
+          "  ECF  ",
+          "Café Fellows"
+        ],
+        "organizationName": "Example  Org\tName",
+        "opportunityTypes": [
+          "undergraduate_fellowship",
+          "summer_internship"
+        ],
+        "majorFamilies": [],
+        "interestTags": [
+          "data-science",
+          "public_policy"
+        ],
+        "summary": "  Line one.\n\nLine   two ﬁne. "
+      },
+      "text": "Example Café Fellowship\nAlso known as: ECF; Café Fellows\nOrganization: Example Org Name\nType: undergraduate fellowship; summer internship\nTopics: data science; public policy\nLine one. Line two fine.",
+      "textHash": "b98d5d8516d4ff47ff3f145d2d83674770797af2bab96fe2aa5e97aaca055c18"
+    }
+  ],
+  "queries": [
+    {
+      "query": "Ocean  Science Summer",
+      "normalized": "ocean science summer",
+      "textHash": "e5cc92d0229ff48375e21e7e87ccc9754f96add9c612a465872a9511707ed382"
+    },
+    {
+      "query": "  ＲＥＵ\tbiology ",
+      "normalized": "reu biology",
+      "textHash": "a5b3a0fac9b6a15d9decada483ba946caa1dfb05a312411348d17ee174cd9b20"
+    },
+    {
+      "query": "Café fellowship",
+      "normalized": "café fellowship",
+      "textHash": "df9e81f19046d51aef292d75e987dc32a33bdea5d8b944c1bd349e86932ccf03"
+    }
+  ],
+  "vectors": [
+    {
+      "values": [
+        0.5,
+        -0.25,
+        0,
+        1,
+        -1
+      ],
+      "b64": "QOAAf4E="
+    },
+    {
+      "values": [
+        0.0039370078740157,
+        -0.0039370078740157,
+        0.5,
+        0.25
+      ],
+      "b64": "Af9/QA=="
+    },
+    {
+      "values": [
+        0,
+        0,
+        0
+      ],
+      "b64": "AAAA"
+    },
+    {
+      "values": [
+        1e-9,
+        2e-9,
+        -3e-9,
+        4e-9
+      ],
+      "b64": "IEChfw=="
+    },
+    {
+      "values": [
+        0.1,
+        0.2,
+        0.30000000000000004,
+        -0.7,
+        0.05,
+        0.6
+      ],
+      "b64": "EiQ2gQlt"
+    }
+  ],
+  "misspellings": [
+    {
+      "text": "Coastal Ecology REU Site",
+      "typo": "Coasttal Ecology REU Site"
+    },
+    {
+      "text": "Harbor Data Sprinternship",
+      "typo": "Harbor Data Sprinterrnship"
+    },
+    {
+      "text": "Summit Bank Insight Week",
+      "typo": "Summit Bank Insigght Week"
+    },
+    {
+      "text": "Summit Bank Sophomore Analyst Program",
+      "typo": "Summit Bank Sophommore Analyst Program"
+    },
+    {
+      "text": "Summit Bank Technology Internship",
+      "typo": "Summit Bank Technollogy Internship"
+    },
+    {
+      "text": "Meridian Undergraduate Scholarship",
+      "typo": "Meridian Undergradduate Scholarship"
+    },
+    {
+      "text": "Lattice Machine Learning Fellowship",
+      "typo": "Lattice Machine Learning Fellowsship"
+    },
+    {
+      "text": "Open Source Season Mentorship",
+      "typo": "Open Source Season Mentorsship"
+    },
+    {
+      "text": "Civic Leaders Fellowship",
+      "typo": "Civic Leaders Fellowsship"
+    },
+    {
+      "text": "Pivot Micro-Internships",
+      "typo": null
+    },
+    {
+      "text": "Quartz Lab Summer Research",
+      "typo": "Quartz Lab Summer Researrch"
+    },
+    {
+      "text": "Granite Engineering Scholars",
+      "typo": "Granite Engineerring Scholars"
+    },
+    {
+      "text": "Beacon Health Pathways",
+      "typo": "Beacon Health Pathwways"
+    },
+    {
+      "text": "Keystone Software Apprenticeship",
+      "typo": "Keystone Software Apprenticceship"
+    },
+    {
+      "text": "Thames Markets Spring Week",
+      "typo": "Thames Marketts Spring Week"
+    },
+    {
+      "text": "Aurora Computing Conference Travel Award",
+      "typo": "Aurora Computing Conferennce Travel Award"
+    },
+    {
+      "text": "Riverside Civic Hackathon",
+      "typo": "Riversside Civic Hackathon"
+    },
+    {
+      "text": "Lumen Language Fellowship",
+      "typo": "Lumen Language Fellowsship"
+    },
+    {
+      "text": "Cedar Undergraduate Research Grant",
+      "typo": "Cedar Undergradduate Research Grant"
+    },
+    {
+      "text": "Atlas Campus Ambassador Program",
+      "typo": "Atlas Campus Ambassaddor Program"
+    },
+    {
+      "text": "Northwind Law Externship",
+      "typo": "Northwind Law Externsship"
+    },
+    {
+      "text": "Prairie Service Year",
+      "typo": "Prairrie Service Year"
+    },
+    {
+      "text": "Granite Summer Research Fellowship",
+      "typo": "Granite Summer Research Fellowsship"
+    },
+    {
+      "text": "Summit Bank Markets Sprint",
+      "typo": "Summit Bank Marketts Sprint"
+    },
+    {
+      "text": "Helix Biotech Discovery Program",
+      "typo": "Helix Biotech Discovvery Program"
+    },
+    {
+      "text": "Goldwater Scholarship",
+      "typo": "Goldwater Scholarrship"
+    },
+    {
+      "text": "AI",
+      "typo": null
+    },
+    {
+      "text": "Rhythm",
+      "typo": "Rhytthm"
+    },
+    {
+      "text": "Strengths  Finder",
+      "typo": "Strenggths Finder"
+    },
+    {
+      "text": "aeiouaeiou",
+      "typo": null
+    }
+  ]
+}
