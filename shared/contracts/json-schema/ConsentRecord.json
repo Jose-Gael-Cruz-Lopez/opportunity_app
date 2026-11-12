@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ConsentRecord.json",
+  "title": "ConsentRecord",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "sensitive_tracking",
+        "identity_tracking",
+        "health_tracking",
+        "analytics",
+        "minor_outcomes",
+        "advisor_scope",
+        "derived_results",
+        "school_email_alerts"
+      ]
+    },
+    "textVersion": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "grantedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revokedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "programId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "kind",
+    "textVersion",
+    "grantedAt",
+    "revokedAt",
+    "programId"
+  ],
+  "additionalProperties": false
+}

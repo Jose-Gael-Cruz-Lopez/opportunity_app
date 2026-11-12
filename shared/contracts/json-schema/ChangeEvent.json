@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "novus/ChangeEvent.json",
+  "title": "ChangeEvent",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "program_cycle.verified",
+        "deadline.changed",
+        "cycle.status_changed",
+        "eligibility.changed",
+        "cycle.urgent_recheck",
+        "cycle.prediction_changed",
+        "cycle.decisions_released",
+        "posting.opened",
+        "posting.closed"
+      ]
+    },
+    "programCycleId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "taskId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 80
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "release": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "programCycleId",
+    "payload",
+    "taskId",
+    "release",
+    "createdAt"
+  ],
+  "additionalProperties": false
+}
