@@ -1,74 +1,73 @@
 # Novus
 
-**The Career GPS for every student — not just the ones who already know where to look.**
+Novus helps first- and second-year students find and prepare for early opportunities: internships, fellowships, research programs, apprenticeships, scholarships, insight weeks, sprints and conferences. Every program record carries its sources, and a Curator verifies deadlines before they are published.
 
-Novus is a student career operating system: a verified opportunity database, per-program research hubs, multi-year career roadmaps, and a community intelligence layer that turns every accepted student into a resource for the next applicant. Built for every major, every year, every school — not just the students lucky enough to be in the right room.
+> The data in this repository is **sample data**. Every sample program, organization and date is invented, labelled "Sample" or "Example", and stored with `is_sample = 1`.
 
-## The problem
-
-The best internships, scholarships, fellowships, and programs don't live on traditional job boards. They live in insider networks, org listservs, and word of mouth. Today's tools each fail in a specific way:
-
-- **Handshake** is school-gated and skewed toward tech/business; less-connected schools see far fewer opportunities.
-- **Symplicity** is built for career-center administrators, not students. Listings go stale and the student experience is an afterthought.
-- **Simplify** and **JobRight** speed up *applying* and *scraping* — they don't solve discovery, curation, or guidance. The applicant pool gets noisier; individual applications get weaker.
-
-Novus drags the hidden knowledge into the open and packages it so that every student — not just the ones already in the network — can find, prepare for, and win opportunities that move their career forward.
-
-## What it does
-
-Six product surfaces work together as a single student career OS:
-
-1. **The Opportunity Universe** — A curated, human-verified, community-maintained database of student opportunities across every type and field: internships, scholarships, fellowships, REUs and research programs, leadership cohorts (MLT, SEO, and similar), competitions, government and nonprofit programs, and graduate-school pipelines. Tagged by major, year, GPA range, location, deadline, industry, and program type. Open to all — not school-gated.
-
-2. **Opportunity Profile Pages** — The biggest differentiator. Every program gets its own research hub: program description and eligibility, official and crowdsourced timelines, acceptance-rate estimates, a curated bundle of YouTube videos, articles, and Reddit/Twitter threads, an alumni layer with LinkedIn links and coffee-chat requests, crowdsourced interview breakdowns, a "Did you get in?" outcome tracker, culture ratings, and smart deadline alerts with Google/Outlook sync.
-
-3. **The Career Roadmap Engine** — A three-minute onboarding quiz produces a personalized, multi-year roadmap (freshman through senior). Each node is wired to real opportunities with real deadlines in the database. The roadmap updates dynamically as users hit milestones or pivot their goals — a living plan that democratizes what college counselors charge thousands for.
-
-4. **The Readiness Score** — Before applying, each user sees a personalized "% ready" score per opportunity, built from their profile, crowdsourced data on who typically gets in, and the program's stated requirements. Gaps are listed explicitly with suggested next steps. Moves the student from reactive search to proactive preparation.
-
-5. **The Community and Social Proof Engine** — Structured "I Got In!" stories from accepted students feed directly back into each profile page. Cohort groups, mentor matching with in-platform 15-minute scheduling, and verified badges turn every win into intel for the next applicant. This is the flywheel.
-
-6. **The Daily Personalized Feed** — A daily-open surface for year-round retention: new opening alerts on tracked programs, fresh peer wins from the same school, video and article drops on saved opportunities, and community questions worth answering. A reason to return outside of recruiting season.
-
-## Vision
-
-Novus is not a job board. It is the first student career operating system — the tool a student uses from the day they start college to the day they graduate, that gets smarter the more they use it, and that turns every person who lands an opportunity into a resource for the next person trying to land the same one.
-
-## Tech stack
-
-- **Frontend:** React 18, Vite, Tailwind CSS, shadcn/ui (Radix primitives), Wouter for routing, TanStack Query for data, Framer Motion / GSAP / Lenis for motion
-- **Backend:** Express 5 on Node, TypeScript end-to-end via `tsx`
-- **Data:** Drizzle ORM on SQLite (`better-sqlite3`) for local development
-- **Auth:** Passport (local strategy) with `express-session`
-- **Validation:** Zod across shared types and form resolvers
-- **Build:** Vite for the client, `esbuild` for the server bundle
-
-## Repository layout
+## Architecture
 
 ```
-client/   — React app (Vite)
-server/   — Express API and SSR entrypoint
-shared/   — Cross-boundary types and Zod schemas
-script/   — Build and tooling scripts
+Browser ──► Cloudflare Worker (Hono) ──► D1  novus-main    registry, students, notifications, jobs
+             │  public pages (Hono JSX)  ──► D1  novus-events  analytics, LLM ledger, email ledger
+             │  /app/*  React SPA shell  ──► R2  novus-store   snapshots/ releases/ cards/ ledger/ backups/
+             │  /api/v1  REST            ──► Email Sending (codes, reminders, alerts)
+             │  /internal/v1  pipeline API (Access + HMAC)
+             │  /cal  ICS feeds   /mcp  MCP server
+             └─ Cron Triggers: 5-minute tick, hourly, daily 08:00 UTC
+
+Modal (Python) ── leases jobs over /internal/v1 ──► fetch, verify, extract, predict
+Gemini         ◄── server/ai and pipeline/novus_llm only (explain, extract; never decide)
+novus-backup   routeless Worker: weekly encrypted D1 export to R2
 ```
 
-## Local development
+- **One Worker** serves public pages, the SPA shell for `/app/*`, the REST API, calendar feeds, the internal pipeline API and MCP. Its scheduled handler is the only clock.
+- **D1 is the queue.** Jobs, leases and run records live in `novus-main`. The Python pipeline on Modal leases its job kinds through signed internal routes.
+- **Eligibility runs in the browser** for any rule that depends on status or identity answers. Those answers (SensitiveAnswers) never reach a server route, table, log, analytics event or model prompt.
+- **Readiness has four parts:** eligibility with reasons, a requirements checklist that names each gap, a competitiveness band, and next actions linked to the Roadmap. There is never a single score, percentage or match number about a student.
+- **AI (Google Gemini)** explains and gives feedback with citations to program sources. Deterministic code decides eligibility, requirements, bands and dates. With no key, every AI feature degrades to its deterministic fallback. See [docs/ai.md](docs/ai.md).
+
+## Repository
+
+| Path | What it holds |
+| --- | --- |
+| `client/` | React 18 + Vite SPA (`/app/*`), Tailwind, shadcn/radix, wouter |
+| `server/` | Worker entry, Hono app, pages, `api/v1`, `internal`, `auth`, `cal`, `mcp`, `jobs`, `ai`, `db` (schema, migrations, repos, seed) |
+| `shared/` | zod contracts and route map, eligibility, readiness, matching, taxonomy, policy |
+| `pipeline/` | Python pipeline (`novus_pipeline`), LLM gateway (`novus_llm`), document intelligence (`docintel`), Modal app |
+| `infra/` | Wrangler configs, backup Worker, CI guards, runbooks, local seed script |
+| `legacy/` | The previous Express prototype, kept for reference only |
+
+## Quick start
+
+Requires Node 24 (`.nvmrc`) and, for the pipeline, Python 3.12.4 or newer.
 
 ```bash
-npm install
-npm run dev        # start the dev server (server + client)
-npm run db:push    # apply Drizzle schema changes locally
-npm run check      # TypeScript check
-npm run build      # production bundle
-npm start          # run the production bundle
+npm ci
+cp .dev.vars.example .dev.vars          # optional: add your own GEMINI_API_KEY
+npm run db:migrate:local                 # novus-main
+npx wrangler d1 migrations apply novus-events --local --config infra/wrangler/wrangler.toml
+npm run db:seed:local                    # SAMPLE programs
+npm run build && npm run dev:worker      # http://localhost:8787
 ```
 
-## Status
+Full instructions: [docs/dev-setup.md](docs/dev-setup.md). Deploying: [docs/deploy.md](docs/deploy.md).
 
-- Stage: idea to MVP
-- Target launch: July / August 2026
-- Launch strategy: hybrid marketing site with a curated set of deeply researched Opportunity Profile Pages, plus waitlist capture for the roadmap, readiness, and community surfaces
+## Checks
 
-## Co-founded by
+```bash
+npm run typecheck
+npx vitest run                                   # shared, server, client
+npx vitest run --config infra/vitest.config.ts   # infra guards and backup encryption
+pipeline/.venv/bin/python -m pytest pipeline     # pipeline
+npx tsx infra/scripts/ci-checks.ts all           # secrets, config, sensitive terms, content, workflows
+```
 
-Jose Cruz-Lopez, Rori Olaniyi, Abby Bravo
+CI runs all of these on GitHub Actions with no secrets ([.github/workflows/ci.yml](.github/workflows/ci.yml)).
+
+## Security and privacy
+
+This repository is public. Keys live only in Worker secrets (`wrangler secret put`) and in your local, git-ignored `.dev.vars`. Never commit real keys; the `secrets` guard fails CI if it finds a credential-shaped string or a local secret file. Report a vulnerability privately to the maintainers rather than in a public issue.
+
+## License
+
+[MIT](LICENSE).
